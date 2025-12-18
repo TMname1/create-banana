@@ -5,4 +5,3 @@ import rainbowGradient from '../utils/rainbow.js'
 
 // print BANANA in rainbow colors
 console.log(chalk.blue(rainbowGradient(await printString('BANANA'))))
-
