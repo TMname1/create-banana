@@ -10,7 +10,13 @@
     "commit": "cz",
     "prepare": "husky install",
     "format": "prettier --write .",
-    "lint-staged": "eslint --fix ."
+    "lint-staged": "lint-staged"
+  },
+  "lint-staged": {
+    "*": [
+      "eslint --fix",
+      "prettier --write"
+    ]
   },
   "keywords": [],
   "author": "TMname1",
