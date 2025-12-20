@@ -3,41 +3,38 @@ import path from 'path'
 import fs from 'fs-extra'
 import { templatePath } from '../URL.js'
 
-const addEslint = async (projectName) => {
+// TODO: 优化变量名长度，提高可读性
+// TODO: 文件的变量名不要path
+const addEslint = async (projectName, flag) => {
+  // 没有选择Eslint则直接返回
+  if (!flag) return
   // 路径
-  const templateEslintPath = path.join(templatePath, 'Eslint')
+  const templateEslintPath = path.join(templatePath, 'eslint')
   const targetPath = path.join(process.cwd(), projectName)
-  // 文件
-  const basePackageJsonPath = path.join(templatePath, 'base', 'package.json')
-  const eslintPackageJsonPath = path.join(templateEslintPath, 'package.json')
   const targetPackageJsonPath = path.join(targetPath, 'package.json')
 
+  // 文件
   // 读取package.json文件
-  const basePkg = await fs.readJson(basePackageJsonPath)
+  const targetPkg = await fs.readJson(targetPackageJsonPath)
   // 读取添加Eslint附加的package.json文件
-  const eslintPkg = await fs.readJson(eslintPackageJsonPath)
+  const eslintPkg = await fs.readJson(path.join(templateEslintPath, 'package.json'))
 
-  basePkg.devDependencies = {
-    ...basePkg.devDependencies,
+  targetPkg.devDependencies = {
+    ...targetPkg.devDependencies,
     ...eslintPkg.devDependencies,
   }
 
-  basePkg.scripts = {
-    ...basePkg.scripts,
+  targetPkg.scripts = {
+    ...targetPkg.scripts,
     ...eslintPkg.scripts,
   }
 
-  await fs.writeJson(targetPackageJsonPath, basePkg, { spaces: 2 })
-
-  // 复制Eslint配置文件
-  const eslintConfigPath = path.join(templateEslintPath, 'eslint.config.js')
-  const eslintConfigTargetPath = path.join(targetPath, 'eslint.config.js')
-  fs.copyFileSync(eslintConfigPath, eslintConfigTargetPath)
+  await fs.writeJson(targetPackageJsonPath, targetPkg, { spaces: 2 })
 
   // 复制.eslintignore文件
   const eslintIgnorePath = path.join(templateEslintPath, '.eslintignore')
   const eslintIgnoreTargetPath = path.join(targetPath, '.eslintignore')
-  fs.copyFileSync(eslintIgnorePath, eslintIgnoreTargetPath)
+  fs.copy(eslintIgnorePath, eslintIgnoreTargetPath)
 }
 
 export default addEslint
