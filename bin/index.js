@@ -14,7 +14,7 @@ console.log(rainbowGradient(await printString('BANANA')))
 const projectName = await input({ message: 'Enter your project name:', required: true })
 
 const feats = await checkbox({
-  message: 'Select a package manager',
+  message: 'Please select the features to include:',
   choices: [
     { name: 'Eslint', value: 'eslint' },
     { name: 'Prettier', value: 'prettier' },

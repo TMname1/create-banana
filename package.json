@@ -18,7 +18,11 @@
       "prettier --write ."
     ]
   },
-  "keywords": [],
+  "keywords": [
+    "CLI",
+    "template",
+    "generator"
+  ],
   "author": "TMname1",
   "license": "ISC",
   "dependencies": {

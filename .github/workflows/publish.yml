@@ -1,0 +1,35 @@
+name: Publish to npm
+
+on:
+  # release:
+  # types: [created] # 当你在 GitHub 创建 Release 时触发
+  # 或者也可以配置为检测到特定的 tag 推送时触发
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          # 这行非常重要，它会自动配置 .npmrc 关联到这个环境变量
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build project (if needed)
+        run: npm run build --if-present
+
+      - name: Publish to npm
+        run: npm publish
+        env:
+          # 使用我们在 Secrets 中存储的变量
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

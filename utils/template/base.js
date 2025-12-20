@@ -9,7 +9,7 @@ const basePath = path.join(templatePath, 'base')
 const createBaseProject = async (projectName) => {
   const projectDir = path.join(process.cwd(), projectName)
   // 确认路径存在
-  await confirmPathExists(projectDir)
+  await confirmPathExists(projectName, projectDir)
   // 复制模板文件到目标目录
   fs.copySync(basePath, projectDir)
   // 读取package.json文件路径
