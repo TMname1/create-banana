@@ -1,3 +1,4 @@
+// 获得相对路径和模板目录路径的工具函数
 import path from 'path'
 import { fileURLToPath } from 'url'
 

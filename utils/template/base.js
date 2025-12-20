@@ -2,36 +2,24 @@
 import path from 'path'
 import { templatePath } from '../URL.js'
 import fs from 'fs-extra'
-import { confirm } from '@inquirer/prompts'
+import confirmPathExists from '../pathExists.js'
 
 const basePath = path.join(templatePath, 'base')
 
 const createBaseProject = async (projectName) => {
   const projectDir = path.join(process.cwd(), projectName)
-
-  try {
-    // 判断文件夹是否存在
-    if (await fs.pathExists(projectDir)) {
-      // 如果存在就提示是否要覆盖
-      const isOverwrite = await confirm({
-        message: '文件夹已存在，是否覆盖？',
-        default: true,
-      })
-      if (!isOverwrite) {
-        console.log('canceled!')
-        return
-      }
-    } else {
-      // 不存在就自动创建
-      await fs.ensureDir(projectDir)
-    }
-
-    // 复制模板文件到目标目录
-    fs.copySync(basePath, projectDir)
-    console.log('success!')
-  } catch (err) {
-    console.error(err)
-  }
+  // 确认路径存在
+  await confirmPathExists(projectDir)
+  // 复制模板文件到目标目录
+  fs.copySync(basePath, projectDir)
+  // 读取package.json文件路径
+  const packageJsonPath = path.join(projectDir, 'package.json')
+  // 读取package.json内容
+  const packageJson = await fs.readJson(packageJsonPath)
+  // 修改name字段
+  packageJson.name = projectName
+  // 写回package.json文件
+  await fs.writeJson(packageJsonPath, packageJson, { spaces: 2 })
 }
 
 export default createBaseProject
