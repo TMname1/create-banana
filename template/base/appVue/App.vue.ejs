@@ -1,6 +1,9 @@
 <script setup>
 import HelloWorld from './components/HelloWorld.vue'
 import TheWelcome from './components/TheWelcome.vue'
+<% if(usePinia) { %>import { useCounterStore } from './stores/counter'
+const counterStore = useCounterStore()
+<% } %>
 </script>
 
 <template>
@@ -9,6 +12,7 @@ import TheWelcome from './components/TheWelcome.vue'
 
     <div class="wrapper">
       <HelloWorld msg="You did it!" />
+      <% if(usePinia) { %><button @click="counterStore.increment">Count is: {{ counterStore.count }}</button><% } %>
     </div>
   </header>
 

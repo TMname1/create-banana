@@ -1,7 +1,7 @@
 // 渲染eslint.config.js文件
 // 通过模板匹配prettier的选择情况
 import ejs from 'ejs'
-import { relativePath } from '../../../utils/URL.js'
+import { relativePath } from '#/URL.js'
 import fs from 'fs-extra'
 import path from 'path'
 

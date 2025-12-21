@@ -4,7 +4,6 @@ import fs from 'fs-extra'
 import { templatePath } from '../URL.js'
 
 // TODO: 优化变量名长度，提高可读性
-// TODO: 文件的变量名不要path
 const addEslint = async (projectName, flag) => {
   // 没有选择Eslint则直接返回
   if (!flag) return
