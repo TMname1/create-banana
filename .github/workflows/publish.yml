@@ -28,8 +28,8 @@ jobs:
         # 使用 pnpm --frozen-lockfile 代替 npm ci
         run: pnpm install --frozen-lockfile
 
-      - name: Build project (if needed)
-        run: pnpm run build --if-present
+      # - name: Build project (if needed)
+      #   run: pnpm run build --if-present
 
       - name: Publish to npm
         run: pnpm publish --no-git-checks
