@@ -1,6 +1,6 @@
 // 渲染App.vue，通过模板匹配pinia的使用情况
 import ejs from 'ejs'
-import { relativePath } from '#/URL.js'
+import { relativePath } from '#utils/URL.js'
 import fs from 'fs-extra'
 import path from 'path'
 

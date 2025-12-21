@@ -1,13 +1,13 @@
 #!/usr/bin/env node
-import printString from '#/figletPrint.js'
-import rainbowGradient from '#/rainbow.js'
+import printString from '#utils/figletPrint.js'
+import rainbowGradient from '#utils/rainbow.js'
 import { input } from '@inquirer/prompts'
-import createBaseProject from '#/template/base.js'
+import createBaseProject from '#utils/template/base.js'
 import { checkbox } from '@inquirer/prompts'
-import addEslint from '#/template/eslint.js'
-import addPrettier from '#/template/prettier.js'
+import addEslint from '#utils/template/eslint.js'
+import addPrettier from '#utils/template/prettier.js'
 import addEslintConfig from '../template/eslint/eslintConfig/index.js'
-import addPinia from '#/template/pinia.js'
+import addPinia from '#utils/template/pinia.js'
 import addAppVue from '../template/base/appVue/index.js'
 
 // print BANANA in rainbow colors
