@@ -1,7 +1,7 @@
 // 添加Eslint功能
 import path from 'path'
 import fs from 'fs-extra'
-import { templatePath } from '../URL.js'
+import { templatePath } from '../../URL.js'
 
 // TODO: 优化变量名长度，提高可读性
 const addEslint = async (projectName, flag) => {

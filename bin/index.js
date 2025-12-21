@@ -4,11 +4,11 @@ import rainbowGradient from '#utils/rainbow.js'
 import { input } from '@inquirer/prompts'
 import createBaseProject from '#utils/template/base.js'
 import { checkbox } from '@inquirer/prompts'
-import addEslint from '#utils/template/eslint.js'
+import addEslint from '#utils/template/eslint/eslint.js'
 import addPrettier from '#utils/template/prettier.js'
-import addEslintConfig from '../template/eslint/eslintConfig/index.js'
+import addEslintConfig from '#utils/template/eslint/eslintConfig.js'
 import addPinia from '#utils/template/pinia.js'
-import addAppVue from '../template/base/appVue/index.js'
+import addAppVue from '#utils/template/base/appVue/index.js'
 
 // print BANANA in rainbow colors
 console.log(rainbowGradient(await printString('BANANA')))
