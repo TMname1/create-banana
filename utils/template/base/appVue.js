@@ -11,6 +11,7 @@ const addAppVue = async (projectName, usePinia) => {
       usePinia,
     }),
   )
+  await fs.remove(path.join(process.cwd(), projectName, 'src', 'App.vue.ejs'))
 }
 
 export default addAppVue

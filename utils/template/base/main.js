@@ -11,6 +11,7 @@ const addMain = async (projectName, usePinia) => {
       usePinia,
     }),
   )
+  await fs.remove(path.join(process.cwd(), projectName, 'src', 'main.js.ejs'))
 }
 
 export default addMain
