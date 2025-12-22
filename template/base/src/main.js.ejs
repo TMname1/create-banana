@@ -2,5 +2,6 @@ import './assets/main.css'
 import { createApp } from 'vue'
 import App from './App.vue'
 <% if(usePinia) { %>import { createPinia } from 'pinia'<% } %>
+<% if(usePiniaPluginPersistedstate) { %>import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'<% } %>
 
-createApp(App)<% if(usePinia) { %>.use(createPinia())<% } %>.mount('#app')
+createApp(App)<% if(usePinia) { %>.use(createPinia()<% if(usePiniaPluginPersistedstate) { %>.use(piniaPluginPersistedstate)<% } %>)<% } %>.mount('#app')

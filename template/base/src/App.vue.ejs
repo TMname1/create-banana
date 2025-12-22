@@ -1,9 +1,11 @@
 <script setup>
 import HelloWorld from './components/HelloWorld.vue'
 import TheWelcome from './components/TheWelcome.vue'
-<% if(usePinia) { %>import { useCounterStore } from './stores/counter'
+<% if(usePinia) { %>import { useCounterStore } from './stores/counter' <% } %>
+<% if(usePiniaPluginPersistedstate) { %>import { useKeyStore } from './stores/key' <% } %>
 
-const counterStore = useCounterStore()<% } %>
+<% if(usePinia) { %>const counterStore = useCounterStore()<% } %>
+<% if(usePiniaPluginPersistedstate) { %>const keyStore = useKeyStore()<% } %>
 </script>
 
 <template>
@@ -12,7 +14,8 @@ const counterStore = useCounterStore()<% } %>
 
     <div class="wrapper">
       <HelloWorld msg="You did it!" />
-      <% if(usePinia) { %><button @click="counterStore.increment">Count is: {{ counterStore.count }}</button><% } %>
+      <% if(usePinia) { %><button class="piniaBtn" @click="counterStore.increment">Count is: {{ counterStore.count }}</button><% } %>
+      <% if(usePiniaPluginPersistedstate) { %><input class="persistInp" v-model="keyStore.key" placeholder="Enter a key to persist" /><% } %>
     </div>
   </header>
 
@@ -30,6 +33,27 @@ header {
   display: block;
   margin: 0 auto 2rem;
 }
+
+<% if(usePinia) { %>.piniaBtn {
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 4px;
+  background-color: #42b983;
+  color: white;
+  cursor: pointer;
+}<% } %>
+
+<% if(usePiniaPluginPersistedstate) { %>.persistInp {
+  margin-top: 1rem;
+  padding: 0.5rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 100%;
+  max-width: 300px;
+}<% } %>
 
 @media (min-width: 1024px) {
   header {

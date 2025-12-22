@@ -7,8 +7,5 @@ export const useCounterStore = defineStore('counter', () => {
   function increment() {
     count.value++
   }
-
   return { count, doubleCount, increment }
 })
-
-// TODO: 添加是否选择pinia持久化的功能
