@@ -11,8 +11,4 @@ export const useCounterStore = defineStore('counter', () => {
   return { count, doubleCount, increment }
 })
 
-// TODO: 添加pinia 的模板
-
-// TODO: main.js要用ejs来调整
-
 // TODO: 添加是否选择pinia持久化的功能

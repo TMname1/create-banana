@@ -1,6 +1,10 @@
 {
   "name": "create-banana",
   "version": "1.0.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/TMname1/create-banana.git"
+  },
   "type": "module",
   "description": "TMname1's CLI tool to create customized templates",
   "main": "index.js",

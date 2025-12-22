@@ -16,10 +16,13 @@ const addPinia = async (projectName, flag) => {
     ...piniaPkg.dependencies,
   }
 
+  fs.writeJSONSync(path.join(process.cwd(), projectName, 'package.json'), targetPkg, { spaces: 2 })
+
   // 复制stores文件夹
   fs.copySync(
     path.join(templatePath, 'pinia', 'stores'),
-    path.join(process.cwd(), projectName, 'src'),
+    // 自动创建stores文件夹
+    path.join(process.cwd(), projectName, 'src', 'stores'),
   )
 }
 

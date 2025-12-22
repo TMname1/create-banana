@@ -1,0 +1,7 @@
+// FIXME: ejs文件没有删除
+import './assets/main.css'
+import { createApp } from 'vue'
+import App from './App.vue'
+<% if(usePinia) { %>import { createPinia } from 'pinia'<% } %>
+
+createApp(App)<% if(usePinia) { %>.use(createPinia())<% } %>.mount('#app')

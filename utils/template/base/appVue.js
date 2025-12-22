@@ -7,7 +7,7 @@ import path from 'path'
 const addAppVue = async (projectName, usePinia) => {
   await fs.writeFile(
     path.join(process.cwd(), projectName, 'src', 'App.vue'),
-    ejs.render(await fs.readFile(path.join(templatePath, 'base', 'App.vue.ejs'), 'utf-8'), {
+    ejs.render(await fs.readFile(path.join(templatePath, 'base', 'src', 'App.vue.ejs'), 'utf-8'), {
       usePinia,
     }),
   )
