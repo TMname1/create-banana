@@ -1,5 +1,4 @@
 // print BANANA in big money-se font using figlet
-
 import figlet from 'figlet'
 
 const printString = async (str) => {
