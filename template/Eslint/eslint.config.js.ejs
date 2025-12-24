@@ -4,36 +4,75 @@ import pluginVue from 'eslint-plugin-vue'
 import json from '@eslint/json'
 import markdown from '@eslint/markdown'
 import css from '@eslint/css'
-import { defineConfig } from 'eslint/config'
-<% if(usePrettier) { %>import prettierConfig from "eslint-config-prettier";<% } %>
+import { defineConfig, globalIgnores } from 'eslint/config'
+<% if (usePrettier) { %>
+import prettierPlugin from 'eslint-plugin-prettier'
+import prettierConfig from "eslint-config-prettier";
+<% } %>
 
 export default defineConfig([
-  {
-    files: ['**/*.{js,mjs,cjs,vue}'],
-    plugins: { js },
-    extends: ['js/recommended'],
-    languageOptions: { globals: { ...globals.browser, ...globals.node } },
-  },
-  pluginVue.configs['flat/essential'],
-  { files: ['**/*.json'], plugins: { json }, language: 'json/json', extends: ['json/recommended'] },
-  {
-    files: ['**/*.jsonc'],
-    plugins: { json },
-    language: 'json/jsonc',
-    extends: ['json/recommended'],
-  },
-  {
-    files: ['**/*.json5'],
-    plugins: { json },
-    language: 'json/json5',
-    extends: ['json/recommended'],
-  },
-  {
-    files: ['**/*.md'],
-    plugins: { markdown },
-    language: 'markdown/gfm',
-    extends: ['markdown/recommended'],
-  },
-  { files: ['**/*.css'], plugins: { css }, language: 'css/css', extends: ['css/recommended'] },
-  <% if(usePrettier) { %>prettierConfig,<% } %>
+{
+files: ['**/*.{js,mjs,cjs,vue}'],
+plugins: { js },
+extends: ['js/recommended'],
+languageOptions: { globals: { ...globals.browser } },
+},
+{
+files: ["**/*.vue"],
+plugins: { vue: pluginVue },
+extends: [pluginVue.configs["flat/essential"]],
+},
+{ files: ['**/*.json'], plugins: { json }, language: 'json/json', extends: ['json/recommended'] },
+{
+files: ['**/*.jsonc'],
+plugins: { json },
+language: 'json/jsonc',
+extends: ['json/recommended'],
+},
+{
+files: ['**/*.json5'],
+plugins: { json },
+language: 'json/json5',
+extends: ['json/recommended'],
+},
+{
+files: ['**/*.md'],
+plugins: { markdown },
+language: 'markdown/gfm',
+extends: ['markdown/recommended'],
+},
+{ files: ['**/*.css'], plugins: { css }, language: 'css/css', extends: ['css/recommended'] },
+
+<% if (usePrettier) { %>
+// 全局 Prettier 配置
+{
+plugins: { prettier: prettierPlugin },
+extends: [prettierConfig],
+rules: {
+'prettier/prettier': ['warn'], // 不符合 prettier 风格时显示 warning
+},
+},
+<% } %>
+
+globalIgnores([
+"node_modules/*",
+"dist/*",
+"build/*",
+"out/*",
+".next/*",
+".nuxt/*",
+"coverage/*",
+"public/*",
+"assets/*",
+".cache/*",
+".temp/*",
+".tmp/*",
+"*.min.js",
+"*.bundle.js",
+"package-lock.json",
+"yarn.lock",
+"pnpm-lock.yaml",
+".env*",
+"docs/.vitepress/dist/*",
+]),
 ])

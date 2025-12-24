@@ -29,11 +29,6 @@ const addEslint = async (projectName, flag) => {
   }
 
   await fs.writeJson(targetPackageJsonPath, targetPkg, { spaces: 2 })
-
-  // 复制.eslintignore文件
-  const eslintIgnorePath = path.join(templateEslintPath, '.eslintignore')
-  const eslintIgnoreTargetPath = path.join(targetPath, '.eslintignore')
-  fs.copy(eslintIgnorePath, eslintIgnoreTargetPath)
 }
 
 export default addEslint

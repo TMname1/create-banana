@@ -31,6 +31,7 @@ const confirmPathExists = async (projectName, projectDir) => {
   } catch (err) {
     // TODO: 放一个更友好的提示
     console.error(err)
+    process.exit(1)
   }
 }
 

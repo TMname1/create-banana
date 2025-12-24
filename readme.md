@@ -1,1 +1,6 @@
-我的vue脚手架，目前的功能有eslint,prettier
+我的vue脚手架，目前实现的功能有:
+
+- eslint
+- prettier
+- pinia
+  - pinia-plugin-persistedstate

@@ -27,12 +27,9 @@ const addPrettier = async (projectName, flag) => {
 
   await fs.writeJson(targetPackageJsonPath, targetPkg, { spaces: 2 })
 
-  // 复制.prettierignore文件
-  const prettierignorePath = path.join(templatePrettierPath, '.prettierignore')
-  fs.copy(prettierignorePath, path.join(targetPath, '.prettierignore'))
-  // 复制.prettierrc.js文件
+  // 复制.prettierrc文件
   const prettierrc = path.join(templatePrettierPath, '.prettierrc')
-  fs.copy(prettierrc, path.join(targetPath, '.prettierrc.js'))
+  fs.copy(prettierrc, path.join(targetPath, '.prettierrc'))
 }
 
 export default addPrettier
