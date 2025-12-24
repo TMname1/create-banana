@@ -16,7 +16,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "commit": "cz",
     "prepare": "husky install",
-    "format": "prettier --write .",
+    "lint": "eslint . --fix --cache",
+    "format": "prettier --write --experimental-cli .",
     "lint-staged": "lint-staged"
   },
   "lint-staged": {

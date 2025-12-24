@@ -1,5 +1,5 @@
 // print BANANA in big money-se font using figlet
-import figlet from 'figlet'
+import figlet from 'figlet';
 
 const printString = async (str) => {
   try {
@@ -9,11 +9,11 @@ const printString = async (str) => {
       verticalLayout: 'default',
       width: 80,
       whitespaceBreak: true,
-    })
+    });
   } catch (err) {
-    console.log('Something went wrong...')
-    console.dir(err)
+    console.log('Something went wrong...');
+    console.dir(err);
   }
-}
+};
 
-export default printString
+export default printString;

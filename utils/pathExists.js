@@ -1,8 +1,8 @@
 // 确认路径是否存在，若存在则提示是否覆盖
 // 若选择覆盖则删除已存在的文件夹，并新建一个文件夹
 // 若选择不覆盖则退出程序
-import fs from 'fs-extra'
-import { select } from '@inquirer/prompts'
+import fs from 'fs-extra';
+import { select } from '@inquirer/prompts';
 
 const confirmPathExists = async (projectName, projectDir) => {
   try {
@@ -15,24 +15,24 @@ const confirmPathExists = async (projectName, projectDir) => {
           { name: 'Yes', value: true },
           { name: 'No', value: false },
         ],
-      })
+      });
       if (!isOverwrite) {
         // TODO: 放一个更友好的提示
         //  例如：X操作取消(换英文)
-        console.log('canceled!')
+        console.log('canceled!');
         // 退出程序
-        process.exit(0)
+        process.exit(0);
       } else {
         // 删除已存在的文件夹并新建一个文件夹
-        await fs.remove(projectDir)
-        await fs.mkdir(projectDir)
+        await fs.remove(projectDir);
+        await fs.mkdir(projectDir);
       }
     }
   } catch (err) {
     // TODO: 放一个更友好的提示
-    console.error(err)
-    process.exit(1)
+    console.error(err);
+    process.exit(1);
   }
-}
+};
 
-export default confirmPathExists
+export default confirmPathExists;
