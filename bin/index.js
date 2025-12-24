@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-// TODO: 重置该文件的prettier和eslint
 import printString from '#utils/figletPrint.js';
 import rainbowGradient from '#utils/rainbow.js';
 import { input } from '@inquirer/prompts';
@@ -15,12 +14,14 @@ import confirmPathExists from '#utils/pathExists.js';
 import addMain from '#utils/template/base/main.js';
 import { select } from '@inquirer/prompts';
 import addPiniaPluginPersistedstate from '#utils/template/pinia/piniaPluginPersistedstate.js';
+import chalk from 'chalk';
 
 // print BANANA in rainbow colors
-console.log(rainbowGradient(await printString('BANANA')));
+const log = console.log;
+log(rainbowGradient(await printString('BANANA')));
 
 const projectName = await input({
-  message: 'Enter your project name:',
+  message: `Enter your ${chalk.yellow('project name')}:`,
   required: true,
 });
 
@@ -28,7 +29,7 @@ const projectName = await input({
 await confirmPathExists(projectName, path.join(process.cwd(), projectName));
 
 const feats = await checkbox({
-  message: 'Please select the features to include:',
+  message: `Please select the ${chalk.yellow('features')} to include:`,
   choices: [
     { name: 'Eslint', value: 'eslint' },
     { name: 'Prettier', value: 'prettier' },
@@ -43,7 +44,7 @@ const usePinia = feats.includes('pinia');
 let usePiniaPluginPersistedstate = false;
 if (usePinia) {
   usePiniaPluginPersistedstate = await select({
-    message: `Do you want to use pinia-plugin-persistedstate for Pinia state persistence?`,
+    message: `Do you want to use ${chalk.yellow.bold('pinia-plugin-persistedstate')} for Pinia state persistence?`,
     choices: [
       { name: 'Yes', value: true },
       { name: 'No', value: false },
@@ -64,4 +65,39 @@ await addEslintConfig(projectName, usePrettier, useEslint);
 
 await addPrettier(projectName, usePrettier);
 
-// TODO: 输出后续操作，例如lint，git
+// 参考create-vue的颜色
+const greenColor = [22, 198, 12];
+
+// 安装依赖以及格式化提示
+log(
+  rainbowGradient(
+    '\nProject initialization complete. You may now execute the following commands:\n'
+  )
+);
+
+const eslintStr = chalk
+  .rgb(...greenColor)
+  .underline(` cd ${projectName} && pnpm i && pnpm lint && pnpm dev  \n`);
+const prettierStr = chalk
+  .rgb(...greenColor)
+  .underline(` cd ${projectName} && pnpm i && pnpm format && pnpm dev  \n`);
+const noFormatStr = chalk
+  .rgb(...greenColor)
+  .underline(` cd ${projectName} && pnpm i && pnpm dev  \n`);
+
+let outStr = '';
+useEslint
+  ? (outStr = eslintStr)
+  : usePrettier
+    ? (outStr = prettierStr)
+    : (outStr = noFormatStr);
+
+log(outStr);
+// 初始化Git
+log(rainbowGradient('Initialize Git using the following command:\n'));
+// TODO: 以后有commitizen再改这里
+log(
+  chalk
+    .rgb(...greenColor)
+    .underline(' git init && git add . && git commit -m "Initial commit"  ')
+);
