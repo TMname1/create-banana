@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+// TODO: 重置该文件的prettier和eslint
 import printString from '#utils/figletPrint.js'
 import rainbowGradient from '#utils/rainbow.js'
 import { input } from '@inquirer/prompts'
@@ -58,6 +59,6 @@ await addPiniaPluginPersistedstate(projectName, usePiniaPluginPersistedstate)
 await addEslint(projectName, useEslint)
 await addEslintConfig(projectName, usePrettier, useEslint)
 
-await addPrettier(projectName, useEslint, usePrettier)
+await addPrettier(projectName, usePrettier)
 
 // TODO: 输出后续操作，例如lint，git

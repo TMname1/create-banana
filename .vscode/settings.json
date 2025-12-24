@@ -1,0 +1,10 @@
+{
+  "files.associations": {
+    "*.ejs": "ejs",
+    "*.vue.ejs": "ejs",
+    "*.js.ejs": "ejs"
+  },
+  "emmet.includeLanguages": {
+    "ejs": "html"
+  }
+}
