@@ -3,6 +3,7 @@
 // 若选择不覆盖则退出程序
 import fs from 'fs-extra';
 import { select } from '@inquirer/prompts';
+import chalk from 'chalk';
 
 const confirmPathExists = async (projectName, projectDir) => {
   try {
@@ -10,7 +11,7 @@ const confirmPathExists = async (projectName, projectDir) => {
     if (await fs.pathExists(projectDir)) {
       // 如果存在就提示是否要覆盖
       const isOverwrite = await select({
-        message: `The target folder "${projectName}" is not empty. Overwrite?`,
+        message: `The target folder "${projectName}" is not empty. ${chalk.yellow('Overwrite')}?`,
         choices: [
           { name: 'Yes', value: true },
           { name: 'No', value: false },

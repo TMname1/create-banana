@@ -15,6 +15,7 @@ import addMain from '#utils/template/base/main.js';
 import { select } from '@inquirer/prompts';
 import addPiniaPluginPersistedstate from '#utils/template/pinia/piniaPluginPersistedstate.js';
 import chalk from 'chalk';
+import boxen from 'boxen';
 
 // print BANANA in rainbow colors
 const log = console.log;
@@ -65,6 +66,8 @@ await addEslintConfig(projectName, usePrettier, useEslint);
 
 await addPrettier(projectName, usePrettier);
 
+// TODO: vueRouter
+
 // 参考create-vue的颜色
 const greenColor = [22, 198, 12];
 
@@ -75,15 +78,15 @@ log(
   )
 );
 
-const eslintStr = chalk
-  .rgb(...greenColor)
-  .underline(` cd ${projectName} && pnpm i && pnpm lint && pnpm dev  \n`);
-const prettierStr = chalk
-  .rgb(...greenColor)
-  .underline(` cd ${projectName} && pnpm i && pnpm format && pnpm dev  \n`);
-const noFormatStr = chalk
-  .rgb(...greenColor)
-  .underline(` cd ${projectName} && pnpm i && pnpm dev  \n`);
+const eslintStr = chalk.rgb(...greenColor)(
+  `\n  cd ${projectName} && pnpm i && pnpm lint && pnpm dev  \n`
+);
+const prettierStr = chalk.rgb(...greenColor)(
+  `\n  cd ${projectName} && pnpm i && pnpm format && pnpm dev  \n`
+);
+const noFormatStr = chalk.rgb(...greenColor)(
+  `\n  cd ${projectName} && pnpm i && pnpm dev  \n`
+);
 
 let outStr = '';
 useEslint
@@ -92,12 +95,29 @@ useEslint
     ? (outStr = prettierStr)
     : (outStr = noFormatStr);
 
-log(outStr);
+log(
+  chalk.cyan(
+    boxen(outStr, {
+      title: 'commands',
+      titleAlignment: 'center',
+    })
+  ),
+  '\n'
+);
+
 // 初始化Git
 log(rainbowGradient('Initialize Git using the following command:\n'));
 // TODO: 以后有commitizen再改这里
 log(
-  chalk
-    .rgb(...greenColor)
-    .underline(' git init && git add . && git commit -m "Initial commit"  ')
+  chalk.cyan(
+    boxen(
+      chalk.rgb(...greenColor)(
+        '\n  git init && git add . && git commit -m "Initial commit"  \n'
+      ),
+      {
+        title: 'commands',
+        titleAlignment: 'center',
+      }
+    )
+  )
 );
