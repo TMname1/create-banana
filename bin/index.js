@@ -16,6 +16,7 @@ import { select } from '@inquirer/prompts';
 import addPiniaPluginPersistedstate from '#utils/template/pinia/piniaPluginPersistedstate.js';
 import chalk from 'chalk';
 import boxen from 'boxen';
+import addVueRouter from '#utils/template/vueRouter.js';
 
 // print BANANA in rainbow colors
 const log = console.log;
@@ -35,12 +36,14 @@ const feats = await checkbox({
     { name: 'Eslint', value: 'eslint' },
     { name: 'Prettier', value: 'prettier' },
     { name: 'Pinia', value: 'pinia' },
+    { name: 'Vue-Router', value: 'vue-router' },
   ],
 });
 
 const useEslint = feats.includes('eslint');
 const usePrettier = feats.includes('prettier');
 const usePinia = feats.includes('pinia');
+const useVueRouter = feats.includes('vue-router');
 
 let usePiniaPluginPersistedstate = false;
 if (usePinia) {
@@ -66,9 +69,8 @@ await addEslintConfig(projectName, usePrettier, useEslint);
 
 await addPrettier(projectName, usePrettier);
 
+await addVueRouter(projectName, useVueRouter);
 // TODO: !!!! 根据文件夹1的内容，编写vueRouter
-// TODO: 2. 写处理脚本
-// TODO: 3. 写bin的入口文件
 
 // 参考create-vue的颜色
 const greenColor = [22, 198, 12];

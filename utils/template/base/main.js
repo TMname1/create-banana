@@ -4,7 +4,12 @@ import { templatePath } from '#utils/URL.js';
 import fs from 'fs-extra';
 import path from 'path';
 
-const addMain = async (projectName, usePinia, usePiniaPluginPersistedstate) => {
+const addMain = async (
+  projectName,
+  usePinia,
+  usePiniaPluginPersistedstate,
+  useVueRouter
+) => {
   await fs.writeFile(
     path.join(process.cwd(), projectName, 'src', 'main.js'),
     ejs.render(
@@ -15,6 +20,7 @@ const addMain = async (projectName, usePinia, usePiniaPluginPersistedstate) => {
       {
         usePinia,
         usePiniaPluginPersistedstate,
+        useVueRouter,
       }
     )
   );
