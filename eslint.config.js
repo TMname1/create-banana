@@ -1,40 +1,38 @@
 import js from '@eslint/js';
 import globals from 'globals';
+import pluginVue from 'eslint-plugin-vue';
 import json from '@eslint/json';
 import { defineConfig, globalIgnores } from 'eslint/config';
+
 import prettierPlugin from 'eslint-plugin-prettier';
+import prettierConfig from 'eslint-config-prettier';
 
 export default defineConfig([
   {
-    files: ['**/*.{js,mjs,cjs}'],
-    plugins: { js, prettier: prettierPlugin },
+    files: ['**/*.{js,mjs,cjs,vue}'],
+    plugins: { js },
     extends: ['js/recommended'],
     languageOptions: { globals: globals.node },
-    rules: {
-      'prettier/prettier': [
-        'warn',
-        {
-          printWidth: 80,
-          tabWidth: 2,
-          useTabs: false,
-          semi: true,
-          singleQuote: true,
-          quoteProps: 'as-needed',
-          jsxSingleQuote: false,
-          trailingComma: 'es5',
-          bracketSpacing: true,
-          bracketSameLine: false,
-          arrowParens: 'always',
-          endOfLine: 'auto',
-        },
-      ],
-    },
+  },
+  {
+    files: ['**/*.vue'],
+    plugins: { vue: pluginVue },
+    extends: [pluginVue.configs['flat/essential']],
   },
   {
     files: ['**/*.json'],
     plugins: { json },
     language: 'json/json',
     extends: ['json/recommended'],
+  },
+
+  // 全局 Prettier 配置
+  {
+    plugins: { prettier: prettierPlugin },
+    extends: [prettierConfig],
+    rules: {
+      'prettier/prettier': ['warn'], // 不符合 prettier 风格时显示 warning
+    },
   },
 
   globalIgnores([

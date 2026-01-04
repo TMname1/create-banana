@@ -3,5 +3,16 @@ import { createApp } from 'vue'
 import App from './App.vue'
 <% if(usePinia) { %>import { createPinia } from 'pinia'<% } %>
 <% if(usePiniaPluginPersistedstate) { %>import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'<% } %>
+<% if(useVueRouter) { %>import router from './router/index.js';<% } %>
 
-createApp(App)<% if(usePinia) { %>.use(createPinia()<% if(usePiniaPluginPersistedstate) { %>.use(piniaPluginPersistedstate)<% } %>)<% } %>.mount('#app')
+createApp(App)
+<% if(usePinia) { %>
+.use(createPinia()
+<% if(usePiniaPluginPersistedstate) { %>
+.use(piniaPluginPersistedstate)
+<% } %>
+)
+<% } %>
+<% if(useVueRouter) { %>
+.use(router)
+<% } %>.mount('#app')

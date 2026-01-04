@@ -7,7 +7,8 @@ import path from 'path';
 const addAppVue = async (
   projectName,
   usePinia,
-  usePiniaPluginPersistedstate
+  usePiniaPluginPersistedstate,
+  useVueRouter
 ) => {
   await fs.writeFile(
     path.join(process.cwd(), projectName, 'src', 'App.vue'),
@@ -19,6 +20,7 @@ const addAppVue = async (
       {
         usePinia,
         usePiniaPluginPersistedstate,
+        useVueRouter,
       }
     )
   );

@@ -16,6 +16,8 @@ import { select } from '@inquirer/prompts';
 import addPiniaPluginPersistedstate from '#utils/template/pinia/piniaPluginPersistedstate.js';
 import chalk from 'chalk';
 import boxen from 'boxen';
+import addVueRouter from '#utils/template/vueRouter/vueRouter.js';
+import addAboutView from '#utils/template/vueRouter/aboutView.js';
 
 // print BANANA in rainbow colors
 const log = console.log;
@@ -35,12 +37,14 @@ const feats = await checkbox({
     { name: 'Eslint', value: 'eslint' },
     { name: 'Prettier', value: 'prettier' },
     { name: 'Pinia', value: 'pinia' },
+    { name: 'Vue-Router', value: 'vue-router' },
   ],
 });
 
 const useEslint = feats.includes('eslint');
 const usePrettier = feats.includes('prettier');
 const usePinia = feats.includes('pinia');
+const useVueRouter = feats.includes('vue-router');
 
 let usePiniaPluginPersistedstate = false;
 if (usePinia) {
@@ -55,8 +59,18 @@ if (usePinia) {
 
 // TODO: 把一类型的功能整合到一起
 await createBaseProject(projectName);
-await addAppVue(projectName, usePinia, usePiniaPluginPersistedstate);
-await addMain(projectName, usePinia, usePiniaPluginPersistedstate);
+await addAppVue(
+  projectName,
+  usePinia,
+  usePiniaPluginPersistedstate,
+  useVueRouter
+);
+await addMain(
+  projectName,
+  usePinia,
+  usePiniaPluginPersistedstate,
+  useVueRouter
+);
 
 await addPinia(projectName, usePinia, usePiniaPluginPersistedstate);
 await addPiniaPluginPersistedstate(projectName, usePiniaPluginPersistedstate);
@@ -66,7 +80,8 @@ await addEslintConfig(projectName, usePrettier, useEslint);
 
 await addPrettier(projectName, usePrettier);
 
-// TODO: vueRouter
+await addVueRouter(projectName, useVueRouter);
+await addAboutView(projectName, usePiniaPluginPersistedstate, useVueRouter);
 
 // 参考create-vue的颜色
 const greenColor = [22, 198, 12];
