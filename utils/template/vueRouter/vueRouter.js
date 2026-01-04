@@ -1,4 +1,4 @@
-import { templatePath } from '../URL.js';
+import { templatePath } from '../../URL.js';
 import path from 'path';
 import fs from 'fs-extra';
 
@@ -8,6 +8,7 @@ const addVueRouter = async (projectName, flag) => {
   // 路径
   const templateVueRouterPath = path.join(templatePath, 'vue-router');
   const targetPath = path.join(process.cwd(), projectName);
+  const targetSrcPath = path.join(targetPath, 'src');
   const targetPackageJsonPath = path.join(targetPath, 'package.json');
 
   // 文件
@@ -17,27 +18,28 @@ const addVueRouter = async (projectName, flag) => {
   );
 
   // 添加package.json的内容
-  targetPkg.devDependencies = {
-    ...targetPkg.devDependencies,
-    ...vueRouterPkg.devDependencies,
+  targetPkg.dependencies = {
+    ...targetPkg.dependencies,
+    ...vueRouterPkg.dependencies,
   };
+
   await fs.writeJson(targetPackageJsonPath, targetPkg, { spaces: 2 });
 
   // 复制components文件
   fs.copySync(
     path.join(templateVueRouterPath, 'components'),
-    path.join(targetPath, 'components'),
+    path.join(targetSrcPath, 'components'),
     { overwrite: false }
   );
   // 复制router文件
   fs.copySync(
     path.join(templateVueRouterPath, 'router'),
-    path.join(targetPath, 'router')
+    path.join(targetSrcPath, 'router')
   );
   // 复制views文件
   fs.copySync(
     path.join(templateVueRouterPath, 'views'),
-    path.join(targetPath, 'views')
+    path.join(targetSrcPath, 'views')
   );
 };
 

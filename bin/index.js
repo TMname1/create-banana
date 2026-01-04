@@ -16,7 +16,8 @@ import { select } from '@inquirer/prompts';
 import addPiniaPluginPersistedstate from '#utils/template/pinia/piniaPluginPersistedstate.js';
 import chalk from 'chalk';
 import boxen from 'boxen';
-import addVueRouter from '#utils/template/vueRouter.js';
+import addVueRouter from '#utils/template/vueRouter/vueRouter.js';
+import addAboutView from '#utils/template/vueRouter/aboutView.js';
 
 // print BANANA in rainbow colors
 const log = console.log;
@@ -58,8 +59,18 @@ if (usePinia) {
 
 // TODO: 把一类型的功能整合到一起
 await createBaseProject(projectName);
-await addAppVue(projectName, usePinia, usePiniaPluginPersistedstate);
-await addMain(projectName, usePinia, usePiniaPluginPersistedstate);
+await addAppVue(
+  projectName,
+  usePinia,
+  usePiniaPluginPersistedstate,
+  useVueRouter
+);
+await addMain(
+  projectName,
+  usePinia,
+  usePiniaPluginPersistedstate,
+  useVueRouter
+);
 
 await addPinia(projectName, usePinia, usePiniaPluginPersistedstate);
 await addPiniaPluginPersistedstate(projectName, usePiniaPluginPersistedstate);
@@ -70,7 +81,7 @@ await addEslintConfig(projectName, usePrettier, useEslint);
 await addPrettier(projectName, usePrettier);
 
 await addVueRouter(projectName, useVueRouter);
-// TODO: !!!! 根据文件夹1的内容，编写vueRouter
+await addAboutView(projectName, usePiniaPluginPersistedstate, useVueRouter);
 
 // 参考create-vue的颜色
 const greenColor = [22, 198, 12];
