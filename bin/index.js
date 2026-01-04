@@ -66,7 +66,9 @@ await addEslintConfig(projectName, usePrettier, useEslint);
 
 await addPrettier(projectName, usePrettier);
 
-// TODO: vueRouter
+// TODO: !!!! 根据文件夹1的内容，编写vueRouter
+// TODO: 2. 写处理脚本
+// TODO: 3. 写bin的入口文件
 
 // 参考create-vue的颜色
 const greenColor = [22, 198, 12];
