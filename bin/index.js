@@ -19,6 +19,7 @@ import boxen from 'boxen';
 import addVueRouter from '#utils/template/vueRouter/vueRouter.js';
 import addAboutView from '#utils/template/vueRouter/aboutView.js';
 
+// TODO: 所有的打印应该抽离出去
 // print BANANA in rainbow colors
 const log = console.log;
 log(rainbowGradient(await printString('BANANA')));
@@ -57,7 +58,6 @@ if (usePinia) {
   });
 }
 
-// TODO: 把一类型的功能整合到一起
 await createBaseProject(projectName);
 await addAppVue(
   projectName,
