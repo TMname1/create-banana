@@ -22,7 +22,6 @@ import main from '#src/core/index.js';
 
 await main();
 
-// TODO: 所有的打印应该抽离出去
 // print BANANA in rainbow colors
 // const log = console.log;
 // log(rainbowGradient(await printString('BANANA')));

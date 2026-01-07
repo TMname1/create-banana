@@ -9,6 +9,7 @@ import {
   PrintBANANA,
   rainbowPrint,
 } from './output.js';
+import pinia from '#src/features/pinia.js';
 
 export default async () => {
   await PrintBANANA();
@@ -28,7 +29,7 @@ export default async () => {
 
   const files = new Generator(targetDir);
   base(files, { usePinia, usePiniaPluginPersistedstate, useVueRouter });
-
+  pinia(files, usePinia, usePiniaPluginPersistedstate);
   files.generate();
 
   rainbowPrint(

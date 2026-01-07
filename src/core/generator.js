@@ -15,7 +15,7 @@ export default class Generator {
   }
 
   extendDepsPkg(deps) {
-    this.pkg.dependencies = { ...this.pkg.dependencies, ...deps };
+    this.pkg.dependencies = { ...this.pkg.dependencies, ...deps.dependencies };
   }
   extendDevDepsPkg(devDeps) {
     this.pkg.devDependencies = { ...this.pkg.devDependencies, ...devDeps };
@@ -52,10 +52,10 @@ export default class Generator {
 
   // 最后调用，执行所有写入
   async generate() {
+    this.fileMiddlewares.forEach((fileFunction) => fileFunction());
     fs.writeFileSync(
       path.join(this.targetDir, 'package.json'),
       JSON.stringify(this.pkg, null, 2)
     );
-    this.fileMiddlewares.forEach((fileFunction) => fileFunction());
   }
 }
