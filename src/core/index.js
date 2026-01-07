@@ -1,25 +1,44 @@
-import chalk from 'chalk';
-import { input } from '@inquirer/prompts';
 import path from 'path';
 import confirmPathExists from '#utils/pathExists.js';
-import { base } from '#utils/exportFeat.js';
+import base from '#src/features/base.js';
 import Generator from './generator.js';
+import { inputProjectName, featsSelect } from './input.js';
+import {
+  outPkgCommand,
+  outGitCommand,
+  PrintBANANA,
+  rainbowPrint,
+} from './output.js';
 
-const projectName = await input({
-  message: `Enter your ${chalk.yellow('project name')}:`,
-  required: true,
-});
+export default async () => {
+  await PrintBANANA();
 
-const targetDir = path.join(process.cwd(), projectName);
-// 确认路径存在
-await confirmPathExists(projectName, targetDir);
+  const projectName = await inputProjectName();
+  const targetDir = path.join(process.cwd(), projectName);
+  // 确认路径存在
+  await confirmPathExists(projectName, targetDir);
 
-const files = new Generator(targetDir);
+  const {
+    useEslint,
+    usePrettier,
+    usePinia,
+    useVueRouter,
+    usePiniaPluginPersistedstate,
+  } = await featsSelect();
 
-// FIXME: 只是为了过eslint
-const feats = {};
+  const files = new Generator(targetDir);
+  base(files, { usePinia, usePiniaPluginPersistedstate, useVueRouter });
 
-base(files, feats);
+  files.generate();
+
+  rainbowPrint(
+    '\nProject initialization complete. You may now execute the following commands:\n'
+  );
+  outPkgCommand(useEslint, usePrettier, projectName);
+
+  rainbowPrint('Initialize Git using the following command:\n');
+  outGitCommand();
+};
 
 // TODO:
 // 打印功能分开

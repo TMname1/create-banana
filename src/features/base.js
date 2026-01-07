@@ -4,7 +4,9 @@ import path from 'path';
 
 export default (files, feats) => {
   const basePath = path.join(templatePath, 'base');
-  files.writePkg(fs.readJSONSync(path.join(basePath, 'package.json')));
+  files.writePkg(
+    fs.readJSONSync(path.join(basePath, 'static', 'package.json'))
+  );
   files.copy(path.join(basePath, 'static'), '');
   files.render(
     path.join(basePath, 'ejs', 'App.vue.ejs'),

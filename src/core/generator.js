@@ -52,7 +52,7 @@ export default class Generator {
 
   // 最后调用，执行所有写入
   async generate() {
-    fs.writeFile(
+    fs.writeFileSync(
       path.join(this.targetDir, 'package.json'),
       JSON.stringify(this.pkg, null, 2)
     );

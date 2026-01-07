@@ -10,7 +10,8 @@
   "main": "index.js",
   "bin": "./bin/index.js",
   "imports": {
-    "#utils/*": "./utils/*"
+    "#utils/*": "./utils/*",
+    "#src/*": "./src/*"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
