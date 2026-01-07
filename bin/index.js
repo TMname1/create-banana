@@ -1,3 +1,3 @@
 #!/usr/bin/env node
-import main from '#src/core/main.js';
+import main from '#src/CLI/main.js';
 await main();
