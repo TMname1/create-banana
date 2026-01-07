@@ -8,7 +8,7 @@ import chalk from 'chalk';
 const confirmPathExists = async (projectName, projectDir) => {
   try {
     // 判断文件夹是否存在
-    if (await fs.pathExists(projectDir)) {
+    if (fs.pathExistsSync(projectDir)) {
       // 如果存在就提示是否要覆盖
       const isOverwrite = await select({
         message: `The target folder "${projectName}" is not empty. ${chalk.yellow('Overwrite')}?`,
