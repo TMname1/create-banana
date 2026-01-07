@@ -11,6 +11,7 @@ import {
 } from './output.js';
 import pinia from '#src/features/pinia.js';
 import eslint from '#src/features/eslint.js';
+import prettier from '#src/features/prettier.js';
 
 export default async () => {
   await PrintBANANA();
@@ -30,8 +31,9 @@ export default async () => {
 
   const files = new Generator(targetDir);
   base(files, { usePinia, usePiniaPluginPersistedstate, useVueRouter });
-  pinia(files, usePinia, usePiniaPluginPersistedstate);
-  eslint(files, useEslint, usePrettier);
+  pinia(files, { usePinia, usePiniaPluginPersistedstate });
+  eslint(files, { useEslint, usePrettier });
+  prettier(files, usePrettier);
   files.generate();
 
   rainbowPrint(
@@ -42,10 +44,3 @@ export default async () => {
   rainbowPrint('Initialize Git using the following command:\n');
   outGitCommand();
 };
-
-// TODO:
-// 打印功能分开
-// 选择功能分开
-// 根据选择功能通过渲染函数进行渲染分开
-
-// 把generator传入features中

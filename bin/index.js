@@ -77,10 +77,10 @@ await main();
 // await addPinia(projectName, usePinia, usePiniaPluginPersistedstate);
 // await addPiniaPluginPersistedstate(projectName, usePiniaPluginPersistedstate);
 
-// TODO: 完成下面这些feats
 // await addEslint(projectName, useEslint);
 // await addEslintConfig(projectName, usePrettier, useEslint);
 
+// TODO: 完成下面这些feats
 // await addPrettier(projectName, usePrettier);
 
 // await addVueRouter(projectName, useVueRouter);

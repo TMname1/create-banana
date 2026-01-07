@@ -2,7 +2,7 @@ import fs from 'fs-extra';
 import { templatePath } from '#utils/URL.js';
 import path from 'path';
 
-export default (files, usePinia, usePiniaPluginPersistedstate) => {
+export default (files, { usePinia, usePiniaPluginPersistedstate }) => {
   if (!usePinia) return;
 
   const piniaPath = path.join(templatePath, 'pinia');

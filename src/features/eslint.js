@@ -2,7 +2,7 @@ import fs from 'fs-extra';
 import { templatePath } from '#utils/URL.js';
 import path from 'path';
 
-export default (files, useEslint, usePrettier) => {
+export default (files, { useEslint, usePrettier }) => {
   if (!useEslint) return;
 
   const eslintPath = path.join(templatePath, 'eslint');
@@ -17,5 +17,11 @@ export default (files, useEslint, usePrettier) => {
     {
       usePrettier,
     }
+  );
+
+  if (!usePrettier) return;
+
+  files.extendDevDepsPkg(
+    fs.readJSONSync(path.join(eslintPath, 'prettierPkg.json'))
   );
 };
