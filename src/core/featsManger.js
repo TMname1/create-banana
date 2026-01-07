@@ -3,7 +3,7 @@ import pinia from '#src/features/pinia.js';
 import eslint from '#src/features/eslint.js';
 import prettier from '#src/features/prettier.js';
 import vueRouter from '#src/features/vueRouter.js';
-import { featsSelect } from './input.js';
+import { featsSelect } from '#src/CLI/input.js';
 
 export default async (files) => {
   const featsList = await featsSelect();

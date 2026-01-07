@@ -1,6 +1,6 @@
 import path from 'path';
 import confirmPathExists from '#utils/pathExists.js';
-import Generator from './generator.js';
+import Generator from '../core/generator.js';
 import { inputProjectName } from './input.js';
 import {
   outPkgCommand,
@@ -8,7 +8,7 @@ import {
   PrintBANANA,
   rainbowPrint,
 } from './output.js';
-import featsManager from './featsManger.js';
+import featsManager from '../core/featsManger.js';
 
 export default async () => {
   await PrintBANANA();
