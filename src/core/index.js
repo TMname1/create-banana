@@ -10,6 +10,7 @@ import {
   rainbowPrint,
 } from './output.js';
 import pinia from '#src/features/pinia.js';
+import eslint from '#src/features/eslint.js';
 
 export default async () => {
   await PrintBANANA();
@@ -30,6 +31,7 @@ export default async () => {
   const files = new Generator(targetDir);
   base(files, { usePinia, usePiniaPluginPersistedstate, useVueRouter });
   pinia(files, usePinia, usePiniaPluginPersistedstate);
+  eslint(files, useEslint, usePrettier);
   files.generate();
 
   rainbowPrint(

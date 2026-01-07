@@ -18,10 +18,13 @@ export default class Generator {
     this.pkg.dependencies = { ...this.pkg.dependencies, ...deps.dependencies };
   }
   extendDevDepsPkg(devDeps) {
-    this.pkg.devDependencies = { ...this.pkg.devDependencies, ...devDeps };
+    this.pkg.devDependencies = {
+      ...this.pkg.devDependencies,
+      ...devDeps.devDependencies,
+    };
   }
   extendScriptsPkg(scripts) {
-    this.pkg.scripts = { ...this.pkg.scripts, ...scripts };
+    this.pkg.scripts = { ...this.pkg.scripts, ...scripts.scripts };
   }
 
   /**
