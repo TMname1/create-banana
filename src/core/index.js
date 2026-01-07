@@ -19,7 +19,7 @@ export default async () => {
 
   const projectName = await inputProjectName();
   const targetDir = path.join(process.cwd(), projectName);
-  // 确认路径存在，存在询问是否覆盖
+  // 确认路径存在，存在就询问是否覆盖
   await confirmPathExists(projectName, targetDir);
 
   const {
