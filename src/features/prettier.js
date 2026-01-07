@@ -2,7 +2,7 @@ import fs from 'fs-extra';
 import { templatePath } from '#utils/URL.js';
 import path from 'path';
 
-export default (files, usePrettier) => {
+export default (files, { usePrettier }) => {
   if (!usePrettier) return;
 
   const prettierPath = path.join(templatePath, 'prettier');

@@ -1,6 +1,8 @@
 <script setup>
   import HelloWorld from './components/HelloWorld.vue'
+  <% if(!useVueRouter) { %>
   import TheWelcome from './components/TheWelcome.vue'
+  <% } %>
   <% if(usePinia) { %>
   import {
     useCounterStore

@@ -7,7 +7,7 @@ const log = console.log;
 // 参考create-vue的颜色
 const greenColor = [22, 198, 12];
 
-const outPkgCommand = (useEslint, usePrettier, projectName) => {
+const outPkgCommand = (projectName, { useEslint, usePrettier }) => {
   const eslintStr = chalk.rgb(...greenColor)(
     `\n  cd ${projectName} && pnpm i && pnpm lint && pnpm dev  \n`
   );
