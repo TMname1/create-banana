@@ -1,5 +1,5 @@
-import printString from '#utils/figletPrint.js';
-import rainbowGradient from '#utils/rainbow.js';
+import printString from '#src/utils/figletPrint.js';
+import rainbowGradient from '#src/utils/rainbow.js';
 import chalk from 'chalk';
 import boxen from 'boxen';
 

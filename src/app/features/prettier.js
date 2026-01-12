@@ -1,5 +1,5 @@
 import fs from 'fs-extra';
-import { templatePath } from '#utils/URL.js';
+import { templatePath } from '#src/utils/URL.js';
 import path from 'path';
 
 export default (files, { usePrettier }) => {
