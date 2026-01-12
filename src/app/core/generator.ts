@@ -2,49 +2,64 @@ import fs from 'fs-extra';
 import path from 'path';
 import ejs from 'ejs';
 
+interface PackageJSON {
+  dependencies?: {
+    [key: string]: string;
+  };
+  devDependencies?: {
+    [key: string]: string;
+  };
+  scripts?: {
+    [key: string]: string;
+  };
+}
+
 export default class Generator {
-  constructor(targetDir) {
+  targetDir: string;
+  pkg: PackageJSON;
+  fileMiddlewares: Array<() => void>;
+
+  constructor(targetDir: string) {
     this.targetDir = targetDir;
     this.pkg = {};
     this.fileMiddlewares = [];
   }
 
-  // package.json 方法
-  writePkg(pkg) {
+  // package.json functions
+  writePkg(pkg: PackageJSON) {
     this.pkg = { ...this.pkg, ...pkg };
   }
 
-  extendDepsPkg(deps) {
+  extendDepsPkg(deps: PackageJSON) {
     this.pkg.dependencies = { ...this.pkg.dependencies, ...deps.dependencies };
   }
-  extendDevDepsPkg(devDeps) {
+  extendDevDepsPkg(devDeps: PackageJSON) {
     this.pkg.devDependencies = {
       ...this.pkg.devDependencies,
       ...devDeps.devDependencies,
     };
   }
-  extendScriptsPkg(scripts) {
+  extendScriptsPkg(scripts: PackageJSON) {
     this.pkg.scripts = { ...this.pkg.scripts, ...scripts.scripts };
   }
 
   /**
-   * 复制文件(夹)
-   * @param {string} source - 源文件路径
-   * @param {string} target - 目标文件路径
+   * @param {string} source - source file path
+   * @param {string} target - target file path
    */
-  copy(source, target) {
+  copy(source: string, target: string) {
     this.fileMiddlewares.push(() => {
       fs.copySync(source, path.join(this.targetDir, target));
     });
   }
 
   /**
-   * 处理ejs模板文件
-   * @param {string} source - 源文件路径
-   * @param {string} target - 目标文件路径
-   * @param {object} feats - 模板数据
+   * render a template file with ejs
+   * @param {string} source - source file path
+   * @param {string} target - target file path
+   * @param {object} feats - ejs render options
    */
-  render(source, target, feats) {
+  render(source: string, target: string, feats: object) {
     this.fileMiddlewares.push(() => {
       fs.writeFileSync(
         path.join(this.targetDir, target),
@@ -53,7 +68,7 @@ export default class Generator {
     });
   }
 
-  // 最后调用，执行所有写入
+  // finally generate all files
   async generate() {
     this.fileMiddlewares.forEach((fileFunction) => fileFunction());
     fs.writeFileSync(

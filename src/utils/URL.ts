@@ -3,7 +3,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 
 // 拼接相对路径
-export const relativePath = (fileURL, targetURL) => {
+export const relativePath = (fileURL: string, targetURL: string) => {
   const __filename = fileURLToPath(fileURL);
   const __dirname = path.dirname(__filename);
   return path.join(__dirname, targetURL);

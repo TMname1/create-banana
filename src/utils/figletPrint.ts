@@ -1,7 +1,7 @@
 // print BANANA in big money-se font using figlet
 import figlet from 'figlet';
 
-const printString = async (str) => {
+const printString = async (str: string) => {
   try {
     return await figlet.text(str, {
       font: 'Big Money-se',

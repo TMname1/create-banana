@@ -4,10 +4,13 @@ import chalk from 'chalk';
 import boxen from 'boxen';
 
 const log = console.log;
-// 参考create-vue的颜色
-const greenColor = [22, 198, 12];
+// refer to vue cli output style
+const greenColor: [number, number, number] = [22, 198, 12];
 
-const outPkgCommand = (projectName, { useEslint, usePrettier }) => {
+const outPkgCommand = (
+  projectName: string,
+  { useEslint, usePrettier }: { useEslint: boolean; usePrettier: boolean }
+) => {
   const eslintStr = chalk.rgb(...greenColor)(
     `\n  cd ${projectName} && pnpm i && pnpm lint && pnpm dev  \n`
   );
@@ -56,7 +59,7 @@ const PrintBANANA = async () => {
   log(rainbowGradient(await printString('BANANA')));
 };
 
-const rainbowPrint = async (str) => {
+const rainbowPrint = async (str: string) => {
   log(rainbowGradient(str));
 };
 

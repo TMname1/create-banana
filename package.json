@@ -10,7 +10,6 @@
   "main": "index.js",
   "bin": "./bin/index.js",
   "imports": {
-    "#utils/*": "./utils/*",
     "#src/*": "./src/*"
   },
   "scripts": {
@@ -45,6 +44,8 @@
   "devDependencies": {
     "@eslint/js": "^9.39.2",
     "@eslint/json": "^0.14.0",
+    "@types/ejs": "^3.1.5",
+    "@types/fs-extra": "^11.0.4",
     "@types/node": "^25.0.6",
     "cz-conventional-changelog": "^3.3.0",
     "eslint": "^9.39.2",

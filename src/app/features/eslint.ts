@@ -1,8 +1,12 @@
 import fs from 'fs-extra';
-import { templatePath } from '#utils/URL.js';
+import { templatePath } from '#src/utils/URL.js';
 import path from 'path';
+import type Generator from '#src/app/core/generator.js';
+import type { featsSelectType } from '#src/app/CLI/input.js';
 
-export default (files, { useEslint, usePrettier }) => {
+export default (files: Generator, feats: featsSelectType) => {
+  const { useEslint, usePrettier } = feats;
+
   if (!useEslint) return;
 
   const eslintPath = path.join(templatePath, 'eslint');
