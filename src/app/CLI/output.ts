@@ -56,7 +56,7 @@ const outGitCommand = () => {
 };
 
 const PrintBANANA = async () => {
-  log(rainbowGradient(await printString('BANANA')));
+  log(rainbowGradient((await printString('BANANA')) as string));
 };
 
 const rainbowPrint = async (str: string) => {

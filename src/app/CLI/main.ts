@@ -8,9 +8,9 @@ import {
   PrintBANANA,
   rainbowPrint,
 } from './output.js';
-import featsManager from '../core/featsManger.js';
+import featsManager from '#src/app/core/featsManger.js';
 
-// FIXME: check all the path about templatePath to make sure they are correct
+// FIXME: use webpack to bundle the project for better performance
 
 export default async () => {
   await PrintBANANA();
