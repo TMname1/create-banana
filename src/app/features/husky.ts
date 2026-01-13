@@ -11,9 +11,11 @@ export default (files: Generator, feats: featsSelectType) => {
 
   const huskyPath = path.join(templatePath, 'husky');
 
-  const pkg = fs.readJSONSync(path.join(huskyPath, 'package.json'));
+  const pkg = fs.readJSONSync(path.join(huskyPath, 'static', 'package.json'));
   files.extendDevDepsPkg(pkg);
   files.extendScriptsPkg(pkg);
+
+  // TODO: copy .husky/_ files
 
   files.render(
     path.join(huskyPath, 'ejs', 'pre-commit.ejs'),

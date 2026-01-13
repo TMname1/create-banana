@@ -61,7 +61,7 @@ export default class Generator {
    */
   render(source: string, target: string, feats: object) {
     this.fileMiddlewares.push(() => {
-      fs.writeFileSync(
+      fs.outputFileSync(
         path.join(this.targetDir, target),
         ejs.render(fs.readFileSync(source, 'utf-8'), feats)
       );
