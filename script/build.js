@@ -8,5 +8,6 @@ esbuild
     platform: 'node',
     outfile: './dist/index.js',
     format: 'esm',
+    packages: 'external',
   })
   .catch(() => process.exit(1));

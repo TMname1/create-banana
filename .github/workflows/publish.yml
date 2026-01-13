@@ -22,14 +22,14 @@ jobs:
         with:
           node-version: '20'
           registry-url: 'https://registry.npmjs.org'
-          cache: 'pnpm' # 开启缓存，加快后续构建速度
+          cache: 'pnpm' # open caching in order to speed up installs
 
       - name: Install dependencies
-        # 使用 pnpm --frozen-lockfile 代替 npm ci
+        # Use pnpm --frozen-lockfile instead of npm ci
         run: pnpm install --frozen-lockfile
 
-      # - name: Build project (if needed)
-      #   run: pnpm run build --if-present
+      - name: Build project
+        run: pnpm run build
 
       - name: Publish to npm
         run: pnpm publish --no-git-checks
