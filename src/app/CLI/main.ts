@@ -1,6 +1,6 @@
 import path from 'path';
-import confirmPathExists from '#utils/pathExists.js';
-import Generator from '../core/generator.js';
+import confirmPathExists from '#src/utils/pathExists.js';
+import Generator from '#src/app/core/generator.js';
 import { inputProjectName } from './input.js';
 import {
   outPkgCommand,
@@ -8,17 +8,20 @@ import {
   PrintBANANA,
   rainbowPrint,
 } from './output.js';
-import featsManager from '../core/featsManger.js';
+import featsManager from '#src/app/core/featsManger.js';
+
+// FIXME: use esbuild to bundle the project for better performance
 
 export default async () => {
   await PrintBANANA();
 
   const projectName = await inputProjectName();
   const targetDir = path.join(process.cwd(), projectName);
-  // 确认路径存在，存在就询问是否覆盖
+  // ensure the target directory does not already exist
+  // if it exists, prompt the user to confirm overwriting
   await confirmPathExists(projectName, targetDir);
 
-  // 创建文件生成器，根据选择功能生成模板
+  // create a new Generator to handle feature choices and file generation
   const files = new Generator(targetDir);
   const featsList = await featsManager(files);
   files.generate();

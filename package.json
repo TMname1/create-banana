@@ -8,9 +8,11 @@
   "type": "module",
   "description": "TMname1's CLI tool to create customized templates",
   "main": "index.js",
-  "bin": "./bin/index.js",
+  "bin": "./dist/index.js",
+  "files": [
+    "dist"
+  ],
   "imports": {
-    "#utils/*": "./utils/*",
     "#src/*": "./src/*"
   },
   "scripts": {
@@ -19,7 +21,10 @@
     "prepare": "husky install",
     "lint": "eslint . --fix --cache",
     "format": "prettier --write --experimental-cli .",
-    "lint-staged": "lint-staged"
+    "lint-staged": "lint-staged",
+    "copy": "copyfiles \"template/**/*\" dist/",
+    "bundle": "node ./script/build.js",
+    "build": "tsc --noEmit && pnpm bundle && pnpm copy"
   },
   "lint-staged": {
     "*": [
@@ -45,7 +50,12 @@
   "devDependencies": {
     "@eslint/js": "^9.39.2",
     "@eslint/json": "^0.14.0",
+    "@types/ejs": "^3.1.5",
+    "@types/fs-extra": "^11.0.4",
+    "@types/node": "^25.0.6",
+    "copyfiles": "^2.4.1",
     "cz-conventional-changelog": "^3.3.0",
+    "esbuild": "^0.27.2",
     "eslint": "^9.39.2",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-prettier": "^5.5.4",
@@ -53,7 +63,8 @@
     "globals": "^16.5.0",
     "husky": "^8.0.0",
     "lint-staged": "^16.2.7",
-    "prettier": "3.7.4"
+    "prettier": "3.7.4",
+    "typescript": "^5.9.3"
   },
   "config": {
     "commitizen": {

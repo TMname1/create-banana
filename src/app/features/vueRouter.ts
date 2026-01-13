@@ -1,9 +1,14 @@
 import fs from 'fs-extra';
-import { templatePath } from '#utils/URL.js';
+import { templatePath } from '#src/utils/URL.js';
 import path from 'path';
+import type Generator from '#src/app/core/generator.js';
+import type { featsSelectType } from '#src/app/CLI/input.js';
 
-export default (files, { useVueRouter, usePiniaPluginPersistedstate }) => {
+export default (files: Generator, feats: featsSelectType) => {
+  const { useVueRouter, usePiniaPluginPersistedstate } = feats;
+
   if (!useVueRouter) return;
+
   const vueRouterPath = path.join(templatePath, 'vue-router');
 
   files.extendDepsPkg(

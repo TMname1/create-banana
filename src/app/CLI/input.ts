@@ -44,4 +44,7 @@ const featsSelect = async () => {
   };
 };
 
+type featsSelectType = Awaited<ReturnType<typeof featsSelect>>;
+
 export { inputProjectName, featsSelect };
+export type { featsSelectType };
