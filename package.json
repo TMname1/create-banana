@@ -1,6 +1,6 @@
 {
   "name": "create-banana",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "repository": {
     "type": "git",
     "url": "https://github.com/TMname1/create-banana.git"
@@ -22,7 +22,7 @@
     "lint": "eslint . --fix --cache",
     "format": "prettier --write --experimental-cli .",
     "lint-staged": "lint-staged",
-    "copy": "copyfiles \"template/**/*\" dist/",
+    "copy": "copyfiles -a \"template/**/*\" dist/",
     "bundle": "node ./script/build.js",
     "build": "tsc --noEmit && pnpm bundle && pnpm copy"
   },

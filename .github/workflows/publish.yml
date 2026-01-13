@@ -26,7 +26,7 @@ jobs:
 
       - name: Install dependencies
         # Use pnpm --frozen-lockfile instead of npm ci
-        run: pnpm install --frozen-lockfile
+        run: pnpm install --frozen-lockfile --production
 
       - name: Build project
         run: pnpm run build

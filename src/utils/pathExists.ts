@@ -9,7 +9,7 @@ const confirmPathExists = async (projectName: string, projectDir: string) => {
   try {
     if (fs.pathExistsSync(projectDir)) {
       const isOverwrite = await select({
-        message: `The target folder "${projectName}" is not empty. ${chalk.yellow('Overwrite')}?`,
+        message: `The target folder "${projectName}" is existing. ${chalk.yellow('Overwrite')}?`,
         choices: [
           { name: 'Yes', value: true },
           { name: 'No', value: false },
