@@ -10,8 +10,6 @@ import {
 } from './output.js';
 import featsManager from '#src/app/core/featsManger.js';
 
-// FIXME: use esbuild to bundle the project for better performance
-
 export default async () => {
   await PrintBANANA();
 

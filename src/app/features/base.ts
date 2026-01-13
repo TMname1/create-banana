@@ -10,6 +10,13 @@ export default (files: Generator, feats: featsSelectType) => {
     fs.readJSONSync(path.join(basePath, 'static', 'package.json'))
   );
   files.copy(path.join(basePath, 'static'), '');
+  // To fix .gitignore can't publish to npm issue
+  files.fileMiddlewares.push(() => {
+    fs.renameSync(
+      path.join(files.targetDir, '_gitignore'),
+      path.join(files.targetDir, '.gitignore')
+    );
+  });
   files.render(
     path.join(basePath, 'ejs', 'App.vue.ejs'),
     path.join('src', 'App.vue'),

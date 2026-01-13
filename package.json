@@ -1,6 +1,6 @@
 {
   "name": "create-banana",
-  "version": "2.0.4",
+  "version": "2.0.5",
   "repository": {
     "type": "git",
     "url": "https://github.com/TMname1/create-banana.git"
@@ -60,7 +60,8 @@
     "husky": "^8.0.0",
     "lint-staged": "^16.2.7",
     "prettier": "3.7.4",
-    "typescript": "^5.9.3"
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.53.0"
   },
   "config": {
     "commitizen": {
