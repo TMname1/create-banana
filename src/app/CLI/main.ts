@@ -21,6 +21,7 @@ export default async () => {
 
   // create a new Generator to handle feature choices and file generation
   const files = new Generator(targetDir);
+  // TODO: add TS feat support
   const featsList = await featsManager(files);
   files.generate();
 

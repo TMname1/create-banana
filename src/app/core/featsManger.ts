@@ -1,9 +1,11 @@
-import base from '#src/app/features/base.js';
-import pinia from '#src/app/features/pinia.js';
-import eslint from '#src/app/features/eslint.js';
-import prettier from '#src/app/features/prettier.js';
-import vueRouter from '#src/app/features/vueRouter.js';
-import { featsSelect } from '#src/app/CLI/input.js';
+import base from '../features/base.js';
+import pinia from '../features/pinia.js';
+import eslint from '../features/eslint.js';
+import prettier from '../features/prettier.js';
+import vueRouter from '../features/vueRouter.js';
+import husky from '../features/husky.js';
+import lintStaged from '../features/lintStaged.js';
+import { featsSelect } from '../CLI/input.js';
 import type Generator from './generator.js';
 
 export default async (files: Generator) => {
@@ -13,5 +15,7 @@ export default async (files: Generator) => {
   eslint(files, featsList);
   prettier(files, featsList);
   vueRouter(files, featsList);
+  husky(files, featsList);
+  lintStaged(files, featsList);
   return featsList;
 };

@@ -1,5 +1,6 @@
 import chalk from 'chalk';
-import { input, checkbox, select } from '@inquirer/prompts';
+import { input, checkbox } from '@inquirer/prompts';
+import prompt from '#src/utils/prompt.js';
 
 const inputProjectName = async () => {
   return await input({
@@ -26,13 +27,27 @@ const featsSelect = async () => {
 
   let usePiniaPluginPersistedstate = false;
   if (usePinia) {
-    usePiniaPluginPersistedstate = await select({
-      message: `Do you want to use ${chalk.yellow.bold('pinia-plugin-persistedstate')} for Pinia state persistence?`,
-      choices: [
-        { name: 'Yes', value: true },
-        { name: 'No', value: false },
-      ],
-    });
+    usePiniaPluginPersistedstate = await prompt(
+      `Do you want to use ${chalk.yellow.bold(
+        'pinia-plugin-persistedstate'
+      )} for Pinia state persistence?`
+    );
+  }
+
+  let useHusky = false;
+  if (useEslint || usePrettier) {
+    useHusky = await prompt(
+      `Do you want to use ${chalk.yellow.bold('Husky')} for Git hooks?`
+    );
+  }
+
+  let useLintStaged = false;
+  if (useHusky) {
+    useLintStaged = await prompt(
+      `Do you want to use ${chalk.yellow.bold(
+        'lint-staged'
+      )} to run linters on staged files?`
+    );
   }
 
   return {
@@ -41,6 +56,8 @@ const featsSelect = async () => {
     usePinia,
     useVueRouter,
     usePiniaPluginPersistedstate,
+    useHusky,
+    useLintStaged,
   };
 };
 
