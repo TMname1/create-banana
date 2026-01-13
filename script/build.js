@@ -1,5 +1,4 @@
 import esbuild from 'esbuild';
-
 esbuild
   .build({
     // this will start searching from root directory
@@ -9,5 +8,6 @@ esbuild
     outfile: './dist/index.js',
     format: 'esm',
     packages: 'external',
+    minify: true,
   })
   .catch(() => process.exit(1));

@@ -10,36 +10,40 @@
 
 ```text
 create-tm
-├─ bin
-│  └─ index.js
+├─ script
+│  └─ build.js
 ├─ src
-│  ├─ CLI
-│  │  ├─ input.js
-│  │  ├─ main.js
-│  │  └─ output.js
-│  ├─ core
-│  │  ├─ featsManger.js
-│  │  └─ generator.js
-│  └─ features
-│     ├─ base.js
-│     ├─ eslint.js
-│     ├─ pinia.js
-│     ├─ prettier.js
-│     └─ vueRouter.js
+│  ├─ app
+│  │  ├─ CLI
+│  │  │  ├─ input.ts
+│  │  │  ├─ main.ts
+│  │  │  └─ output.ts
+│  │  ├─ core
+│  │  │  ├─ featsManger.ts
+│  │  │  └─ generator.ts
+│  │  └─ features
+│  │     ├─ base.ts
+│  │     ├─ eslint.ts
+│  │     ├─ pinia.ts
+│  │     ├─ prettier.ts
+│  │     └─ vueRouter.ts
+│  ├─ bin
+│  │  └─ index.ts
+│  └─ utils
+│     ├─ figletPrint.ts
+│     ├─ pathExists.ts
+│     ├─ rainbow.ts
+│     └─ URL.ts
 ├─ template
 │  ├─ base
 │  ├─ eslint
 │  ├─ pinia
 │  ├─ prettier
 │  └─ vue-router
-├─ utils
-│  ├─ figletPrint.js
-│  ├─ pathExists.js
-│  ├─ rainbow.js
-│  └─ URL.js
 ├─ eslint.config.js
 ├─ LICENSE
 ├─ package.json
 ├─ pnpm-lock.yaml
-└─ readme.md
+├─ readme.md
+└─ tsconfig.json
 ```
