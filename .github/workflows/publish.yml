@@ -2,12 +2,16 @@ name: Publish to npm
 
 on:
   push:
-    tags:
-      - 'v*'
+    branches:
+      - main
+    paths:
+      - 'package.json'
 
 jobs:
-  build:
+  build-and-publish:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write # Needed to push tags
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -15,23 +19,52 @@ jobs:
       - name: Install pnpm
         uses: pnpm/action-setup@v3
         with:
-          version: 9.12.1 # or use 'latest', but it's recommended to pin a major version
+          version: 9.12.1
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
           registry-url: 'https://registry.npmjs.org'
-          cache: 'pnpm' # open caching in order to speed up installs
+          cache: 'pnpm'
+
+      - name: Read version info
+        id: version
+        run: |
+          VERSION=$(node -p "require('./package.json').version")
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+
+      - name: Check if tag exists
+        id: check_tag
+        run: |
+          TAG="v${{ steps.version.outputs.version }}"
+          if git ls-remote --exit-code --tags origin "$TAG" >/dev/null 2>&1; then
+            echo "Tag $TAG already exists."
+            echo "exists=true" >> $GITHUB_OUTPUT
+          else
+            echo "Tag $TAG does not exist."
+            echo "exists=false" >> $GITHUB_OUTPUT
+          fi
 
       - name: Install dependencies
-        # Use pnpm --frozen-lockfile instead of npm ci
-        run: pnpm install --frozen-lockfile --production
+        if: steps.check_tag.outputs.exists == 'false'
+        run: pnpm install --frozen-lockfile
 
       - name: Build project
+        if: steps.check_tag.outputs.exists == 'false'
         run: pnpm run build
 
       - name: Publish to npm
+        if: steps.check_tag.outputs.exists == 'false'
         run: pnpm publish --no-git-checks
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Create and push tag
+        if: steps.check_tag.outputs.exists == 'false'
+        run: |
+          TAG="v${{ steps.version.outputs.version }}"
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git tag "$TAG"
+          git push origin "$TAG"
