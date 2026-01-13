@@ -8,7 +8,10 @@
   "type": "module",
   "description": "TMname1's CLI tool to create customized templates",
   "main": "index.js",
-  "bin": "./bin/index.js",
+  "bin": "./dist/bin/index.js",
+  "files": [
+    "dist"
+  ],
   "imports": {
     "#src/*": "./src/*"
   },
@@ -20,7 +23,8 @@
     "format": "prettier --write --experimental-cli .",
     "lint-staged": "lint-staged",
     "copy": "copyfiles \"template/**/*\" dist/",
-    "build": "tsc && pnpm copy"
+    "bundle": "node ./script/build.js",
+    "build": "tsc --noEmit && pnpm bundle && pnpm copy"
   },
   "lint-staged": {
     "*": [
@@ -51,6 +55,7 @@
     "@types/node": "^25.0.6",
     "copyfiles": "^2.4.1",
     "cz-conventional-changelog": "^3.3.0",
+    "esbuild": "^0.27.2",
     "eslint": "^9.39.2",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-prettier": "^5.5.4",
