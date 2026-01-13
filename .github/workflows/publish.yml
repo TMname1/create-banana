@@ -15,7 +15,7 @@ jobs:
       - name: Install pnpm
         uses: pnpm/action-setup@v3
         with:
-          version: 9.12.1 # 或者使用 'latest'，建议固定一个主版本
+          version: 9.12.1 # or use 'latest', but it's recommended to pin a major version
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
