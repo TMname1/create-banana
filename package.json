@@ -1,6 +1,6 @@
 {
   "name": "create-banana",
-  "version": "2.0.3",
+  "version": "2.0.4",
   "repository": {
     "type": "git",
     "url": "https://github.com/TMname1/create-banana.git"
@@ -22,14 +22,11 @@
     "lint": "eslint . --fix --cache",
     "format": "prettier --write --experimental-cli .",
     "lint-staged": "lint-staged",
-    "copy": "copyfiles -a \"template/**/*\" dist/",
-    "bundle": "node ./script/build.js",
-    "build": "tsc --noEmit && pnpm bundle && pnpm copy"
+    "build": "tsc --noEmit && node ./script/build.js"
   },
   "lint-staged": {
     "*": [
-      "eslint . --fix",
-      "prettier --write ."
+      "eslint . --fix"
     ]
   },
   "keywords": [
@@ -53,7 +50,6 @@
     "@types/ejs": "^3.1.5",
     "@types/fs-extra": "^11.0.4",
     "@types/node": "^25.0.6",
-    "copyfiles": "^2.4.1",
     "cz-conventional-changelog": "^3.3.0",
     "esbuild": "^0.27.2",
     "eslint": "^9.39.2",

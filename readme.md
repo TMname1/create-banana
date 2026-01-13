@@ -5,6 +5,8 @@
 - pinia
   - pinia-plugin-persistedstate
 - vue-router
+- husky
+  - lint-staged
 
 # Project structure
 
