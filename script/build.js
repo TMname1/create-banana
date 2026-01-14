@@ -15,7 +15,10 @@ esbuild
   })
   .catch(() => process.exit(1));
 
-fs.copySync(
-  fileURLToPath(new URL('../template', import.meta.url)),
-  fileURLToPath(new URL('../dist/template', import.meta.url))
-);
+const sourse = fileURLToPath(new URL('../template', import.meta.url));
+const target = fileURLToPath(new URL('../dist/template', import.meta.url));
+
+fs.removeSync(target);
+fs.copySync(sourse, target, {
+  overwrite: true,
+});

@@ -37,7 +37,7 @@ export default async () => {
   outPkgCommand(projectName, featsList);
 
   rainbowPrint('\nTo set up Commitizen, run the following command:\n');
-  outCommitizenCommand(projectName);
+  outCommitizenCommand(projectName, featsList);
 
   rainbowPrint('And initialize Git using the following commands:\n');
   outGitCommand(projectName, featsList);

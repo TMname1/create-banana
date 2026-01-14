@@ -19,7 +19,7 @@ const outPkgCommand = (
   outPkgStr = useEslint ? eslintStr : usePrettier ? prettierStr : noFormatStr;
   // husky needs git init first
   outPkgStr = useHusky
-    ? `cd ${projectName} && git init && ` + outPkgStr
+    ? `cd ${projectName} && git init && npx husky-init && ` + outPkgStr
     : `cd ${projectName} && ` + outPkgStr;
 
   log(
@@ -28,8 +28,7 @@ const outPkgCommand = (
         title: 'commands',
         titleAlignment: 'center',
       })
-    ),
-    '\n'
+    )
   );
 };
 
@@ -59,7 +58,12 @@ const outGitCommand = (
 };
 
 let outCommitizenStr: string;
-const outCommitizenCommand = (projectName: string) => {
+const outCommitizenCommand = (
+  projectName: string,
+  { useCommitizen }: featsSelectType
+) => {
+  if (!useCommitizen) return;
+
   outCommitizenStr = `cd ${projectName} && pnpm i -g commitizen && commitizen init cz-conventional-changelog --pnpm --save-dev --save-exact`;
   log(
     chalk.cyan(

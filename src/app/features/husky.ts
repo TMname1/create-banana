@@ -11,14 +11,13 @@ export default (files: Generator, feats: featsSelectType) => {
 
   const huskyPath = path.join(templatePath, 'husky');
 
-  const pkg = fs.readJSONSync(path.join(huskyPath, 'static', 'package.json'));
+  const pkg = fs.readJSONSync(path.join(huskyPath, 'package.json'));
   files.extendDevDepsPkg(pkg);
   files.extendScriptsPkg(pkg);
 
-  files.copy(path.join(huskyPath, 'static', '.husky'), '.husky');
-
+  // TODO: After npx husky-init finished,this render can only execute
   files.render(
-    path.join(huskyPath, 'ejs', 'pre-commit.ejs'),
+    path.join(huskyPath, 'pre-commit.ejs'),
     path.join('.husky', 'pre-commit'),
     {
       useEslint,
