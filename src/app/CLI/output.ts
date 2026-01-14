@@ -4,8 +4,6 @@ import chalk from 'chalk';
 import boxen from 'boxen';
 import type { featsSelectType } from '#src/app/CLI/input.js';
 
-// FIXME: Is there a better way to execute and log commands?
-
 const log = console.log;
 // refer to vue cli output style
 const greenColor: [number, number, number] = [22, 198, 12];
@@ -15,24 +13,18 @@ const outPkgCommand = (
   projectName: string,
   { useEslint, usePrettier, useHusky }: featsSelectType
 ) => {
-  const eslintStr = chalk.rgb(...greenColor)(
-    `cd ${projectName} && pnpm i && pnpm lint && pnpm dev  \n`
-  );
-  const prettierStr = chalk.rgb(...greenColor)(
-    `cd ${projectName} && pnpm i && pnpm format && pnpm dev  \n`
-  );
-  const noFormatStr = chalk.rgb(...greenColor)(
-    `cd ${projectName} && pnpm i && pnpm dev  \n`
-  );
-
+  const eslintStr = `pnpm i && pnpm lint`;
+  const prettierStr = `pnpm i && pnpm format`;
+  const noFormatStr = `pnpm i`;
   outPkgStr = useEslint ? eslintStr : usePrettier ? prettierStr : noFormatStr;
+  // husky needs git init first
   outPkgStr = useHusky
-    ? chalk.rgb(...greenColor)('\n  git init && ') + outPkgStr
-    : '\n  ' + outPkgStr;
+    ? `cd ${projectName} && git init && ` + outPkgStr
+    : `cd ${projectName} && ` + outPkgStr;
 
   log(
     chalk.cyan(
-      boxen(outPkgStr, {
+      boxen(chalk.rgb(...greenColor)(`\n  ${outPkgStr}  \n`), {
         title: 'commands',
         titleAlignment: 'center',
       })
@@ -42,15 +34,15 @@ const outPkgCommand = (
 };
 
 let outGitStr: string;
-const outGitCommand = ({ useHusky }: featsSelectType) => {
+const outGitCommand = (projectName: string, { useHusky }: featsSelectType) => {
   // TODO: You need to change this when add commitizen support
   outGitStr = useHusky
-    ? '\n  git add . && git commit -m "Initial commit"  \n'
-    : '\n  git init && git add . && git commit -m "Initial commit"  \n';
+    ? `cd ${projectName} && git add . && git commit -m "Initial commit"`
+    : `cd ${projectName} && git init && git add . && git commit -m "Initial commit"`;
 
   log(
     chalk.cyan(
-      boxen(chalk.rgb(...greenColor)(outGitStr), {
+      boxen(chalk.rgb(...greenColor)(`\n  ${outGitStr}  \n`), {
         title: 'commands',
         titleAlignment: 'center',
       })
@@ -73,4 +65,5 @@ export {
   rainbowPrint,
   outPkgStr,
   outGitStr,
+  greenColor,
 };

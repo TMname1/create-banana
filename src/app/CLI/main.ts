@@ -24,7 +24,9 @@ export default async () => {
   const files = new Generator(targetDir);
   // TODO: add TS feat support
   const featsList = await featsManager(files);
-  files.generate();
+  await files.generate();
+
+  // FIXME: add some test function here to verify the generated files
 
   rainbowPrint(
     '\nProject initialization complete. You may execute the following commands:\n'
@@ -32,7 +34,7 @@ export default async () => {
   outPkgCommand(projectName, featsList);
 
   rainbowPrint('And initialize Git using the following commands:\n');
-  outGitCommand(featsList);
+  outGitCommand(projectName, featsList);
 
-  execute();
+  await execute();
 };
