@@ -19,7 +19,7 @@ const outPkgCommand = (
   outPkgStr = useEslint ? eslintStr : usePrettier ? prettierStr : noFormatStr;
   // husky needs git init first
   outPkgStr = useHusky
-    ? `cd ${projectName} && git init && npx husky-init && ` + outPkgStr
+    ? `cd ${projectName} && git init && ` + outPkgStr
     : `cd ${projectName} && ` + outPkgStr;
 
   log(

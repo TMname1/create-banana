@@ -53,6 +53,15 @@ export default class Generator {
     });
   }
 
+  rename(oldName: string, newName: string) {
+    this.fileMiddlewares.push(() => {
+      fs.renameSync(
+        path.join(this.targetDir, oldName),
+        path.join(this.targetDir, newName)
+      );
+    });
+  }
+
   /**
    * render a template file with ejs
    * @param {string} source - source file path

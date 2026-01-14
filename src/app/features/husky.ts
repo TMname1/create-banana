@@ -15,7 +15,13 @@ export default (files: Generator, feats: featsSelectType) => {
   files.extendDevDepsPkg(pkg);
   files.extendScriptsPkg(pkg);
 
-  // TODO: After npx husky-init finished,this render can only execute
+  files.copy(path.join(huskyPath, '_'), path.join('.husky', '_'));
+
+  files.rename(
+    path.join('.husky', '_gitignore'),
+    path.join('.husky', '.gitignore')
+  );
+
   files.render(
     path.join(huskyPath, 'pre-commit.ejs'),
     path.join('.husky', 'pre-commit'),
