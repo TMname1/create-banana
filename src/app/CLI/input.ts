@@ -17,6 +17,7 @@ const featsSelect = async () => {
       { name: 'Prettier', value: 'prettier' },
       { name: 'Pinia', value: 'pinia' },
       { name: 'Vue-Router', value: 'vue-router' },
+      { name: 'Commitizen', value: 'commitizen' },
     ],
   });
 
@@ -24,6 +25,7 @@ const featsSelect = async () => {
   const usePrettier = feats.includes('prettier');
   const usePinia = feats.includes('pinia');
   const useVueRouter = feats.includes('vue-router');
+  const useCommitizen = feats.includes('commitizen');
 
   let usePiniaPluginPersistedstate = false;
   if (usePinia) {
@@ -58,6 +60,7 @@ const featsSelect = async () => {
     usePiniaPluginPersistedstate,
     useHusky,
     useLintStaged,
+    useCommitizen,
   };
 };
 

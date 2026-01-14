@@ -34,11 +34,19 @@ const outPkgCommand = (
 };
 
 let outGitStr: string;
-const outGitCommand = (projectName: string, { useHusky }: featsSelectType) => {
-  // TODO: You need to change this when add commitizen support
+const outGitCommand = (
+  projectName: string,
+  { useHusky, useCommitizen }: featsSelectType
+) => {
   outGitStr = useHusky
-    ? `cd ${projectName} && git add . && git commit -m "Initial commit"`
-    : `cd ${projectName} && git init && git add . && git commit -m "Initial commit"`;
+    ? `cd ${projectName} && git add .`
+    : `cd ${projectName} && git init && git add .`;
+
+  const commitStr = useCommitizen
+    ? 'pnpm commit'
+    : 'git commit -m "Initial commit"';
+
+  outGitStr += ` && ${commitStr}`;
 
   log(
     chalk.cyan(
@@ -47,6 +55,20 @@ const outGitCommand = (projectName: string, { useHusky }: featsSelectType) => {
         titleAlignment: 'center',
       })
     )
+  );
+};
+
+let outCommitizenStr: string;
+const outCommitizenCommand = (projectName: string) => {
+  outCommitizenStr = `cd ${projectName} && pnpm i -g commitizen && commitizen init cz-conventional-changelog --pnpm --save-dev --save-exact`;
+  log(
+    chalk.cyan(
+      boxen(chalk.rgb(...greenColor)(`\n  ${outCommitizenStr}  \n`), {
+        title: 'commands',
+        titleAlignment: 'center',
+      })
+    ),
+    '\n'
   );
 };
 
@@ -61,9 +83,11 @@ const rainbowPrint = async (str: string) => {
 export {
   outPkgCommand,
   outGitCommand,
-  PrintBANANA,
-  rainbowPrint,
+  outCommitizenCommand,
   outPkgStr,
   outGitStr,
+  outCommitizenStr,
   greenColor,
+  PrintBANANA,
+  rainbowPrint,
 };

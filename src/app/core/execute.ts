@@ -1,4 +1,9 @@
-import { outPkgStr, outGitStr, greenColor } from '../CLI/output.js';
+import {
+  outPkgStr,
+  outGitStr,
+  outCommitizenStr,
+  greenColor,
+} from '../CLI/output.js';
 import { execa } from 'execa';
 import prompt from '#src/utils/prompt.js';
 import chalk from 'chalk';
@@ -13,6 +18,14 @@ export default async () => {
   }
 
   await execa({ shell: true, stdio: 'inherit' })`${outPkgStr}`;
+
+  if (
+    await prompt(
+      `Do you want to ${chalk.yellow.bold('install the commitizen')} now?`
+    )
+  ) {
+    await execa({ shell: true, stdio: 'inherit' })`${outCommitizenStr}`;
+  }
 
   if (
     await prompt(

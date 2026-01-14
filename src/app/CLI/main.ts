@@ -7,6 +7,7 @@ import {
   outGitCommand,
   PrintBANANA,
   rainbowPrint,
+  outCommitizenCommand,
 } from './output.js';
 import featsManager from '#src/app/core/featsManger.js';
 import execute from '../core/execute.js';
@@ -23,15 +24,18 @@ export default async () => {
   // create a new Generator to handle feature choices and file generation
   const files = new Generator(targetDir);
   // TODO: add TS feat support
+  // TODO: add waiting animation while processing
+  // TODO: add official web link to README
   const featsList = await featsManager(files);
   await files.generate();
-
-  // FIXME: add some test function here to verify the generated files
 
   rainbowPrint(
     '\nProject initialization complete. You may execute the following commands:\n'
   );
   outPkgCommand(projectName, featsList);
+
+  rainbowPrint('\nTo set up Commitizen, run the following command:\n');
+  outCommitizenCommand(projectName);
 
   rainbowPrint('And initialize Git using the following commands:\n');
   outGitCommand(projectName, featsList);
