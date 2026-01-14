@@ -7,8 +7,9 @@ import {
 import { execa } from 'execa';
 import prompt from '#src/utils/prompt.js';
 import chalk from 'chalk';
+import type { featsSelectType } from '#src/app/CLI/input.js';
 
-export default async () => {
+export default async (feats: featsSelectType) => {
   if (
     !(await prompt(
       `Do you want to ${chalk.yellow.bold('execute')} the above commands now?`
@@ -19,12 +20,14 @@ export default async () => {
 
   await execa({ shell: true, stdio: 'inherit' })`${outPkgStr}`;
 
-  if (
-    await prompt(
-      `Do you want to ${chalk.yellow.bold('install the commitizen')} now?`
-    )
-  ) {
-    await execa({ shell: true, stdio: 'inherit' })`${outCommitizenStr}`;
+  if (feats.useCommitizen) {
+    if (
+      await prompt(
+        `Do you want to ${chalk.yellow.bold('install the commitizen')} now?`
+      )
+    ) {
+      await execa({ shell: true, stdio: 'inherit' })`${outCommitizenStr}`;
+    }
   }
 
   if (

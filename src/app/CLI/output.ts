@@ -64,6 +64,8 @@ const outCommitizenCommand = (
 ) => {
   if (!useCommitizen) return;
 
+  rainbowPrint('\nTo set up Commitizen, run the following command:\n');
+
   outCommitizenStr = `cd ${projectName} && pnpm i -g commitizen && commitizen init cz-conventional-changelog --pnpm --save-dev --save-exact`;
   log(
     chalk.cyan(
@@ -71,8 +73,7 @@ const outCommitizenCommand = (
         title: 'commands',
         titleAlignment: 'center',
       })
-    ),
-    '\n'
+    )
   );
 };
 
