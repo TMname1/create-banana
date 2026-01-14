@@ -9,8 +9,6 @@ import {
   rainbowPrint,
 } from './output.js';
 import featsManager from '#src/app/core/featsManger.js';
-import prompt from '#src/utils/prompt.js';
-import chalk from 'chalk';
 import execute from '../core/execute.js';
 
 export default async () => {
@@ -36,9 +34,5 @@ export default async () => {
   rainbowPrint('And initialize Git using the following commands:\n');
   outGitCommand(featsList);
 
-  execute(
-    await prompt(
-      `Do you want to ${chalk.yellow.bold('execute')} the above commands now?`
-    )
-  );
+  execute();
 };

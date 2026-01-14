@@ -16,19 +16,19 @@ const outPkgCommand = (
   { useEslint, usePrettier, useHusky }: featsSelectType
 ) => {
   const eslintStr = chalk.rgb(...greenColor)(
-    `\n  cd ${projectName} && pnpm i && pnpm lint && pnpm dev  \n`
+    `cd ${projectName} && pnpm i && pnpm lint && pnpm dev  \n`
   );
   const prettierStr = chalk.rgb(...greenColor)(
-    `\n  cd ${projectName} && pnpm i && pnpm format && pnpm dev  \n`
+    `cd ${projectName} && pnpm i && pnpm format && pnpm dev  \n`
   );
   const noFormatStr = chalk.rgb(...greenColor)(
-    `\n  cd ${projectName} && pnpm i && pnpm dev  \n`
+    `cd ${projectName} && pnpm i && pnpm dev  \n`
   );
 
   outPkgStr = useEslint ? eslintStr : usePrettier ? prettierStr : noFormatStr;
-  if (useHusky) {
-    outPkgStr = 'git init && ' + outPkgStr;
-  }
+  outPkgStr = useHusky
+    ? chalk.rgb(...greenColor)('\n  git init && ') + outPkgStr
+    : '\n  ' + outPkgStr;
 
   log(
     chalk.cyan(
