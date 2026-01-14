@@ -9,6 +9,9 @@ import {
   rainbowPrint,
 } from './output.js';
 import featsManager from '#src/app/core/featsManger.js';
+import prompt from '#src/utils/prompt.js';
+import chalk from 'chalk';
+import execute from '../core/execute.js';
 
 export default async () => {
   await PrintBANANA();
@@ -25,16 +28,17 @@ export default async () => {
   const featsList = await featsManager(files);
   files.generate();
 
-  // TODO: 自动化流程
-  /** 自动化流程: 目前只生成了文件，让用户手动安装依赖。
-    建议: 在生成结束后，询问用户 "是否立即安装依赖?" 和 "是否初始化 Git 仓库?"。
-    实现: 使用 execa 或 cross-spawn 自动执行 install 和 git init 命令。 
-  */
   rainbowPrint(
-    '\nProject initialization complete. You may now execute the following commands:\n'
+    '\nProject initialization complete. You may execute the following commands:\n'
   );
   outPkgCommand(projectName, featsList);
 
-  rainbowPrint('Initialize Git using the following command:\n');
-  outGitCommand();
+  rainbowPrint('And initialize Git using the following commands:\n');
+  outGitCommand(featsList);
+
+  execute(
+    await prompt(
+      `Do you want to ${chalk.yellow.bold('execute')} the above commands now?`
+    )
+  );
 };

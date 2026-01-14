@@ -2,14 +2,18 @@ import printString from '#src/utils/figletPrint.js';
 import rainbowGradient from '#src/utils/rainbow.js';
 import chalk from 'chalk';
 import boxen from 'boxen';
+import type { featsSelectType } from '#src/app/CLI/input.js';
+
+// FIXME: Is there a better way to execute and log commands?
 
 const log = console.log;
 // refer to vue cli output style
 const greenColor: [number, number, number] = [22, 198, 12];
 
+let outPkgStr: string;
 const outPkgCommand = (
   projectName: string,
-  { useEslint, usePrettier }: { useEslint: boolean; usePrettier: boolean }
+  { useEslint, usePrettier, useHusky }: featsSelectType
 ) => {
   const eslintStr = chalk.rgb(...greenColor)(
     `\n  cd ${projectName} && pnpm i && pnpm lint && pnpm dev  \n`
@@ -21,15 +25,14 @@ const outPkgCommand = (
     `\n  cd ${projectName} && pnpm i && pnpm dev  \n`
   );
 
-  const outStr = useEslint
-    ? eslintStr
-    : usePrettier
-      ? prettierStr
-      : noFormatStr;
+  outPkgStr = useEslint ? eslintStr : usePrettier ? prettierStr : noFormatStr;
+  if (useHusky) {
+    outPkgStr = 'git init && ' + outPkgStr;
+  }
 
   log(
     chalk.cyan(
-      boxen(outStr, {
+      boxen(outPkgStr, {
         title: 'commands',
         titleAlignment: 'center',
       })
@@ -38,19 +41,19 @@ const outPkgCommand = (
   );
 };
 
-const outGitCommand = () => {
-  // TODO: 以后有commitizen再改这里
+let outGitStr: string;
+const outGitCommand = ({ useHusky }: featsSelectType) => {
+  // TODO: You need to change this when add commitizen support
+  outGitStr = useHusky
+    ? '\n  git add . && git commit -m "Initial commit"  \n'
+    : '\n  git init && git add . && git commit -m "Initial commit"  \n';
+
   log(
     chalk.cyan(
-      boxen(
-        chalk.rgb(...greenColor)(
-          '\n  git init && git add . && git commit -m "Initial commit"  \n'
-        ),
-        {
-          title: 'commands',
-          titleAlignment: 'center',
-        }
-      )
+      boxen(chalk.rgb(...greenColor)(outGitStr), {
+        title: 'commands',
+        titleAlignment: 'center',
+      })
     )
   );
 };
@@ -63,4 +66,11 @@ const rainbowPrint = async (str: string) => {
   log(rainbowGradient(str));
 };
 
-export { outPkgCommand, outGitCommand, PrintBANANA, rainbowPrint };
+export {
+  outPkgCommand,
+  outGitCommand,
+  PrintBANANA,
+  rainbowPrint,
+  outPkgStr,
+  outGitStr,
+};

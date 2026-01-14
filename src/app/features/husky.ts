@@ -15,7 +15,7 @@ export default (files: Generator, feats: featsSelectType) => {
   files.extendDevDepsPkg(pkg);
   files.extendScriptsPkg(pkg);
 
-  // TODO: copy .husky/_ files
+  files.copy(path.join(huskyPath, 'static', '.husky'), '.husky');
 
   files.render(
     path.join(huskyPath, 'ejs', 'pre-commit.ejs'),
