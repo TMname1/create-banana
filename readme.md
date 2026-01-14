@@ -1,13 +1,13 @@
 # Currently implemented functions
 
-- eslint
-- prettier
-- pinia
-  - pinia-plugin-persistedstate
-- vue-router
-- husky
-  - lint-staged
-- commitizen
+- [eslint](https://eslint.org/)
+- [prettier](https://prettier.io/)
+- [pinia](https://pinia.vuejs.org/)
+  - [pinia-plugin-persistedstate](https://prazdevs.github.io/pinia-plugin-persistedstate/)
+- [vue-router](https://router.vuejs.org/)
+- [husky](https://typicode.github.io/husky/)
+  - [lint-staged](https://github.com/lint-staged/lint-staged)
+- [commitizen](https://github.com/commitizen/cz-cli)
 
 # Project structure
 

@@ -1,6 +1,6 @@
 {
   "name": "create-banana",
-  "version": "2.2.0",
+  "version": "2.2.1",
   "repository": {
     "type": "git",
     "url": "https://github.com/TMname1/create-banana.git"
@@ -43,7 +43,8 @@
     "ejs": "^3.1.10",
     "execa": "^9.6.1",
     "figlet": "^1.9.4",
-    "fs-extra": "^11.3.3"
+    "fs-extra": "^11.3.3",
+    "ora": "^9.0.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.2",

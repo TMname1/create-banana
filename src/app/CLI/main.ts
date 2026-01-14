@@ -11,6 +11,7 @@ import {
 } from './output.js';
 import featsManager from '#src/app/core/featsManger.js';
 import execute from '../core/execute.js';
+import ora from 'ora';
 
 export default async () => {
   await PrintBANANA();
@@ -24,10 +25,11 @@ export default async () => {
   // create a new Generator to handle feature choices and file generation
   const files = new Generator(targetDir);
   // TODO: add TS feat support
-  // TODO: add waiting animation while processing
-  // TODO: add official web link to README
   const featsList = await featsManager(files);
+
+  const spinner = ora('Generating files...').start();
   await files.generate();
+  spinner.succeed('Files generated successfully.');
 
   rainbowPrint(
     '\nProject initialization complete. You may execute the following commands:\n'
