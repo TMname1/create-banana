@@ -1,5 +1,5 @@
 import chalk from 'chalk';
-import { input, checkbox } from '@inquirer/prompts';
+import { input, checkbox, select } from '@inquirer/prompts';
 import prompt from '#src/utils/prompt.js';
 
 const inputProjectName = async () => {
@@ -47,6 +47,20 @@ const featsSelect = async () => {
     );
   }
 
+  let useHTML5Mode = false;
+  let useHashMode = false;
+  if (useVueRouter) {
+    const webMode = await select({
+      message: `Select the ${chalk.yellow('Vue-Router mode')} to use:`,
+      choices: [
+        { name: 'HTML5 Mode', value: 'html5' },
+        { name: 'Hash Mode', value: 'hash' },
+      ],
+    });
+    useHTML5Mode = webMode.includes('html5');
+    useHashMode = webMode.includes('hash');
+  }
+
   let useHusky = false;
   if (useEslint || usePrettier) {
     useHusky = await prompt(
@@ -73,6 +87,8 @@ const featsSelect = async () => {
     useHusky,
     useLintStaged,
     useCommitizen,
+    useHTML5Mode,
+    useHashMode,
   };
 };
 

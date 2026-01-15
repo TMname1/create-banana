@@ -45,10 +45,6 @@ export default class Generator {
     this.pkg.scripts = { ...this.pkg.scripts, ...scripts.scripts };
   }
 
-  /**
-   * @param {string} source - source file path
-   * @param {string} target - target file path
-   */
   copy(source: string, target: string) {
     this.fileMiddlewares.push(() => {
       fs.copySync(source, path.join(this.targetDir, target));
