@@ -33,4 +33,7 @@ export default (files: Generator, feats: featsSelectType) => {
       ...feats,
     }
   );
+  files.render(path.join(basePath, 'ejs', 'README.md.ejs'), 'README.md', {
+    projectName: files.projectName,
+  });
 };

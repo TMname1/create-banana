@@ -25,7 +25,7 @@ export default async () => {
   await confirmPathExists(projectName, targetDir);
 
   // create a new Generator to handle feature choices and file generation
-  const files = new Generator(targetDir);
+  const files = new Generator(projectName, targetDir);
   // TODO: add TS feat support
   const featsList = await featsManager(files);
 
