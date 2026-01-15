@@ -5,11 +5,13 @@ import type Generator from '#src/app/core/generator.js';
 import type { featsSelectType } from '#src/app/CLI/input.js';
 
 export default (files: Generator, feats: featsSelectType) => {
-  const { useVueRouter, usePiniaPluginPersistedstate } = feats;
+  const { useVueRouter, usePiniaPluginPersistedstate, useTypescript } = feats;
 
   if (!useVueRouter) return;
 
-  const vueRouterPath = path.join(templatePath, 'vue-router');
+  const vueRouterPath = useTypescript
+    ? path.join(templatePath, 'vue-router', 'TS')
+    : path.join(templatePath, 'vue-router');
 
   files.extendDepsPkg(
     fs.readJSONSync(path.join(vueRouterPath, 'package.json'))
