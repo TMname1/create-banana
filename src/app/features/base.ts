@@ -5,7 +5,10 @@ import type Generator from '#src/app/core/generator.js';
 import type { featsSelectType } from '#src/app/CLI/input.js';
 
 export default (files: Generator, feats: featsSelectType) => {
-  const basePath = path.join(templatePath, 'base');
+  const basePath = feats.useTypescript
+    ? path.join(templatePath, 'base', 'TS')
+    : path.join(templatePath, 'base');
+
   files.writePkg(
     fs.readJSONSync(path.join(basePath, 'static', 'package.json'))
   );
@@ -20,10 +23,17 @@ export default (files: Generator, feats: featsSelectType) => {
     }
   );
   files.render(
-    path.join(basePath, 'ejs', 'main.js.ejs'),
-    path.join('src', 'main.js'),
+    path.join(
+      basePath,
+      'ejs',
+      feats.useTypescript ? 'main.ts.ejs' : 'main.js.ejs'
+    ),
+    path.join('src', feats.useTypescript ? 'main.ts' : 'main.js'),
     {
       ...feats,
     }
   );
+  files.render(path.join(basePath, 'ejs', 'README.md.ejs'), 'README.md', {
+    projectName: files.projectName,
+  });
 };

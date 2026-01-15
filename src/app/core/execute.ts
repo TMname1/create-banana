@@ -1,9 +1,4 @@
-import {
-  outPkgStr,
-  outGitStr,
-  outCommitizenStr,
-  greenColor,
-} from '../CLI/output.js';
+import { outPkgStr, outGitStr, outCommitizenStr } from '../CLI/output.js';
 import { execa } from 'execa';
 import prompt from '#src/utils/prompt.js';
 import chalk from 'chalk';
@@ -37,8 +32,4 @@ export default async (feats: featsSelectType) => {
   ) {
     await execa({ shell: true, stdio: 'inherit' })`${outGitStr}`;
   }
-
-  console.log(
-    chalk.rgb(...greenColor).bold('\nAll commands executed successfully!\n')
-  );
 };

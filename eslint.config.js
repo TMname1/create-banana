@@ -53,6 +53,7 @@ export default defineConfig([
     'assets/*',
     '.cache/*',
     '.temp/*',
+    'template/*',
     '.tmp/*',
     '*.min.js',
     '*.bundle.js',

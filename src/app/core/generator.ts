@@ -15,11 +15,13 @@ interface PackageJSON {
 }
 
 export default class Generator {
+  projectName: string;
   targetDir: string;
   pkg: PackageJSON;
   fileMiddlewares: Array<() => void>;
 
-  constructor(targetDir: string) {
+  constructor(projectName: string, targetDir: string) {
+    this.projectName = projectName;
     this.targetDir = targetDir;
     this.pkg = {};
     this.fileMiddlewares = [];
@@ -43,10 +45,6 @@ export default class Generator {
     this.pkg.scripts = { ...this.pkg.scripts, ...scripts.scripts };
   }
 
-  /**
-   * @param {string} source - source file path
-   * @param {string} target - target file path
-   */
   copy(source: string, target: string) {
     this.fileMiddlewares.push(() => {
       fs.copySync(source, path.join(this.targetDir, target));

@@ -1,0 +1,21 @@
+<script setup lang="ts">
+  import TitleText from '@/components/TitleText.vue';
+  <% if(usePiniaPluginPersistedstate) { %>
+  import {
+    useKeyStore
+  } from '@/stores/key.js';
+  const keyStore = useKeyStore();
+  <% } %>
+</script>
+
+<template>
+  <TitleText>This is an about page
+    <% if(usePiniaPluginPersistedstate) { %>
+    ,<div>
+      the key is:
+      <span style="color: white; font-weight: bold">
+        {{ keyStore.key }}</span>
+    </div>
+    <% } %>
+  </TitleText>
+</template>

@@ -8,10 +8,12 @@ import {
   PrintBANANA,
   rainbowPrint,
   outCommitizenCommand,
+  greenColor,
 } from './output.js';
 import featsManager from '#src/app/core/featsManger.js';
 import execute from '../core/execute.js';
 import ora from 'ora';
+import chalk from 'chalk';
 
 export default async () => {
   await PrintBANANA();
@@ -23,8 +25,7 @@ export default async () => {
   await confirmPathExists(projectName, targetDir);
 
   // create a new Generator to handle feature choices and file generation
-  const files = new Generator(targetDir);
-  // TODO: add TS feat support
+  const files = new Generator(projectName, targetDir);
   const featsList = await featsManager(files);
 
   const spinner = ora('Generating files...').start();
@@ -42,4 +43,7 @@ export default async () => {
   outGitCommand(projectName, featsList);
 
   await execute(featsList);
+  console.log(
+    chalk.rgb(...greenColor).bold('\nAll commands executed successfully!\n')
+  );
 };
