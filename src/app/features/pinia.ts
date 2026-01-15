@@ -5,16 +5,18 @@ import type Generator from '#src/app/core/generator.js';
 import type { featsSelectType } from '#src/app/CLI/input.js';
 
 export default (files: Generator, feats: featsSelectType) => {
-  const { usePinia, usePiniaPluginPersistedstate } = feats;
+  const { usePinia, usePiniaPluginPersistedstate, useTypescript } = feats;
   if (!usePinia) return;
 
-  const piniaPath = path.join(templatePath, 'pinia');
+  const piniaPath = useTypescript
+    ? path.join(templatePath, 'pinia', 'TS')
+    : path.join(templatePath, 'pinia');
 
   files.extendDepsPkg(fs.readJSONSync(path.join(piniaPath, 'package.json')));
 
   files.copy(
-    path.join(piniaPath, 'counter.js'),
-    path.join('src', 'stores', 'counter.js')
+    path.join(piniaPath, useTypescript ? 'counter.ts' : 'counter.js'),
+    path.join('src', 'stores', useTypescript ? 'counter.ts' : 'counter.js')
   );
 
   if (!usePiniaPluginPersistedstate) return;
@@ -24,7 +26,7 @@ export default (files: Generator, feats: featsSelectType) => {
   files.extendDepsPkg(fs.readJSONSync(path.join(persistPath, 'package.json')));
 
   files.copy(
-    path.join(persistPath, 'key.js'),
-    path.join('src', 'stores', 'key.js')
+    path.join(persistPath, useTypescript ? 'key.ts' : 'key.js'),
+    path.join('src', 'stores', useTypescript ? 'key.ts' : 'key.js')
   );
 };

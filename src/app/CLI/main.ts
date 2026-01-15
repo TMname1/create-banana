@@ -26,7 +26,6 @@ export default async () => {
 
   // create a new Generator to handle feature choices and file generation
   const files = new Generator(projectName, targetDir);
-  // TODO: add TS feat support
   const featsList = await featsManager(files);
 
   const spinner = ora('Generating files...').start();
