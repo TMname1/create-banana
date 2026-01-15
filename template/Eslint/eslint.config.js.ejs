@@ -52,6 +52,13 @@ rules: {
 'prettier/prettier': ['warn'], // When not in prettier style, display a warning
 },
 },
+// prevent Prettier parsing markdown as JavaScript
+{
+files: ['**/*.md'],
+rules: {
+'prettier/prettier': ['warn', { parser: 'markdown' }],
+},
+},
 <% } %>
 
 globalIgnores([
