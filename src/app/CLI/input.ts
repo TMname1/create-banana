@@ -10,10 +10,13 @@ const inputProjectName = async () => {
 };
 
 const featsSelect = async () => {
+  const useTypescript = await prompt(
+    `Do you want to use ${chalk.yellow.bold('TypeScript')} in your project?`
+  );
+
   const feats = await checkbox({
     message: `Please select the ${chalk.yellow('features')} to include:`,
     choices: [
-      { name: 'TypeScript', value: 'typescript' },
       { name: 'Eslint', value: 'eslint' },
       { name: 'Prettier', value: 'prettier' },
       { name: 'Pinia', value: 'pinia' },
@@ -22,7 +25,6 @@ const featsSelect = async () => {
     ],
   });
 
-  const useTypescript = feats.includes('typescript');
   const useEslint = feats.includes('eslint');
   const usePrettier = feats.includes('prettier');
   const usePinia = feats.includes('pinia');

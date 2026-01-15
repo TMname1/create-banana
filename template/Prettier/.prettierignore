@@ -1,0 +1,43 @@
+# Dependency directories
+node_modules/
+
+# Build and output directories
+dist/
+build/
+out/
+.next/
+.nuxt/
+.cache/
+.temp/
+.tmp/
+.vercel/
+docs/.vitepress/dist/
+
+# Test coverage
+coverage/
+
+# Static and generated assets
+# Note: Keep 'public/' if you have handwritten HTML/CSS there you want formatted
+public/
+assets/
+*.min.js
+*.bundle.js
+
+# Lock files (Prettier shouldn't touch these)
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+bun.lockb
+
+# Environment and secrets
+.env*
+*.local
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# System files
+.DS_Store

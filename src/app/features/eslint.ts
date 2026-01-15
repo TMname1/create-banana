@@ -5,19 +5,24 @@ import type Generator from '#src/app/core/generator.js';
 import type { featsSelectType } from '#src/app/CLI/input.js';
 
 export default (files: Generator, feats: featsSelectType) => {
-  const { useEslint, usePrettier } = feats;
+  const { useEslint, usePrettier, useTypescript } = feats;
 
   if (!useEslint) return;
 
-  const eslintPath = path.join(templatePath, 'eslint');
+  const eslintPath = useTypescript
+    ? path.join(templatePath, 'eslint', 'TS')
+    : path.join(templatePath, 'eslint');
 
   const pkg = fs.readJSONSync(path.join(eslintPath, 'package.json'));
   files.extendDevDepsPkg(pkg);
   files.extendScriptsPkg(pkg);
 
   files.render(
-    path.join(eslintPath, 'eslint.config.js.ejs'),
-    'eslint.config.js',
+    path.join(
+      eslintPath,
+      useTypescript ? 'eslint.config.ts.ejs' : 'eslint.config.js.ejs'
+    ),
+    useTypescript ? 'eslint.config.ts' : 'eslint.config.js',
     {
       usePrettier,
     }

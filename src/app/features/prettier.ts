@@ -16,4 +16,5 @@ export default (files: Generator, feats: featsSelectType) => {
   files.extendScriptsPkg(pkg);
 
   files.copy(path.join(prettierPath, '.prettierrc'), '.prettierrc');
+  files.copy(path.join(prettierPath, '.prettierignore'), '.prettierignore');
 };

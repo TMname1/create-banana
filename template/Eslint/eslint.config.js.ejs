@@ -44,12 +44,12 @@ extends: ['markdown/recommended'],
 { files: ['**/*.css'], plugins: { css }, language: 'css/css', extends: ['css/recommended'] },
 
 <% if (usePrettier) { %>
-// 全局 Prettier 配置
+// global Prettier configuration
 {
 plugins: { prettier: prettierPlugin },
 extends: [prettierConfig],
 rules: {
-'prettier/prettier': ['warn'], // 不符合 prettier 风格时显示 warning
+'prettier/prettier': ['warn'], // When not in prettier style, display a warning
 },
 },
 <% } %>
