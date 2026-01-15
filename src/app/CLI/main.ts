@@ -8,10 +8,12 @@ import {
   PrintBANANA,
   rainbowPrint,
   outCommitizenCommand,
+  greenColor,
 } from './output.js';
 import featsManager from '#src/app/core/featsManger.js';
 import execute from '../core/execute.js';
 import ora from 'ora';
+import chalk from 'chalk';
 
 export default async () => {
   await PrintBANANA();
@@ -42,4 +44,7 @@ export default async () => {
   outGitCommand(projectName, featsList);
 
   await execute(featsList);
+  console.log(
+    chalk.rgb(...greenColor).bold('\nAll commands executed successfully!\n')
+  );
 };

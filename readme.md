@@ -1,3 +1,13 @@
+# Instructions
+
+To create a new project, run:
+
+```bash
+pnpm create banana
+```
+
+Follow the interactive prompts to key in your project name and select features
+
 # Currently implemented functions
 
 - [eslint](https://eslint.org/)
@@ -27,6 +37,7 @@ create-tm
 │  │  │  └─ generator.ts
 │  │  └─ features
 │  │     ├─ base.ts
+│  │     ├─ commitizen.ts
 │  │     ├─ eslint.ts
 │  │     ├─ husky.ts
 │  │     ├─ lintStaged.ts
@@ -43,6 +54,7 @@ create-tm
 │     └─ URL.ts
 ├─ template
 │  ├─ base
+│  ├─ commitizen
 │  ├─ eslint
 │  ├─ husky
 │  ├─ lintStaged

@@ -13,6 +13,7 @@ const featsSelect = async () => {
   const feats = await checkbox({
     message: `Please select the ${chalk.yellow('features')} to include:`,
     choices: [
+      { name: 'TypeScript', value: 'typescript' },
       { name: 'Eslint', value: 'eslint' },
       { name: 'Prettier', value: 'prettier' },
       { name: 'Pinia', value: 'pinia' },
@@ -21,6 +22,7 @@ const featsSelect = async () => {
     ],
   });
 
+  const useTypescript = feats.includes('typescript');
   const useEslint = feats.includes('eslint');
   const usePrettier = feats.includes('prettier');
   const usePinia = feats.includes('pinia');
@@ -53,6 +55,7 @@ const featsSelect = async () => {
   }
 
   return {
+    useTypescript,
     useEslint,
     usePrettier,
     usePinia,
