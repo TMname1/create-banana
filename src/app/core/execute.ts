@@ -15,15 +15,18 @@ export default async (feats: featsSelectType) => {
 
   await execa({ shell: true, stdio: 'inherit' })`${outPkgStr}`;
 
+  let installCommitizen = false;
   if (feats.useCommitizen) {
-    if (
-      await prompt(
-        `Do you want to ${chalk.yellow.bold('install the commitizen')} now?`
-      )
-    ) {
+    installCommitizen = await prompt(
+      `Do you want to ${chalk.yellow.bold('install the commitizen')} now?`
+    );
+    if (installCommitizen) {
       await execa({ shell: true, stdio: 'inherit' })`${outCommitizenStr}`;
     }
   }
+
+  // if you select to use commitizen but not install it, skip git execution
+  if (feats.useCommitizen && !installCommitizen) return;
 
   if (
     await prompt(
