@@ -6,6 +6,13 @@ const inputProjectName = async () => {
   return await input({
     message: `Enter your ${chalk.yellow('project name')}:`,
     required: true,
+    validate: (value) => {
+      // Check for illegal characters generally not allowed in filenames across OSs (Windows is most restrictive)
+      if (/[\\/:*?"<>|]/.test(value)) {
+        return 'Project name cannot contain special characters like \\ / : * ? " < > |';
+      }
+      return true;
+    },
   });
 };
 
