@@ -2,4 +2,3 @@ node_modules
 .eslintcache
 dist
 .vscode/
-.husky/

@@ -28,8 +28,6 @@ coverage
 
 .eslintcache
 
-.husky/
-
 # Cypress
 /cypress/videos/
 /cypress/screenshots/
