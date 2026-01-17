@@ -5,6 +5,7 @@ import fs from 'fs-extra';
 import { select } from '@inquirer/prompts';
 import chalk from 'chalk';
 import ora from 'ora';
+import { greenColor } from '#src/app/CLI/output.js';
 
 const confirmPathExists = async (projectName: string, projectDir: string) => {
   try {
@@ -17,9 +18,7 @@ const confirmPathExists = async (projectName: string, projectDir: string) => {
         ],
       });
       if (!isOverwrite) {
-        // TODO: 放一个更友好的提示
-        //  例如：X操作取消(换英文)
-        console.log('canceled!');
+        ora(chalk.rgb(...greenColor).bold('Process canceled')).succeed();
         process.exit(0);
       } else {
         const spinner = ora('Overwriting existing folder...').start();
@@ -29,7 +28,6 @@ const confirmPathExists = async (projectName: string, projectDir: string) => {
       }
     }
   } catch (err) {
-    // TODO: 放一个更友好的提示
     console.error(err);
     process.exit(1);
   }
