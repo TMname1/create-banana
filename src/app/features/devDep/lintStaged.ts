@@ -9,7 +9,7 @@ export default (files: Generator, feats: featsSelectType) => {
 
   if (!useLintStaged) return;
 
-  const lintStagedPath = path.join(templatePath, 'lintStaged');
+  const lintStagedPath = path.join(templatePath, 'devDep', 'lintStaged');
 
   const pkg = fs.readJSONSync(path.join(lintStagedPath, 'package.json'));
   files.extendDevDepsPkg(pkg);

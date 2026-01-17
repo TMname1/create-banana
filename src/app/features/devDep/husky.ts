@@ -9,7 +9,7 @@ export default (files: Generator, feats: featsSelectType) => {
 
   if (!useHusky) return;
 
-  const huskyPath = path.join(templatePath, 'husky');
+  const huskyPath = path.join(templatePath, 'devDep', 'husky');
 
   const pkg = fs.readJSONSync(path.join(huskyPath, 'package.json'));
   files.extendDevDepsPkg(pkg);

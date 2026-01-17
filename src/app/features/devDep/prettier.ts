@@ -9,7 +9,7 @@ export default (files: Generator, feats: featsSelectType) => {
 
   if (!usePrettier) return;
 
-  const prettierPath = path.join(templatePath, 'prettier');
+  const prettierPath = path.join(templatePath, 'devDep', 'prettier');
   const pkg = fs.readJSONSync(
     path.join(prettierPath, 'static', 'package.json')
   );
@@ -32,12 +32,7 @@ export default (files: Generator, feats: featsSelectType) => {
 
   files.extendDevDepsPkg(
     fs.readJSONSync(
-      path.join(
-        templatePath,
-        'static',
-        'prettier-plugin-tailwindcss',
-        'package.json'
-      )
+      path.join(prettierPath, 'prettier-plugin-tailwindcss', 'package.json')
     )
   );
 };

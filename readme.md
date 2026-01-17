@@ -15,6 +15,7 @@ Follow the interactive prompts to key in your project name and select features
 - [pinia](https://pinia.vuejs.org/)
   - [pinia-plugin-persistedstate](https://prazdevs.github.io/pinia-plugin-persistedstate/)
 - [vue-router](https://router.vuejs.org/)
+- [tailwindcss](https://tailwindcss.com/)
 
 ## devDependencies
 
@@ -25,7 +26,6 @@ Follow the interactive prompts to key in your project name and select features
 - [husky](https://typicode.github.io/husky/)
   - [lint-staged](https://github.com/lint-staged/lint-staged)
 - [commitizen](https://github.com/commitizen/cz-cli)
-- [tailwindcss](https://tailwindcss.com/)
 
 # Project structure
 
@@ -51,6 +51,7 @@ create-tm
 │  │     ├─ dep
 │  │     │  ├─ base.ts
 │  │     │  ├─ pinia.ts
+│  │     │  ├─ tailwindcss.ts
 │  │     │  └─ vueRouter.ts
 │  │     └─ devDep
 │  │        ├─ commitizen.ts
@@ -67,14 +68,17 @@ create-tm
 │     ├─ rainbow.ts
 │     └─ URL.ts
 ├─ template
-│  ├─ base
-│  ├─ commitizen
-│  ├─ eslint
-│  ├─ husky
-│  ├─ lintStaged
-│  ├─ pinia
-│  ├─ prettier
-│  └─ vue-router
+│  ├─ dep
+│  │  ├─ base
+│  │  ├─ pinia
+│  │  ├─ tailwindcss
+│  │  └─ vue-router
+│  └─ devDep
+│     ├─ commitizen
+│     ├─ eslint
+│     ├─ husky
+│     ├─ lintStaged
+│     └─ prettier
 ├─ eslint.config.js
 ├─ LICENSE
 ├─ package.json

@@ -9,7 +9,7 @@ export default (files: Generator, feats: featsSelectType) => {
 
   if (!useCommitizen) return;
 
-  const commitizenPath = path.join(templatePath, 'commitizen');
+  const commitizenPath = path.join(templatePath, 'devDep', 'commitizen');
 
   const pkg = fs.readJSONSync(path.join(commitizenPath, 'package.json'));
   files.extendScriptsPkg(pkg);

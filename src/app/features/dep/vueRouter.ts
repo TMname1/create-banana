@@ -16,8 +16,8 @@ export default (files: Generator, feats: featsSelectType) => {
   if (!useVueRouter) return;
 
   const vueRouterPath = useTypescript
-    ? path.join(templatePath, 'vue-router', 'TS')
-    : path.join(templatePath, 'vue-router');
+    ? path.join(templatePath, 'dep', 'vue-router', 'TS')
+    : path.join(templatePath, 'dep', 'vue-router');
 
   files.extendDepsPkg(
     fs.readJSONSync(path.join(vueRouterPath, 'package.json'))

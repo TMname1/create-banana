@@ -9,8 +9,8 @@ export default (files: Generator, feats: featsSelectType) => {
   if (!usePinia) return;
 
   const piniaPath = useTypescript
-    ? path.join(templatePath, 'pinia', 'TS')
-    : path.join(templatePath, 'pinia');
+    ? path.join(templatePath, 'dep', 'pinia', 'TS')
+    : path.join(templatePath, 'dep', 'pinia');
 
   files.extendDepsPkg(fs.readJSONSync(path.join(piniaPath, 'package.json')));
 

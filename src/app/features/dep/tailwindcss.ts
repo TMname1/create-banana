@@ -7,7 +7,7 @@ import type { featsSelectType } from '#src/app/CLI/input.js';
 export default (files: Generator, feats: featsSelectType) => {
   if (!feats.useTailwindcss) return;
 
-  const tailwindcssPath = path.join(templatePath, 'tailwindcss');
+  const tailwindcssPath = path.join(templatePath, 'dep', 'tailwindcss');
 
   files.extendDepsPkg(
     fs.readJSONSync(path.join(tailwindcssPath, 'package.json'))

@@ -10,8 +10,8 @@ export default (files: Generator, feats: featsSelectType) => {
   if (!useEslint) return;
 
   const eslintPath = useTypescript
-    ? path.join(templatePath, 'eslint', 'TS')
-    : path.join(templatePath, 'eslint');
+    ? path.join(templatePath, 'devDep', 'eslint', 'TS')
+    : path.join(templatePath, 'devDep', 'eslint');
 
   const pkg = fs.readJSONSync(path.join(eslintPath, 'package.json'));
   files.extendDevDepsPkg(pkg);

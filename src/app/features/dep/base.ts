@@ -6,8 +6,8 @@ import type { featsSelectType } from '#src/app/CLI/input.js';
 
 export default (files: Generator, feats: featsSelectType) => {
   const basePath = feats.useTypescript
-    ? path.join(templatePath, 'base', 'TS')
-    : path.join(templatePath, 'base');
+    ? path.join(templatePath, 'dep', 'base', 'TS')
+    : path.join(templatePath, 'dep', 'base');
 
   files.writePkg(
     fs.readJSONSync(path.join(basePath, 'static', 'package.json'))
