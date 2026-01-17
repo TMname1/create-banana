@@ -1,8 +1,9 @@
 import { checkbox, select } from '@inquirer/prompts';
 import chalk from 'chalk';
 import prompt from '#src/utils/prompt.js';
+import type { depFeatsType } from './input.js';
 
-export default async () => {
+export default async (depFeats: depFeatsType) => {
   const feats = await checkbox({
     message: `Please select the ${chalk.yellow('dependencies')} to include:`,
     choices: [
@@ -12,22 +13,19 @@ export default async () => {
     ],
   });
 
-  const usePinia = feats.includes('pinia');
-  const useVueRouter = feats.includes('vue-router');
-  const useTailwindcss = feats.includes('tailwindcss');
+  depFeats.usePinia = feats.includes('pinia');
+  depFeats.useVueRouter = feats.includes('vue-router');
+  depFeats.useTailwindcss = feats.includes('tailwindcss');
 
-  let usePiniaPluginPersistedstate = false;
-  if (usePinia) {
-    usePiniaPluginPersistedstate = await prompt(
+  if (depFeats.usePinia) {
+    depFeats.usePiniaPluginPersistedstate = await prompt(
       `Do you want to use ${chalk.yellow.bold(
         'pinia-plugin-persistedstate'
       )} for Pinia state persistence?`
     );
   }
 
-  let useHTML5Mode = false;
-  let useHashMode = false;
-  if (useVueRouter) {
+  if (depFeats.useVueRouter) {
     const webMode = await select({
       message: `Select the ${chalk.yellow('Vue-Router mode')} to use:`,
       choices: [
@@ -35,16 +33,7 @@ export default async () => {
         { name: 'Hash Mode', value: 'hash' },
       ],
     });
-    useHTML5Mode = webMode.includes('html5');
-    useHashMode = webMode.includes('hash');
+    depFeats.useHTML5Mode = webMode.includes('html5');
+    depFeats.useHashMode = webMode.includes('hash');
   }
-
-  return {
-    usePinia,
-    useVueRouter,
-    useTailwindcss,
-    usePiniaPluginPersistedstate,
-    useHTML5Mode,
-    useHashMode,
-  };
 };

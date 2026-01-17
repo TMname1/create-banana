@@ -18,12 +18,31 @@ const inputProjectName = async () => {
   });
 };
 
+const depFeats = {
+  usePinia: false,
+  useVueRouter: false,
+  useTailwindcss: false,
+  usePiniaPluginPersistedstate: false,
+  useHTML5Mode: false,
+  useHashMode: false,
+};
+
+const devDepFeats = {
+  useEslint: false,
+  usePrettier: false,
+  useHusky: false,
+  useLintStaged: false,
+  useCommitizen: false,
+  usePrettierPluginTailwindcss: false,
+};
+
 const featsSelect = async () => {
   const useTypescript = await prompt(
     `Do you want to use ${chalk.yellow.bold('TypeScript')} in your project?`
   );
-  const depFeats = await depSelect();
-  const devDepFeats = await devDepSelect();
+
+  await depSelect(depFeats);
+  await devDepSelect(devDepFeats);
 
   return {
     useTypescript,
@@ -33,6 +52,8 @@ const featsSelect = async () => {
 };
 
 type featsSelectType = Awaited<ReturnType<typeof featsSelect>>;
+type depFeatsType = typeof depFeats;
+type devDepFeatsType = typeof devDepFeats;
 
-export { inputProjectName, featsSelect };
-export type { featsSelectType };
+export { inputProjectName, featsSelect, depFeats };
+export type { featsSelectType, depFeatsType, devDepFeatsType };
