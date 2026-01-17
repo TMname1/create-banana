@@ -4,6 +4,7 @@ import App from './App.vue'
 <% if(usePinia) { %>import { createPinia } from 'pinia'<% } %>
 <% if(usePiniaPluginPersistedstate) { %>import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'<% } %>
 <% if(useVueRouter) { %>import router from './router/index.js';<% } %>
+<% if(useTailwindcss) { %>import './styles/tailwind.css'<% } %>
 
 createApp(App)
 <% if(usePinia) { %>

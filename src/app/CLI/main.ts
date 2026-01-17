@@ -47,3 +47,5 @@ export default async () => {
     chalk.rgb(...greenColor).bold('\nAll commands executed successfully!\n')
   );
 };
+
+// TODO: template should Categorized according to whether is devDependencies

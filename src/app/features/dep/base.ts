@@ -36,4 +36,15 @@ export default (files: Generator, feats: featsSelectType) => {
   files.render(path.join(basePath, 'ejs', 'README.md.ejs'), 'README.md', {
     projectName: files.projectName,
   });
+  files.render(
+    path.join(
+      basePath,
+      'ejs',
+      feats.useTypescript ? 'vite.config.ts.ejs' : 'vite.config.js.ejs'
+    ),
+    feats.useTypescript ? 'vite.config.ts' : 'vite.config.js',
+    {
+      ...feats,
+    }
+  );
 };

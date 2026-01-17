@@ -10,14 +10,22 @@ Follow the interactive prompts to key in your project name and select features
 
 # Currently implemented functions
 
-- [eslint](https://eslint.org/)
-- [prettier](https://prettier.io/)
+## dependencies
+
 - [pinia](https://pinia.vuejs.org/)
   - [pinia-plugin-persistedstate](https://prazdevs.github.io/pinia-plugin-persistedstate/)
 - [vue-router](https://router.vuejs.org/)
+
+## devDependencies
+
+- [typescript](https://www.typescriptlang.org/)
+- [eslint](https://eslint.org/)
+- [prettier](https://prettier.io/)
+  - [prettier-plugin-tailwindcss](https://github.com/tailwindlabs/prettier-plugin-tailwindcss)
 - [husky](https://typicode.github.io/husky/)
   - [lint-staged](https://github.com/lint-staged/lint-staged)
 - [commitizen](https://github.com/commitizen/cz-cli)
+- [tailwindcss](https://tailwindcss.com/)
 
 # Project structure
 
@@ -28,22 +36,28 @@ create-tm
 ├─ src
 │  ├─ app
 │  │  ├─ CLI
+│  │  │  ├─ depSelect.ts
+│  │  │  ├─ devDepSelect.ts
 │  │  │  ├─ input.ts
 │  │  │  ├─ main.ts
 │  │  │  └─ output.ts
 │  │  ├─ core
+│  │  │  ├─ depManger.ts
+│  │  │  ├─ devDepManger.ts
 │  │  │  ├─ execute.ts
 │  │  │  ├─ featsManger.ts
 │  │  │  └─ generator.ts
 │  │  └─ features
-│  │     ├─ base.ts
-│  │     ├─ commitizen.ts
-│  │     ├─ eslint.ts
-│  │     ├─ husky.ts
-│  │     ├─ lintStaged.ts
-│  │     ├─ pinia.ts
-│  │     ├─ prettier.ts
-│  │     └─ vueRouter.ts
+│  │     ├─ dep
+│  │     │  ├─ base.ts
+│  │     │  ├─ pinia.ts
+│  │     │  └─ vueRouter.ts
+│  │     └─ devDep
+│  │        ├─ commitizen.ts
+│  │        ├─ eslint.ts
+│  │        ├─ husky.ts
+│  │        ├─ lintStaged.ts
+│  │        └─ prettier.ts
 │  ├─ bin
 │  │  └─ index.ts
 │  └─ utils

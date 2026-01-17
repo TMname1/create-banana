@@ -8,11 +8,13 @@ export default async () => {
     choices: [
       { name: 'Pinia', value: 'pinia' },
       { name: 'Vue-Router', value: 'vue-router' },
+      { name: 'TailwindCSS', value: 'tailwindcss' },
     ],
   });
 
   const usePinia = feats.includes('pinia');
   const useVueRouter = feats.includes('vue-router');
+  const useTailwindcss = feats.includes('tailwindcss');
 
   let usePiniaPluginPersistedstate = false;
   if (usePinia) {
@@ -40,6 +42,7 @@ export default async () => {
   return {
     usePinia,
     useVueRouter,
+    useTailwindcss,
     usePiniaPluginPersistedstate,
     useHTML5Mode,
     useHashMode,
