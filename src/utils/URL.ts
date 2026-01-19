@@ -1,7 +1,6 @@
 import { fileURLToPath } from 'url';
 
-// get template path
+// get template path which in dist folder
 export const templatePath = fileURLToPath(
-  // new URL('../template', import.meta.url)
-  new URL('../dist/template', import.meta.url)
+  new URL('./template', import.meta.url)
 );

@@ -17,6 +17,9 @@ importers:
       chalk:
         specifier: ^5.6.2
         version: 5.6.2
+      commander:
+        specifier: ^14.0.2
+        version: 14.0.2
       ejs:
         specifier: ^3.1.10
         version: 3.1.10

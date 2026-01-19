@@ -48,4 +48,5 @@ export default async () => {
   );
 };
 
-// TODO: template should Categorized according to whether is devDependencies
+// TODO: add .vscode extensions recommendations file in template
+// FIXME: the css style should be rewritten by tailwindcss

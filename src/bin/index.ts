@@ -1,3 +1,9 @@
 #!/usr/bin/env node
 import main from '#src/app/CLI/main.js';
-await main();
+import commander from '#src/app/CLI/commander.js';
+
+if (process.argv.length > 2) {
+  await commander();
+} else {
+  await main();
+}
