@@ -16,17 +16,17 @@
     "#src/*": "./src/*"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "commit": "cz",
     "prepare": "husky install",
     "lint": "eslint . --fix --cache",
     "format": "prettier --write --experimental-cli .",
     "lint-staged": "lint-staged",
-    "build": "tsc --noEmit && node ./script/build.js"
+    "build": "tsc --noEmit && node ./script/build.js",
+    "test": "pnpm build && node ./script/test.js"
   },
   "lint-staged": {
-    "*": [
-      "eslint . --fix"
+    "*.{js,ts,vue,json}": [
+      "eslint --fix"
     ]
   },
   "keywords": [
@@ -45,7 +45,8 @@
     "execa": "^9.6.1",
     "figlet": "^1.9.4",
     "fs-extra": "^11.3.3",
-    "ora": "^9.0.0"
+    "ora": "^9.0.0",
+    "wait-on": "^9.0.3"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.2",

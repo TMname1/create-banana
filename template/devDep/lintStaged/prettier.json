@@ -1,5 +1,5 @@
 {
   "lint-staged": {
-    "*.{js,ts,vue}": ["prettier --write ."]
+    "*.{js,ts,vue}": ["prettier --write"]
   }
 }

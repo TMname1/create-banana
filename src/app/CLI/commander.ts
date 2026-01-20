@@ -1,4 +1,3 @@
-// TODO: add Test Matrix to test different features combinations
 import { program } from 'commander';
 import type { featsSelectType } from '#src/app/CLI/input.js';
 import depManger from '#src/app/core/depManger.js';
@@ -48,6 +47,10 @@ export default async () => {
   if (!options.useHusky) options.useLintStaged = false;
   if (!(options.useTailwindcss && options.usePrettier))
     options.usePrettierPluginTailwindcss = false;
+  // useVueRouter must choose one mode
+  if (options.useVueRouter && !options.useHTML5Mode && !options.useHashMode) {
+    options.useHTML5Mode = true;
+  }
 
   depManger(files, options);
   devDepManger(files, options);

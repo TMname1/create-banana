@@ -5,7 +5,7 @@ import boxen from 'boxen';
 import type { featsSelectType } from '#src/app/CLI/input.js';
 
 const log = console.log;
-// refer to vue cli output style
+// refer to vue cli cmd output color
 const greenColor: [number, number, number] = [22, 198, 12];
 
 let outPkgStr: string;
