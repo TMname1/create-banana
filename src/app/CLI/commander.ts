@@ -6,42 +6,37 @@ import path from 'path';
 import Generator from '#src/app/core/generator.js';
 import fs from 'fs-extra';
 
+const CLI_OPTIONS = [
+  { flags: '--p3a, --usePinia', description: 'pinia state management' },
+  { flags: '-v, --useVueRouter', description: 'vue-router for routing' },
+  { flags: '--t9s, --useTailwindcss', description: 'tailwindcss for styling' },
+  {
+    flags: '--p23e, --usePiniaPluginPersistedstate',
+    description: 'pinia plugin persistedstate',
+  },
+  { flags: '--h7e, --useHTML5Mode', description: 'HTML5 mode for routing' },
+  { flags: '--h6e, --useHashMode', description: 'hash mode for routing' },
+  { flags: '--t8t, --useTypescript', description: 'typescript support' },
+  { flags: '-e, --useEslint', description: 'eslint support' },
+  { flags: '--p6r, --usePrettier', description: 'prettier support' },
+  { flags: '--h3y, --useHusky', description: 'husky support' },
+  { flags: '-l, --useLintStaged', description: 'lint-staged support' },
+  { flags: '-c, --useCommitizen', description: 'commitizen support' },
+  {
+    flags: '--p23s, --usePrettierPluginTailwindcss',
+    description: 'prettier plugin tailwindcss support',
+  },
+] as const;
+
 program.description('Create a new project with features you select.');
-program
-  .option('--p3a, --usePinia', 'pinia state management', false)
-  .option('-v, --useVueRouter', 'vue-router for routing', false)
-  .option('--t9s, --useTailwindcss', 'tailwindcss for styling', false)
-  .option(
-    '--p23e, --usePiniaPluginPersistedstate',
-    'pinia plugin persistedstate',
-    false
-  )
-  .option('--h7e, --useHTML5Mode', 'HTML5 mode for routing', false)
-  .option('--h6e, --useHashMode', 'hash mode for routing', false)
-  .option('--t8t, --useTypescript', 'typescript support', false)
-  .option('-e, --useEslint', 'eslint support', false)
-  .option('--p6r, --usePrettier', 'prettier support', false)
-  .option('--h3y, --useHusky', 'husky support', false)
-  .option('-l, --useLintStaged', 'lint-staged support', false)
-  .option('-c, --useCommitizen', 'commitizen support', false)
-  .option(
-    '--p23s, --usePrettierPluginTailwindcss',
-    'prettier plugin tailwindcss support',
-    false
-  );
+
+CLI_OPTIONS.forEach(({ flags, description }) => {
+  program.option(flags, description, false);
+});
+
 program.argument('<projectName>', 'Name of the project to create');
 
-export default async () => {
-  program.parse();
-
-  const projectName = program.args[0] as string;
-  const targetDir = path.join(process.cwd(), projectName);
-  await fs.remove(targetDir);
-  await fs.mkdir(targetDir);
-
-  const files = new Generator(projectName, targetDir);
-  const options: featsSelectType = program.opts();
-
+const resolveOptions = (options: featsSelectType) => {
   if (!options.usePinia) options.usePiniaPluginPersistedstate = false;
   if (!options.useEslint && !options.usePrettier) options.useHusky = false;
   if (!options.useHusky) options.useLintStaged = false;
@@ -51,6 +46,20 @@ export default async () => {
   if (options.useVueRouter && !options.useHTML5Mode && !options.useHashMode) {
     options.useHTML5Mode = true;
   }
+};
+
+export default async () => {
+  program.parse();
+
+  const projectName = program.args[0] as string;
+  // Use fs.emptyDir to safely handle directory creation/clearing
+  const targetDir = path.join(process.cwd(), projectName);
+  await fs.emptyDir(targetDir);
+
+  const files = new Generator(projectName, targetDir);
+  const options: featsSelectType = program.opts();
+
+  resolveOptions(options);
 
   depManger(files, options);
   devDepManger(files, options);

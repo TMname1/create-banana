@@ -1,5 +1,5 @@
 // comfirm path exists, if exists, prompt whether to overwrite
-// if choose to overwrite, delete the existing folder and create a new folder
+// if choose to overwrite, overwrite the existing folder
 // if choose not to overwrite, exit the program
 import fs from 'fs-extra';
 import { select } from '@inquirer/prompts';
@@ -22,8 +22,7 @@ const confirmPathExists = async (projectName: string, projectDir: string) => {
         process.exit(0);
       } else {
         const spinner = ora('Overwriting existing folder...').start();
-        await fs.remove(projectDir);
-        await fs.mkdir(projectDir);
+        await fs.emptyDir(projectDir);
         spinner.succeed('Existing folder overwritten.');
       }
     }

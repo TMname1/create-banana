@@ -1,78 +1,64 @@
-import { $ } from 'execa';
+import { execa } from 'execa';
 import fs from 'fs-extra';
+import killPort from 'kill-port';
 import path from 'path';
 import waitOn from 'wait-on';
+import ora from 'ora';
 
 // clean testDist directory
 const targetDir = path.join(process.cwd(), 'testDist');
-console.log(`\n[Test] Cleaning ${targetDir}...`);
-await fs.remove(targetDir);
-await fs.ensureDir(targetDir);
+const spinner = ora(`\n[Test] Cleaning ${targetDir}...`).start();
+await fs.emptyDir(targetDir);
+spinner.succeed(`[Test] Cleaned ${targetDir}.`);
 
 const cliBin = path.join(targetDir, '../dist/index.js');
+const port = 5173;
+const testFolderName = 'test-1';
 
-const runStep = async (stepName, commandFn) => {
-  console.log(`\n[Test] Running step: ${stepName}...`);
+const runStep = async (stepName, commandFn, ifKill = false) => {
+  const runStepSpinner = ora(`\n[Test] Running step: ${stepName}...`).start();
   try {
-    const result = await commandFn();
-    if (result.exitCode !== 0) {
+    let result;
+    if (ifKill) {
+      const subprocess = commandFn();
+      await waitOn({ resources: [`http://localhost:${port}`], timeout: 30000 });
+      await killPort(port);
+      result = await subprocess;
+    } else {
+      result = await commandFn();
+    }
+    if (result.exitCode !== 0 && !ifKill) {
       throw new Error(`Exit code ${result.exitCode}`);
     }
-    // TODO: use ora to show spinner
-    console.log(`✅ ${stepName} passed.`);
+    runStepSpinner.succeed(`[Test] ${stepName} passed.`);
   } catch (e) {
-    console.error(`\n❌ ${stepName} failed:`);
-    console.error(e.message);
-    process.exit(1);
+    throw new Error(`[Test] ${stepName} failed. ${e.message}`);
   }
 };
 
-// await runStep(
-//   'Scaffold Project',
-//   () =>
-//     $({
-//       cwd: targetDir,
-//       reject: false,
-//     })`node ${cliBin} install-all --p3a -v --t9s --p23e --h7e --t8t -e --p6r --h3y -l -c --p23s`
-// );
+const $execa = execa({
+  shell: true,
+  reject: false,
+});
 
 await runStep(
   'Scaffold Project',
   () =>
-    $({
+    $execa({
       cwd: targetDir,
-      shell: true,
-      reject: false,
-    })`node ${cliBin} install-all -v`
+    })`node ${cliBin} ${testFolderName}`
 );
 
-const $$ = $({
-  cwd: path.join(targetDir, 'install-all'),
-  shell: true,
-  reject: false,
-  stdout: 'inherit',
+const $$execa = $execa({
+  cwd: path.join(targetDir, testFolderName),
 });
 
-await runStep('Git Init', () => $$`git init`);
-await runStep('pnpm install', () => $$`pnpm i`);
-// await runStep('pnpm lint', () => $$`pnpm lint`);
+await runStep('Git Init', () => $$execa`git init`);
+await runStep('pnpm install', () => $$execa`pnpm i`);
+// await runStep('pnpm lint', () => $$execa`pnpm lint`);
 
-console.log('\n[Test] Running step: pnpm dev...');
-// Use $ directly to avoid shell: true, which prevents proper process killing on Windows
-// const devProcess = $({
-//   cwd: path.join(targetDir, 'install-all'),
-//   reject: false,
-// })`pnpm dev`;
-
-const devProcess = $$`pnpm dev`;
-
-await waitOn({ resources: ['http://localhost:5173'] });
-// FIXME: it cant kill the process when await to server is ready
-devProcess.kill();
-// $$`kill ${devProcess.pid}`;
-console.log('✅ pnpm dev passed.');
-
-await runStep('pnpm build', () => $$`pnpm build`);
+await runStep('pnpm dev', () => $$execa`pnpm dev`, true);
+await runStep('pnpm build', () => $$execa`pnpm build`);
 
 console.log('\n🎉 All tests passed successfully!');
 
