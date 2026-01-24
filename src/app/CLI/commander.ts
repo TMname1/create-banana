@@ -46,6 +46,10 @@ const resolveOptions = (options: featsSelectType) => {
   if (options.useVueRouter && !options.useHTML5Mode && !options.useHashMode) {
     options.useHTML5Mode = true;
   }
+  // useVueRouter only one mode
+  if (options.useHTML5Mode && options.useHashMode) {
+    options.useHashMode = false;
+  }
 };
 
 export default async () => {
