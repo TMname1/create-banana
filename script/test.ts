@@ -1,5 +1,3 @@
-import E2E_test from '../test/utils/E2E_test.ts';
-
 // const CLI_OPTIONS = [
 //   { flags: '--p3a, --usePinia', description: 'pinia state management' },
 //   { flags: '-v, --useVueRouter', description: 'vue-router for routing' },
@@ -26,20 +24,20 @@ import E2E_test from '../test/utils/E2E_test.ts';
 const scenarios = [
   { name: 'min-app', args: '' },
   { name: 'vue-router-app', args: '-v' },
-  // {
-  //   name: 'full-app',
-  //   args: '-v --p3a --t9s --p23e --h7e --h6e --t8t -e --p6r --h3y -l -c --p23s',
-  // },
+  {
+    name: 'router-hash-tailwind-prettier-app',
+    args: '-v --h6e --t9s --p6r --p23s --t8t',
+  },
+  {
+    name: 'full-app',
+    args: '-v --p3a --t9s --p23e --h7e --h6e --t8t -e --p6r --h3y -l -c --p23s',
+  },
 ];
 
 type scenarioType = {
   name: string;
   args: string;
 };
-
-E2E_test(scenarios).catch((err) => {
-  throw err;
-});
 
 export { scenarios };
 export type { scenarioType };

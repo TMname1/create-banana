@@ -22,10 +22,7 @@
     "format": "prettier --write --experimental-cli .",
     "lint-staged": "lint-staged",
     "build": "tsc --noEmit && npx tsx ./script/build.ts",
-    "test:E2E": "npx tsx ./script/test.ts",
-    "test:snapshot": "vitest run",
-    "test:all": "pnpm test:E2E && pnpm test:snapshot",
-    "test": "pnpm build && dotenvx run -- pnpm test:all"
+    "test": "pnpm build && dotenvx run -- vitest run"
   },
   "lint-staged": {
     "*.{js,ts,vue,json}": [
