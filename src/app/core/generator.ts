@@ -53,10 +53,7 @@ export default class Generator {
 
   rename(oldName: string, newName: string) {
     this.fileMiddlewares.push(() => {
-      fs.renameSync(
-        path.join(this.targetDir, oldName),
-        path.join(this.targetDir, newName)
-      );
+      fs.renameSync(path.join(this.targetDir, oldName), path.join(this.targetDir, newName));
     });
   }
 
@@ -78,9 +75,6 @@ export default class Generator {
   // finally generate all files
   async generate() {
     this.fileMiddlewares.forEach((fileFunction) => fileFunction());
-    fs.writeFileSync(
-      path.join(this.targetDir, 'package.json'),
-      JSON.stringify(this.pkg, null, 2)
-    );
+    fs.writeFileSync(path.join(this.targetDir, 'package.json'), JSON.stringify(this.pkg, null, 2));
   }
 }

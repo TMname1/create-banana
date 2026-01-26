@@ -4,10 +4,7 @@ import killPort from 'kill-port';
 import path from 'path';
 import waitOn from 'wait-on';
 
-const E2E_TEST_ROOT_PATH = path.join(
-  process.cwd(),
-  process.env.E2E_TEST_ROOT as string
-);
+const E2E_TEST_ROOT_PATH = path.join(process.cwd(), process.env.E2E_TEST_ROOT as string);
 const CLI_BIN_PATH = path.join(process.cwd(), process.env.CLI_BIN as string);
 const PORT = process.env.PORT as string;
 const URL = `tcp:${PORT}`;
@@ -18,11 +15,7 @@ type runStepCommandFn = () => ResultPromise<{
   cwd: string;
 }>;
 
-const runStep = async (
-  stepName: string,
-  commandFn: runStepCommandFn,
-  ifKill = false
-) => {
+const runStep = async (stepName: string, commandFn: runStepCommandFn, ifKill = false) => {
   try {
     let result;
     if (ifKill) {

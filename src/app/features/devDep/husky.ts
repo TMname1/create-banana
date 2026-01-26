@@ -17,18 +17,11 @@ export default (files: Generator, feats: featsSelectType) => {
 
   files.copy(path.join(huskyPath, '_'), path.join('.husky', '_'));
 
-  files.rename(
-    path.join('.husky', '_', '_gitignore'),
-    path.join('.husky', '_', '.gitignore')
-  );
+  files.rename(path.join('.husky', '_', '_gitignore'), path.join('.husky', '_', '.gitignore'));
 
-  files.render(
-    path.join(huskyPath, 'pre-commit.ejs'),
-    path.join('.husky', 'pre-commit'),
-    {
-      useEslint,
-      usePrettier,
-      useLintStaged,
-    }
-  );
+  files.render(path.join(huskyPath, 'pre-commit.ejs'), path.join('.husky', 'pre-commit'), {
+    useEslint,
+    usePrettier,
+    useLintStaged,
+  });
 };

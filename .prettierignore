@@ -1,5 +1,4 @@
 **/.husky
-.prettierignore
 **/*.ejs
 **/dist
 **/template

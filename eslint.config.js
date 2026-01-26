@@ -62,5 +62,6 @@ export default defineConfig([
     'pnpm-lock.yaml',
     '.env*',
     'docs/.vitepress/dist/*',
+    'testDist/*',
   ]),
 ]);

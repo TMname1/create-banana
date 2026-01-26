@@ -32,9 +32,7 @@ export default async () => {
   await files.generate();
   spinner.succeed('Files generated successfully.');
 
-  rainbowPrint(
-    '\nProject initialization complete. You may execute the following commands:\n'
-  );
+  rainbowPrint('\nProject initialization complete. You may execute the following commands:\n');
   outPkgCommand(projectName, featsList);
 
   outCommitizenCommand(projectName, featsList);
@@ -43,10 +41,7 @@ export default async () => {
   outGitCommand(projectName, featsList);
 
   await execute(featsList);
-  console.log(
-    chalk.rgb(...greenColor).bold('\nAll commands executed successfully!\n')
-  );
+  console.log(chalk.rgb(...greenColor).bold('\nAll commands executed successfully!\n'));
 };
 
-// TODO: add .vscode extensions recommendations file in template
 // FIXME: the css style should be rewritten by tailwindcss

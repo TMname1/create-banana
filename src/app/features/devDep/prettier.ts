@@ -10,29 +10,20 @@ export default (files: Generator, feats: featsSelectType) => {
   if (!usePrettier) return;
 
   const prettierPath = path.join(templatePath, 'devDep', 'prettier');
-  const pkg = fs.readJSONSync(
-    path.join(prettierPath, 'static', 'package.json')
-  );
+  const pkg = fs.readJSONSync(path.join(prettierPath, 'static', 'package.json'));
 
   files.extendDevDepsPkg(pkg);
   files.extendScriptsPkg(pkg);
 
-  files.copy(
-    path.join(prettierPath, 'static', '.prettierignore'),
-    '.prettierignore'
-  );
+  files.copy(path.join(prettierPath, 'static', '.prettierignore'), '.prettierignore');
 
-  files.render(
-    path.join(prettierPath, 'ejs', '.prettierrc.ejs'),
-    '.prettierrc',
-    { usePrettierPluginTailwindcss }
-  );
+  files.render(path.join(prettierPath, 'ejs', '.prettierrc.ejs'), '.prettierrc', {
+    usePrettierPluginTailwindcss,
+  });
 
   if (!usePrettierPluginTailwindcss) return;
 
   files.extendDevDepsPkg(
-    fs.readJSONSync(
-      path.join(prettierPath, 'prettier-plugin-tailwindcss', 'package.json')
-    )
+    fs.readJSONSync(path.join(prettierPath, 'prettier-plugin-tailwindcss', 'package.json'))
   );
 };

@@ -5,11 +5,7 @@ import chalk from 'chalk';
 import type { featsSelectType } from '#src/app/CLI/input.js';
 
 export default async (feats: featsSelectType) => {
-  if (
-    !(await prompt(
-      `Do you want to ${chalk.yellow.bold('execute')} the above commands now?`
-    ))
-  ) {
+  if (!(await prompt(`Do you want to ${chalk.yellow.bold('execute')} the above commands now?`))) {
     return;
   }
 
@@ -28,11 +24,7 @@ export default async (feats: featsSelectType) => {
   // if you select to use commitizen but not install it, skip git execution
   if (feats.useCommitizen && !installCommitizen) return;
 
-  if (
-    await prompt(
-      `Do you want to ${chalk.yellow.bold('execute the git')} commands now?`
-    )
-  ) {
+  if (await prompt(`Do you want to ${chalk.yellow.bold('execute the git')} commands now?`)) {
     await execa({ shell: true, stdio: 'inherit' })`${outGitStr}`;
   }
 };

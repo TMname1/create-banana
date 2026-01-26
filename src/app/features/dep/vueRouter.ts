@@ -5,13 +5,8 @@ import type Generator from '#src/app/core/generator.js';
 import type { featsSelectType } from '#src/app/CLI/input.js';
 
 export default (files: Generator, feats: featsSelectType) => {
-  const {
-    useVueRouter,
-    usePiniaPluginPersistedstate,
-    useTypescript,
-    useHTML5Mode,
-    useHashMode,
-  } = feats;
+  const { useVueRouter, usePiniaPluginPersistedstate, useTypescript, useHTML5Mode, useHashMode } =
+    feats;
 
   if (!useVueRouter) return;
 
@@ -19,9 +14,7 @@ export default (files: Generator, feats: featsSelectType) => {
     ? path.join(templatePath, 'dep', 'vue-router', 'TS')
     : path.join(templatePath, 'dep', 'vue-router');
 
-  files.extendDepsPkg(
-    fs.readJSONSync(path.join(vueRouterPath, 'package.json'))
-  );
+  files.extendDepsPkg(fs.readJSONSync(path.join(vueRouterPath, 'package.json')));
 
   files.copy(path.join(vueRouterPath, 'static'), 'src');
 
@@ -32,12 +25,7 @@ export default (files: Generator, feats: featsSelectType) => {
   );
 
   files.render(
-    path.join(
-      vueRouterPath,
-      'ejs',
-      'router',
-      useTypescript ? 'index.ts.ejs' : 'index.js.ejs'
-    ),
+    path.join(vueRouterPath, 'ejs', 'router', useTypescript ? 'index.ts.ejs' : 'index.js.ejs'),
     path.join('src', 'router', useTypescript ? 'index.ts' : 'index.js'),
     {
       useHTML5Mode,

@@ -18,10 +18,7 @@ export default (files: Generator, feats: featsSelectType) => {
   files.extendScriptsPkg(pkg);
 
   files.render(
-    path.join(
-      eslintPath,
-      useTypescript ? 'eslint.config.ts.ejs' : 'eslint.config.js.ejs'
-    ),
+    path.join(eslintPath, useTypescript ? 'eslint.config.ts.ejs' : 'eslint.config.js.ejs'),
     useTypescript ? 'eslint.config.ts' : 'eslint.config.js',
     {
       usePrettier,
@@ -30,7 +27,5 @@ export default (files: Generator, feats: featsSelectType) => {
 
   if (!usePrettier) return;
 
-  files.extendDevDepsPkg(
-    fs.readJSONSync(path.join(eslintPath, 'prettierPkg.json'))
-  );
+  files.extendDevDepsPkg(fs.readJSONSync(path.join(eslintPath, 'prettierPkg.json')));
 };

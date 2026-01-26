@@ -33,17 +33,12 @@ const outPkgCommand = (
 };
 
 let outGitStr: string;
-const outGitCommand = (
-  projectName: string,
-  { useHusky, useCommitizen }: featsSelectType
-) => {
+const outGitCommand = (projectName: string, { useHusky, useCommitizen }: featsSelectType) => {
   outGitStr = useHusky
     ? `cd ${projectName} && git add .`
     : `cd ${projectName} && git init && git add .`;
 
-  const commitStr = useCommitizen
-    ? 'pnpm commit'
-    : 'git commit -m "Initial commit"';
+  const commitStr = useCommitizen ? 'pnpm commit' : 'git commit -m "Initial commit"';
 
   outGitStr += ` && ${commitStr}`;
 
@@ -58,10 +53,7 @@ const outGitCommand = (
 };
 
 let outCommitizenStr: string;
-const outCommitizenCommand = (
-  projectName: string,
-  { useCommitizen }: featsSelectType
-) => {
+const outCommitizenCommand = (projectName: string, { useCommitizen }: featsSelectType) => {
   if (!useCommitizen) return;
 
   rainbowPrint('\nTo set up Commitizen, run the following command:\n');

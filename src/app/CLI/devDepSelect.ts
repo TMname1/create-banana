@@ -26,9 +26,7 @@ export default async (devDepFeats: devDepFeatsType) => {
 
   if (devDepFeats.useHusky) {
     devDepFeats.useLintStaged = await prompt(
-      `Do you want to use ${chalk.yellow.bold(
-        'lint-staged'
-      )} to run linters on staged files?`
+      `Do you want to use ${chalk.yellow.bold('lint-staged')} to run linters on staged files?`
     );
   }
 

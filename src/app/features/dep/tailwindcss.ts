@@ -9,12 +9,7 @@ export default (files: Generator, feats: featsSelectType) => {
 
   const tailwindcssPath = path.join(templatePath, 'dep', 'tailwindcss');
 
-  files.extendDepsPkg(
-    fs.readJSONSync(path.join(tailwindcssPath, 'package.json'))
-  );
+  files.extendDepsPkg(fs.readJSONSync(path.join(tailwindcssPath, 'package.json')));
 
-  files.copy(
-    path.join(tailwindcssPath, 'src', 'styles'),
-    path.join('src', 'styles')
-  );
+  files.copy(path.join(tailwindcssPath, 'src', 'styles'), path.join('src', 'styles'));
 };

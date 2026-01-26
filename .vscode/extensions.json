@@ -3,6 +3,7 @@
     "qassimfarid.ejs-language-support",
     "j69.ejs-beautify",
     "dbaeumer.vscode-eslint",
-    "vue.volar"
+    "vue.volar",
+    "editorconfig.editorconfig"
   ]
 }
