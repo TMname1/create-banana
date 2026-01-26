@@ -1,0 +1,15 @@
+{
+"recommendations": [
+"vue.volar",
+"editorconfig.editorconfig"
+<%if(useEslint){%>
+,"dbaeumer.vscode-eslint"
+<%}%>
+<%if(usePrettier&&!useEslint){%>
+,"esbenp.prettier-vscode"
+<%}%>
+<%if(useTailwindcss){%>
+,"bradlc.vscode-tailwindcss"
+<%}%>
+  ]
+}

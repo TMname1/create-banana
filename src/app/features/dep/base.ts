@@ -9,42 +9,34 @@ export default (files: Generator, feats: featsSelectType) => {
     ? path.join(templatePath, 'dep', 'base', 'TS')
     : path.join(templatePath, 'dep', 'base');
 
-  files.writePkg(
-    fs.readJSONSync(path.join(basePath, 'static', 'package.json'))
-  );
+  files.writePkg(fs.readJSONSync(path.join(basePath, 'static', 'package.json')));
   files.copy(path.join(basePath, 'static'), '');
   // To fix .gitignore can't publish to npm issue
   files.rename('_gitignore', '.gitignore');
+  files.render(path.join(basePath, 'ejs', 'App.vue.ejs'), path.join('src', 'App.vue'), {
+    ...feats,
+  });
   files.render(
-    path.join(basePath, 'ejs', 'App.vue.ejs'),
-    path.join('src', 'App.vue'),
-    {
-      ...feats,
-    }
-  );
-  files.render(
-    path.join(
-      basePath,
-      'ejs',
-      feats.useTypescript ? 'main.ts.ejs' : 'main.js.ejs'
-    ),
+    path.join(basePath, 'ejs', feats.useTypescript ? 'main.ts.ejs' : 'main.js.ejs'),
     path.join('src', feats.useTypescript ? 'main.ts' : 'main.js'),
-    {
-      ...feats,
-    }
+    { ...feats }
   );
   files.render(path.join(basePath, 'ejs', 'README.md.ejs'), 'README.md', {
     projectName: files.projectName,
   });
   files.render(
-    path.join(
-      basePath,
-      'ejs',
-      feats.useTypescript ? 'vite.config.ts.ejs' : 'vite.config.js.ejs'
-    ),
+    path.join(basePath, 'ejs', feats.useTypescript ? 'vite.config.ts.ejs' : 'vite.config.js.ejs'),
     feats.useTypescript ? 'vite.config.ts' : 'vite.config.js',
-    {
-      ...feats,
-    }
+    { ...feats }
+  );
+  files.render(
+    path.join(basePath, 'ejs', 'extensions.json.ejs'),
+    path.join('.vscode', 'extensions.json'),
+    { ...feats }
+  );
+  files.render(
+    path.join(basePath, 'ejs', 'settings.json.ejs'),
+    path.join('.vscode', 'settings.json'),
+    { ...feats }
   );
 };

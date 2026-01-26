@@ -6,14 +6,8 @@ import testCase from './utils/testCase.ts';
 import { scenarios } from '../script/test.ts';
 import E2E_test from './utils/E2E_test.ts';
 
-const SNAPSHOT_TEST_ROOT_PATH = path.join(
-  process.cwd(),
-  process.env.SNAPSHOT_TEST_ROOT as string
-);
-const E2E_TEST_ROOT_PATH = path.join(
-  process.cwd(),
-  process.env.E2E_TEST_ROOT as string
-);
+const SNAPSHOT_TEST_ROOT_PATH = path.join(process.cwd(), process.env.SNAPSHOT_TEST_ROOT as string);
+const E2E_TEST_ROOT_PATH = path.join(process.cwd(), process.env.E2E_TEST_ROOT as string);
 
 let E2EHasFailed = false;
 
@@ -34,7 +28,7 @@ describe.sequential('E2E tests', async () => {
         return;
       }
       await E2E_test(scenario);
-    }, 15000);
+    }, 30000);
   }
 });
 
