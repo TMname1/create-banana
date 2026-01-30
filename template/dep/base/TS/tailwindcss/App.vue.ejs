@@ -1,0 +1,83 @@
+<script setup>
+  import HelloWorld from './components/HelloWorld.vue'
+  <% if(!useVueRouter) { %>
+  import TheWelcome from './components/TheWelcome.vue'
+  <% } %>
+  <% if(usePinia) { %>
+  import {
+    useCounterStore
+  } from './stores/counter'
+  <% } %>
+  <% if(usePiniaPluginPersistedstate) { %>
+  import {
+    useKeyStore
+  } from './stores/key'
+  <% } %>
+  <% if(useVueRouter) { %>import {
+    useRoute
+  }
+  from 'vue-router'
+  <% } %>
+
+  <% if(usePinia) { %>
+  const counterStore = useCounterStore()
+  <% } %>
+  <% if(usePiniaPluginPersistedstate) { %>
+  const keyStore = useKeyStore()
+  <% } %>
+  <% if(useVueRouter) { %>
+  const route = useRoute()
+  <% } %>
+</script>
+
+<template>
+  <header class="leading-normal lg:flex lg:items-center lg:pr-[calc(var(--section-gap)/2)]">
+    <img alt="Vue logo" class="mx-auto mt-0 mb-8 block lg:mr-8" src="./assets/logo.svg" width="125" height="125" />
+
+    <div class="pl-10 lg:flex lg:flex-wrap lg:items-center lg:gap-2.5">
+      <HelloWorld msg="You did it!" />
+      <% if(usePinia) { %>
+      <button class="block cursor-pointer rounded-sm border-none bg-[#42b983] px-4 py-1.5 text-[1rem] text-white" @click="counterStore.increment">
+        Count is:
+        {{ counterStore.count }}
+      </button>
+      <% } %>
+      <input class="mt-4 w-full max-w-75 rounded-sm border border-solid border-[#ccc] bg-white px-2 py-1.5 text-[1rem] text-black" v-model="keyStore.key" placeholder="Enter a key to persist" />
+      <% if(useVueRouter) { %>
+      <!-- button to toggle views -->
+      <div>
+        <button class="mt-4 border-none bg-none px-4 py-2 text-[1rem]">
+          <router-link to="/home">
+            <span :class="{
+                'border-b-2 border-solid border-[#009966] font-bold text-[#009966]':
+                  route.name === 'home',
+              }">
+              Home
+            </span>
+          </router-link>
+        </button>
+        <span class="mx-1 my-0">|</span>
+        <button class="mt-4 border-none bg-none px-4 py-2 text-[1rem]">
+          <router-link to="/about">
+            <span :class="{
+                'border-b-2 border-solid border-[#009966] font-bold text-[#009966]':
+                  route.name === 'about',
+              }">
+              About
+            </span>
+          </router-link>
+        </button>
+      </div>
+      <% } %>
+    </div>
+  </header>
+
+  <main>
+    <% if(useVueRouter) { %>
+    <router-view />
+    <% } %>
+    <% if(!useVueRouter) { %>
+    <TheWelcome />
+    <% } %>
+  </main>
+</template>

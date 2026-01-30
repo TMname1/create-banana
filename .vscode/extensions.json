@@ -4,6 +4,7 @@
     "j69.ejs-beautify",
     "dbaeumer.vscode-eslint",
     "vue.volar",
-    "editorconfig.editorconfig"
+    "editorconfig.editorconfig",
+    "esbenp.prettier-vscode"
   ]
 }

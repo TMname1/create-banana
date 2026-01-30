@@ -13,30 +13,48 @@ export default (files: Generator, feats: featsSelectType) => {
   files.copy(path.join(basePath, 'static'), '');
   // To fix .gitignore can't publish to npm issue
   files.rename('_gitignore', '.gitignore');
+
   files.render(path.join(basePath, 'ejs', 'App.vue.ejs'), path.join('src', 'App.vue'), {
     ...feats,
   });
+
   files.render(
     path.join(basePath, 'ejs', feats.useTypescript ? 'main.ts.ejs' : 'main.js.ejs'),
     path.join('src', feats.useTypescript ? 'main.ts' : 'main.js'),
     { ...feats }
   );
+
   files.render(path.join(basePath, 'ejs', 'README.md.ejs'), 'README.md', {
     projectName: files.projectName,
   });
+
   files.render(
     path.join(basePath, 'ejs', feats.useTypescript ? 'vite.config.ts.ejs' : 'vite.config.js.ejs'),
     feats.useTypescript ? 'vite.config.ts' : 'vite.config.js',
     { ...feats }
   );
+
   files.render(
     path.join(basePath, 'ejs', 'extensions.json.ejs'),
     path.join('.vscode', 'extensions.json'),
     { ...feats }
   );
+
   files.render(
     path.join(basePath, 'ejs', 'settings.json.ejs'),
     path.join('.vscode', 'settings.json'),
     { ...feats }
   );
+
+  // Tailwind CSS
+  if (!feats.useTailwindcss) {
+    return;
+  }
+
+  files.render(path.join(basePath, 'tailwindcss', 'App.vue.ejs'), path.join('src', 'App.vue'), {
+    ...feats,
+  });
+
+  files.copy(path.join(basePath, 'tailwindcss', 'components'), path.join('src', 'components'));
+  files.copy(path.join(basePath, 'tailwindcss', 'views'), path.join('src', 'views'));
 };

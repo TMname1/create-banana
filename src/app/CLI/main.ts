@@ -43,5 +43,3 @@ export default async () => {
   await execute(featsList);
   console.log(chalk.rgb(...greenColor).bold('\nAll commands executed successfully!\n'));
 };
-
-// FIXME: the css style should be rewritten by tailwindcss

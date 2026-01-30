@@ -9,10 +9,10 @@
 "source.fixAll": "explicit"
 },
 "editor.formatOnSave": true
-<%if(useEslint){%>
+<%if(useEslint&&!usePrettier){%>
 ,"editor.defaultFormatter": "dbaeumer.vscode-eslint"
 <%}%>
-  <%if(usePrettier&&!useEslint){%>
+<%if(usePrettier){%>
 ,"editor.defaultFormatter": "esbenp.prettier-vscode"
 <%}%>
 }

@@ -9,13 +9,10 @@
 "source.fixAll": "explicit"
 },
 "editor.formatOnSave": true
-<%if(useEslint){%>
-,"editor.defaultFormatter": "dbaeumer.vscode-eslint",
-"[typescript]": {
-"editor.defaultFormatter": "vscode.typescript-language-features"
-}
+<%if(useEslint&&!usePrettier){%>
+,"editor.defaultFormatter": "dbaeumer.vscode-eslint"
 <%}%>
-<%if(usePrettier&&!useEslint){%>
+<%if(usePrettier){%>
 ,"editor.defaultFormatter": "esbenp.prettier-vscode"
 <%}%>
 }

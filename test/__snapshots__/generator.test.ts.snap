@@ -1,7 +1,16 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`snapshot tests > generates a full-app 1`] = `
+exports[`E2E tests and snapshots > Snapshot for full-app 1`] = `
 {
+  ".editorconfig": "[*.{js,jsx,mjs,cjs,ts,tsx,mts,cts,vue,css,scss,sass,less,styl}]
+charset = utf-8
+indent_size = 2
+indent_style = space
+insert_final_newline = true
+trim_trailing_whitespace = true
+end_of_line = lf
+max_line_length = 100
+",
   ".gitignore": "# Logs
 logs
 *.log
@@ -127,9 +136,6 @@ yarn-error.log*
 # System files
 .DS_Store",
   ".prettierrc": "{
-"printWidth": 80,
-"tabWidth": 2,
-"useTabs": false,
 "semi": true,
 "singleQuote": true,
 "quoteProps": "as-needed",
@@ -137,23 +143,41 @@ yarn-error.log*
 "trailingComma": "es5",
 "bracketSpacing": true,
 "bracketSameLine": false,
-"arrowParens": "always",
-"endOfLine": "auto",
+"arrowParens": "always"
 
-"plugins": ["prettier-plugin-tailwindcss"]
+,"plugins": ["prettier-plugin-tailwindcss"]
 
 }",
   ".vscode/extensions.json": "{
 "recommendations": [
-"vue.volar"
+"vue.volar",
+"editorconfig.editorconfig"
 
 ,"dbaeumer.vscode-eslint"
 
+
+,"esbenp.prettier-vscode"
 
 
 ,"bradlc.vscode-tailwindcss"
 
   ]
+}",
+  ".vscode/settings.json": "{
+"explorer.fileNesting.enabled": true,
+"explorer.fileNesting.patterns": {
+"tsconfig.json": "tsconfig.*.json, env.d.ts",
+"vite.config.*": "jsconfig*, vitest.config.*, cypress.config.*, playwright.config.*",
+"package.json": "package-lock.json, pnpm*, .yarnrc*, yarn*, .eslint*, eslint*, .oxlint*, oxlint*, .oxfmt*, .prettier*, prettier*, .editorconfig"
+},
+"editor.codeActionsOnSave": {
+"source.fixAll": "explicit"
+},
+"editor.formatOnSave": true
+
+
+,"editor.defaultFormatter": "esbenp.prettier-vscode"
+
 }",
   "README.md": "# full-app
 
@@ -199,6 +223,13 @@ pnpm build
 \`\`\`
 ",
   "env.d.ts": "/// <reference types="vite/client" />
+
+// Allow importing Vue SFCs with proper typing
+declare module '*.vue' {
+  import type { DefineComponent } from 'vue';
+  const component: DefineComponent<Record<string, never>, Record<string, never>, unknown>;
+  export default component;
+}
 ",
   "eslint.config.ts": "import js from "@eslint/js";
 import globals from "globals";
@@ -343,7 +374,7 @@ globalIgnores([
   }
 }",
   "public/favicon.ico": "__BINARY_FILE__",
-  "src/App.vue": "<script setup lang="ts">
+  "src/App.vue": "<script setup>
   import HelloWorld from './components/HelloWorld.vue'
   
   
@@ -374,33 +405,44 @@ globalIgnores([
 </script>
 
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
+  <header class="leading-normal lg:flex lg:items-center lg:pr-[calc(var(--section-gap)/2)]">
+    <img alt="Vue logo" class="mx-auto mt-0 mb-8 block lg:mr-8" src="./assets/logo.svg" width="125" height="125" />
 
-    <div class="wrapper">
+    <div class="pl-10 lg:flex lg:flex-wrap lg:items-center lg:gap-2.5">
       <HelloWorld msg="You did it!" />
-      <button class="piniaBtn" @click="counterStore.increment">Count is:
-        {{ counterStore.count }}</button>
-      <input class="persistInp" v-model="keyStore.key" placeholder="Enter a key to persist" />
+      
+      <button class="block cursor-pointer rounded-sm border-none bg-[#42b983] px-4 py-1.5 text-[1rem] text-white" @click="counterStore.increment">
+        Count is:
+        {{ counterStore.count }}
+      </button>
+      
+      <input class="mt-4 w-full max-w-75 rounded-sm border border-solid border-[#ccc] bg-white px-2 py-1.5 text-[1rem] text-black" v-model="keyStore.key" placeholder="Enter a key to persist" />
       
       <!-- button to toggle views -->
       <div>
-        <button class="routerBtn">
+        <button class="mt-4 border-none bg-none px-4 py-2 text-[1rem]">
           <router-link to="/home">
-            <span :class="{ 'active-link': route.name === 'home' }">
+            <span :class="{
+                'border-b-2 border-solid border-[#009966] font-bold text-[#009966]':
+                  route.name === 'home',
+              }">
               Home
             </span>
           </router-link>
         </button>
-        <span style="margin: 0 5px">|</span>
-        <button class="routerBtn">
+        <span class="mx-1 my-0">|</span>
+        <button class="mt-4 border-none bg-none px-4 py-2 text-[1rem]">
           <router-link to="/about">
-            <span :class="{ 'active-link': route.name === 'about' }">
+            <span :class="{
+                'border-b-2 border-solid border-[#009966] font-bold text-[#009966]':
+                  route.name === 'about',
+              }">
               About
             </span>
           </router-link>
         </button>
       </div>
+      
     </div>
   </header>
 
@@ -410,71 +452,7 @@ globalIgnores([
     
     
   </main>
-</template>
-
-<style scoped>
-  header {
-    line-height: 1.5;
-  }
-
-  .logo {
-    display: block;
-    margin: 0 auto 2rem;
-  }
-
-  .piniaBtn {
-      margin-top: 1rem;
-      padding: 0.5rem 1rem;
-      font-size: 1rem;
-      border: none;
-      border-radius: 4px;
-      background-color: #42b983;
-      color: white;
-      cursor: pointer;
-    }
-
-    .persistInp {
-      margin-top: 1rem;
-      padding: 0.5rem;
-      font-size: 1rem;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      width: 100%;
-      max-width: 300px;
-    }
-
-    .routerBtn {
-      margin-top: 1rem;
-      padding: 0.5rem 1rem;
-      font-size: 1rem;
-      border: none;
-      background: none;
-    }
-
-    .active-link {
-      font-weight: bold;
-      color: hsla(160, 100%, 30%, 1);
-      border-bottom: 2px solid hsla(160, 100%, 37%, 1);
-    }
-
-    @media (min-width: 1024px) {
-    header {
-      display: flex;
-      place-items: center;
-      padding-right: calc(var(--section-gap) / 2);
-    }
-
-    .logo {
-      margin: 0 2rem 0 0;
-    }
-
-    header .wrapper {
-      display: flex;
-      place-items: flex-start;
-      flex-wrap: wrap;
-    }
-  }
-</style>",
+</template>",
   "src/assets/base.css": "/* color palette from <https://github.com/vuejs/theme> */
 :root {
   --vt-c-white: #ffffff;
@@ -602,45 +580,24 @@ a,
 ",
   "src/components/HelloWorld.vue": "<script setup lang="ts">
 defineProps<{
-  msg: string
-}>()
+  msg: string;
+}>();
 </script>
 
 <template>
-  <div class="greetings">
-    <h1 class="green">{{ msg }}</h1>
-    <h3>
+  <div>
+    <h1
+      class="relative -top-2.5 text-center text-[2.6rem] font-[500px] text-[#00BD7E] min-[1024px]:text-left"
+    >
+      {{ msg }}
+    </h1>
+    <h3 class="text-center text-[1.2rem] min-[1024px]:text-left">
       You’ve successfully created a project with
       <a href="https://vite.dev/" target="_blank" rel="noopener">Vite</a> +
       <a href="https://vuejs.org/" target="_blank" rel="noopener">Vue 3</a>.
     </h3>
   </div>
 </template>
-
-<style scoped>
-h1 {
-  font-weight: 500;
-  font-size: 2.6rem;
-  position: relative;
-  top: -10px;
-}
-
-h3 {
-  font-size: 1.2rem;
-}
-
-.greetings h1,
-.greetings h3 {
-  text-align: center;
-}
-
-@media (min-width: 1024px) {
-  .greetings h1,
-  .greetings h3 {
-    text-align: left;
-  }
-}
-</style>
 ",
   "src/components/TheWelcome.vue": "<script setup lang="ts">
 import WelcomeItem from './WelcomeItem.vue'
@@ -753,92 +710,22 @@ div {
 </style>
 ",
   "src/components/WelcomeItem.vue": "<template>
-  <div class="item">
-    <i>
+  <div
+    class="relative mt-8 flex lg:before:absolute lg:before:-top-6.25 lg:before:left-0 lg:before:h-[calc(50%)] lg:before:border-l lg:before:border-(--color-border) lg:before:content-[''] lg:after:absolute lg:after:top-[calc(50%+25px)] lg:after:left-0 lg:after:h-[calc(50%-25px)] lg:after:border-l lg:after:border-(--color-border) lg:after:content-[''] lg:first:before:hidden lg:last:after:hidden"
+  >
+    <i
+      class="flex h-8 w-8 items-center justify-center text-(--color-text) lg:absolute lg:top-[calc(50%-25px)] lg:-left-6 lg:h-12 lg:w-12 lg:rounded-lg lg:border lg:border-(--color-border) lg:bg-(--color-background)"
+    >
       <slot name="icon"></slot>
     </i>
-    <div class="details">
-      <h3>
+    <div class="flex-1 py-4 pl-22">
+      <h3 class="pb-[0.4rem] text-[1.2rem] font-extrabold text-(--color-heading)">
         <slot name="heading"></slot>
       </h3>
       <slot></slot>
     </div>
   </div>
 </template>
-
-<style scoped>
-.item {
-  margin-top: 2rem;
-  display: flex;
-  position: relative;
-}
-
-.details {
-  flex: 1;
-  margin-left: 1rem;
-}
-
-i {
-  display: flex;
-  place-items: center;
-  place-content: center;
-  width: 32px;
-  height: 32px;
-
-  color: var(--color-text);
-}
-
-h3 {
-  font-size: 1.2rem;
-  font-weight: 500;
-  margin-bottom: 0.4rem;
-  color: var(--color-heading);
-}
-
-@media (min-width: 1024px) {
-  .item {
-    margin-top: 0;
-    padding: 0.4rem 0 1rem calc(var(--section-gap) / 2);
-  }
-
-  i {
-    top: calc(50% - 25px);
-    left: -26px;
-    position: absolute;
-    border: 1px solid var(--color-border);
-    background: var(--color-background);
-    border-radius: 8px;
-    width: 50px;
-    height: 50px;
-  }
-
-  .item:before {
-    content: ' ';
-    border-left: 1px solid var(--color-border);
-    position: absolute;
-    left: 0;
-    bottom: calc(50% + 25px);
-    height: calc(50% - 25px);
-  }
-
-  .item:after {
-    content: ' ';
-    border-left: 1px solid var(--color-border);
-    position: absolute;
-    left: 0;
-    top: calc(50% + 25px);
-    height: calc(50% - 25px);
-  }
-
-  .item:first-of-type:before {
-    display: none;
-  }
-
-  .item:last-of-type:after {
-    display: none;
-  }
-}
-</style>
 ",
   "src/components/icons/IconCommunity.vue": "<template>
   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor">
@@ -1075,8 +962,17 @@ alias: {
 }
 `;
 
-exports[`snapshot tests > generates a min-app 1`] = `
+exports[`E2E tests and snapshots > Snapshot for min-app 1`] = `
 {
+  ".editorconfig": "[*.{js,jsx,mjs,cjs,ts,tsx,mts,cts,vue,css,scss,sass,less,styl}]
+charset = utf-8
+indent_size = 2
+indent_style = space
+insert_final_newline = true
+trim_trailing_whitespace = true
+end_of_line = lf
+max_line_length = 100
+",
   ".gitignore": "# Logs
 logs
 *.log
@@ -1116,11 +1012,26 @@ __screenshots__/
 ",
   ".vscode/extensions.json": "{
 "recommendations": [
-"vue.volar"
+"vue.volar",
+"editorconfig.editorconfig"
 
 
 
   ]
+}",
+  ".vscode/settings.json": "{
+"explorer.fileNesting.enabled": true,
+"explorer.fileNesting.patterns": {
+"tsconfig.json": "tsconfig.*.json, env.d.ts",
+"vite.config.*": "jsconfig*, vitest.config.*, cypress.config.*, playwright.config.*",
+"package.json": "package-lock.json, pnpm*, .yarnrc*, yarn*, .eslint*, eslint*, .oxlint*, oxlint*, .oxfmt*, .prettier*, prettier*, .editorconfig"
+},
+"editor.codeActionsOnSave": {
+"source.fixAll": "explicit"
+},
+"editor.formatOnSave": true
+
+
 }",
   "README.md": "# min-app
 
@@ -1758,8 +1669,17 @@ alias: {
 }
 `;
 
-exports[`snapshot tests > generates a router-hash-tailwind-prettier-app 1`] = `
+exports[`E2E tests and snapshots > Snapshot for router-hash-tailwind-prettier-app 1`] = `
 {
+  ".editorconfig": "[*.{js,jsx,mjs,cjs,ts,tsx,mts,cts,vue,css,scss,sass,less,styl}]
+charset = utf-8
+indent_size = 2
+indent_style = space
+insert_final_newline = true
+trim_trailing_whitespace = true
+end_of_line = lf
+max_line_length = 100
+",
   ".gitignore": "# Logs
 logs
 *.log
@@ -1841,9 +1761,6 @@ yarn-error.log*
 # System files
 .DS_Store",
   ".prettierrc": "{
-"printWidth": 80,
-"tabWidth": 2,
-"useTabs": false,
 "semi": true,
 "singleQuote": true,
 "quoteProps": "as-needed",
@@ -1851,15 +1768,15 @@ yarn-error.log*
 "trailingComma": "es5",
 "bracketSpacing": true,
 "bracketSameLine": false,
-"arrowParens": "always",
-"endOfLine": "auto",
+"arrowParens": "always"
 
-"plugins": ["prettier-plugin-tailwindcss"]
+,"plugins": ["prettier-plugin-tailwindcss"]
 
 }",
   ".vscode/extensions.json": "{
 "recommendations": [
-"vue.volar"
+"vue.volar",
+"editorconfig.editorconfig"
 
 
 ,"esbenp.prettier-vscode"
@@ -1868,6 +1785,22 @@ yarn-error.log*
 ,"bradlc.vscode-tailwindcss"
 
   ]
+}",
+  ".vscode/settings.json": "{
+"explorer.fileNesting.enabled": true,
+"explorer.fileNesting.patterns": {
+"tsconfig.json": "tsconfig.*.json, env.d.ts",
+"vite.config.*": "jsconfig*, vitest.config.*, cypress.config.*, playwright.config.*",
+"package.json": "package-lock.json, pnpm*, .yarnrc*, yarn*, .eslint*, eslint*, .oxlint*, oxlint*, .oxfmt*, .prettier*, prettier*, .editorconfig"
+},
+"editor.codeActionsOnSave": {
+"source.fixAll": "explicit"
+},
+"editor.formatOnSave": true
+
+
+,"editor.defaultFormatter": "esbenp.prettier-vscode"
+
 }",
   "README.md": "# router-hash-tailwind-prettier-app
 
@@ -1913,6 +1846,13 @@ pnpm build
 \`\`\`
 ",
   "env.d.ts": "/// <reference types="vite/client" />
+
+// Allow importing Vue SFCs with proper typing
+declare module '*.vue' {
+  import type { DefineComponent } from 'vue';
+  const component: DefineComponent<Record<string, never>, Record<string, never>, unknown>;
+  export default component;
+}
 ",
   "index.html": "<!DOCTYPE html>
 <html lang="">
@@ -1965,7 +1905,7 @@ pnpm build
   }
 }",
   "public/favicon.ico": "__BINARY_FILE__",
-  "src/App.vue": "<script setup lang="ts">
+  "src/App.vue": "<script setup>
   import HelloWorld from './components/HelloWorld.vue'
   
   
@@ -1984,32 +1924,39 @@ pnpm build
 </script>
 
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
+  <header class="leading-normal lg:flex lg:items-center lg:pr-[calc(var(--section-gap)/2)]">
+    <img alt="Vue logo" class="mx-auto mt-0 mb-8 block lg:mr-8" src="./assets/logo.svg" width="125" height="125" />
 
-    <div class="wrapper">
+    <div class="pl-10 lg:flex lg:flex-wrap lg:items-center lg:gap-2.5">
       <HelloWorld msg="You did it!" />
       
-      
+      <input class="mt-4 w-full max-w-75 rounded-sm border border-solid border-[#ccc] bg-white px-2 py-1.5 text-[1rem] text-black" v-model="keyStore.key" placeholder="Enter a key to persist" />
       
       <!-- button to toggle views -->
       <div>
-        <button class="routerBtn">
+        <button class="mt-4 border-none bg-none px-4 py-2 text-[1rem]">
           <router-link to="/home">
-            <span :class="{ 'active-link': route.name === 'home' }">
+            <span :class="{
+                'border-b-2 border-solid border-[#009966] font-bold text-[#009966]':
+                  route.name === 'home',
+              }">
               Home
             </span>
           </router-link>
         </button>
-        <span style="margin: 0 5px">|</span>
-        <button class="routerBtn">
+        <span class="mx-1 my-0">|</span>
+        <button class="mt-4 border-none bg-none px-4 py-2 text-[1rem]">
           <router-link to="/about">
-            <span :class="{ 'active-link': route.name === 'about' }">
+            <span :class="{
+                'border-b-2 border-solid border-[#009966] font-bold text-[#009966]':
+                  route.name === 'about',
+              }">
               About
             </span>
           </router-link>
         </button>
       </div>
+      
     </div>
   </header>
 
@@ -2019,50 +1966,7 @@ pnpm build
     
     
   </main>
-</template>
-
-<style scoped>
-  header {
-    line-height: 1.5;
-  }
-
-  .logo {
-    display: block;
-    margin: 0 auto 2rem;
-  }
-
-  .routerBtn {
-      margin-top: 1rem;
-      padding: 0.5rem 1rem;
-      font-size: 1rem;
-      border: none;
-      background: none;
-    }
-
-    .active-link {
-      font-weight: bold;
-      color: hsla(160, 100%, 30%, 1);
-      border-bottom: 2px solid hsla(160, 100%, 37%, 1);
-    }
-
-    @media (min-width: 1024px) {
-    header {
-      display: flex;
-      place-items: center;
-      padding-right: calc(var(--section-gap) / 2);
-    }
-
-    .logo {
-      margin: 0 2rem 0 0;
-    }
-
-    header .wrapper {
-      display: flex;
-      place-items: flex-start;
-      flex-wrap: wrap;
-    }
-  }
-</style>",
+</template>",
   "src/assets/base.css": "/* color palette from <https://github.com/vuejs/theme> */
 :root {
   --vt-c-white: #ffffff;
@@ -2190,45 +2094,24 @@ a,
 ",
   "src/components/HelloWorld.vue": "<script setup lang="ts">
 defineProps<{
-  msg: string
-}>()
+  msg: string;
+}>();
 </script>
 
 <template>
-  <div class="greetings">
-    <h1 class="green">{{ msg }}</h1>
-    <h3>
+  <div>
+    <h1
+      class="relative -top-2.5 text-center text-[2.6rem] font-[500px] text-[#00BD7E] min-[1024px]:text-left"
+    >
+      {{ msg }}
+    </h1>
+    <h3 class="text-center text-[1.2rem] min-[1024px]:text-left">
       You’ve successfully created a project with
       <a href="https://vite.dev/" target="_blank" rel="noopener">Vite</a> +
       <a href="https://vuejs.org/" target="_blank" rel="noopener">Vue 3</a>.
     </h3>
   </div>
 </template>
-
-<style scoped>
-h1 {
-  font-weight: 500;
-  font-size: 2.6rem;
-  position: relative;
-  top: -10px;
-}
-
-h3 {
-  font-size: 1.2rem;
-}
-
-.greetings h1,
-.greetings h3 {
-  text-align: center;
-}
-
-@media (min-width: 1024px) {
-  .greetings h1,
-  .greetings h3 {
-    text-align: left;
-  }
-}
-</style>
 ",
   "src/components/TheWelcome.vue": "<script setup lang="ts">
 import WelcomeItem from './WelcomeItem.vue'
@@ -2341,92 +2224,22 @@ div {
 </style>
 ",
   "src/components/WelcomeItem.vue": "<template>
-  <div class="item">
-    <i>
+  <div
+    class="relative mt-8 flex lg:before:absolute lg:before:-top-6.25 lg:before:left-0 lg:before:h-[calc(50%)] lg:before:border-l lg:before:border-(--color-border) lg:before:content-[''] lg:after:absolute lg:after:top-[calc(50%+25px)] lg:after:left-0 lg:after:h-[calc(50%-25px)] lg:after:border-l lg:after:border-(--color-border) lg:after:content-[''] lg:first:before:hidden lg:last:after:hidden"
+  >
+    <i
+      class="flex h-8 w-8 items-center justify-center text-(--color-text) lg:absolute lg:top-[calc(50%-25px)] lg:-left-6 lg:h-12 lg:w-12 lg:rounded-lg lg:border lg:border-(--color-border) lg:bg-(--color-background)"
+    >
       <slot name="icon"></slot>
     </i>
-    <div class="details">
-      <h3>
+    <div class="flex-1 py-4 pl-22">
+      <h3 class="pb-[0.4rem] text-[1.2rem] font-extrabold text-(--color-heading)">
         <slot name="heading"></slot>
       </h3>
       <slot></slot>
     </div>
   </div>
 </template>
-
-<style scoped>
-.item {
-  margin-top: 2rem;
-  display: flex;
-  position: relative;
-}
-
-.details {
-  flex: 1;
-  margin-left: 1rem;
-}
-
-i {
-  display: flex;
-  place-items: center;
-  place-content: center;
-  width: 32px;
-  height: 32px;
-
-  color: var(--color-text);
-}
-
-h3 {
-  font-size: 1.2rem;
-  font-weight: 500;
-  margin-bottom: 0.4rem;
-  color: var(--color-heading);
-}
-
-@media (min-width: 1024px) {
-  .item {
-    margin-top: 0;
-    padding: 0.4rem 0 1rem calc(var(--section-gap) / 2);
-  }
-
-  i {
-    top: calc(50% - 25px);
-    left: -26px;
-    position: absolute;
-    border: 1px solid var(--color-border);
-    background: var(--color-background);
-    border-radius: 8px;
-    width: 50px;
-    height: 50px;
-  }
-
-  .item:before {
-    content: ' ';
-    border-left: 1px solid var(--color-border);
-    position: absolute;
-    left: 0;
-    bottom: calc(50% + 25px);
-    height: calc(50% - 25px);
-  }
-
-  .item:after {
-    content: ' ';
-    border-left: 1px solid var(--color-border);
-    position: absolute;
-    left: 0;
-    top: calc(50% + 25px);
-    height: calc(50% - 25px);
-  }
-
-  .item:first-of-type:before {
-    display: none;
-  }
-
-  .item:last-of-type:after {
-    display: none;
-  }
-}
-</style>
 ",
   "src/components/icons/IconCommunity.vue": "<template>
   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor">
@@ -2622,8 +2435,17 @@ alias: {
 }
 `;
 
-exports[`snapshot tests > generates a vue-router-app 1`] = `
+exports[`E2E tests and snapshots > Snapshot for vue-router-app 1`] = `
 {
+  ".editorconfig": "[*.{js,jsx,mjs,cjs,ts,tsx,mts,cts,vue,css,scss,sass,less,styl}]
+charset = utf-8
+indent_size = 2
+indent_style = space
+insert_final_newline = true
+trim_trailing_whitespace = true
+end_of_line = lf
+max_line_length = 100
+",
   ".gitignore": "# Logs
 logs
 *.log
@@ -2663,11 +2485,26 @@ __screenshots__/
 ",
   ".vscode/extensions.json": "{
 "recommendations": [
-"vue.volar"
+"vue.volar",
+"editorconfig.editorconfig"
 
 
 
   ]
+}",
+  ".vscode/settings.json": "{
+"explorer.fileNesting.enabled": true,
+"explorer.fileNesting.patterns": {
+"tsconfig.json": "tsconfig.*.json, env.d.ts",
+"vite.config.*": "jsconfig*, vitest.config.*, cypress.config.*, playwright.config.*",
+"package.json": "package-lock.json, pnpm*, .yarnrc*, yarn*, .eslint*, eslint*, .oxlint*, oxlint*, .oxfmt*, .prettier*, prettier*, .editorconfig"
+},
+"editor.codeActionsOnSave": {
+"source.fixAll": "explicit"
+},
+"editor.formatOnSave": true
+
+
 }",
   "README.md": "# vue-router-app
 
@@ -2799,6 +2636,7 @@ pnpm build
           </router-link>
         </button>
       </div>
+      
     </div>
   </header>
 
