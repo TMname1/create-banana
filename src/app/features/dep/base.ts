@@ -58,3 +58,5 @@ export default (files: Generator, feats: featsSelectType) => {
   files.copy(path.join(basePath, 'tailwindcss', 'components'), path.join('src', 'components'));
   files.copy(path.join(basePath, 'tailwindcss', 'views'), path.join('src', 'views'));
 };
+
+// FIXME: TitleText.vue has issue

@@ -5,8 +5,14 @@ import type Generator from '#src/app/core/generator.js';
 import type { featsSelectType } from '#src/app/CLI/input.js';
 
 export default (files: Generator, feats: featsSelectType) => {
-  const { useVueRouter, usePiniaPluginPersistedstate, useTypescript, useHTML5Mode, useHashMode } =
-    feats;
+  const {
+    useTailwindcss,
+    useVueRouter,
+    usePiniaPluginPersistedstate,
+    useTypescript,
+    useHTML5Mode,
+    useHashMode,
+  } = feats;
 
   if (!useVueRouter) return;
 
@@ -31,5 +37,12 @@ export default (files: Generator, feats: featsSelectType) => {
       useHTML5Mode,
       useHashMode,
     }
+  );
+
+  if (!useTailwindcss) return;
+
+  files.copy(
+    path.join(vueRouterPath, 'tailwindcss', 'TitleText.vue'),
+    path.join('src', 'components', 'TitleText.vue')
   );
 };

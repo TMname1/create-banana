@@ -696,18 +696,10 @@ const openReadmeInEditor = () => fetch('/__open-in-editor?file=README.md')
 </template>
 ",
   "src/components/TitleText.vue": "<template>
-  <div>
+  <div class="flex h-full items-center px-4 text-3xl leading-12">
     <h1><slot></slot></h1>
   </div>
 </template>
-
-<style scoped>
-div {
-  height: 100%;
-  display: flex;
-  align-items: center;
-}
-</style>
 ",
   "src/components/WelcomeItem.vue": "<template>
   <div
@@ -2210,18 +2202,10 @@ const openReadmeInEditor = () => fetch('/__open-in-editor?file=README.md')
 </template>
 ",
   "src/components/TitleText.vue": "<template>
-  <div>
+  <div class="flex h-full items-center px-4 text-3xl leading-12">
     <h1><slot></slot></h1>
   </div>
 </template>
-
-<style scoped>
-div {
-  height: 100%;
-  display: flex;
-  align-items: center;
-}
-</style>
 ",
   "src/components/WelcomeItem.vue": "<template>
   <div
