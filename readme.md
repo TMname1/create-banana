@@ -6,7 +6,33 @@ To create a new project, run:
 pnpm create banana
 ```
 
-Follow the interactive prompts to key in your project name and select features
+## CLI usage 
+
+```bash
+Usage: index [options] <projectName>
+
+Create a new project with features you select.
+
+Arguments:
+  projectName                             Name of the project to create
+
+Options:
+  --p3a, --usePinia                       pinia state management (default: false)
+  -v, --useVueRouter                      vue-router for routing (default: false)
+  --t9s, --useTailwindcss                 tailwindcss for styling (default: false)
+  --p23e, --usePiniaPluginPersistedstate  pinia plugin persistedstate (default: false)
+  --h7e, --useHTML5Mode                   HTML5 mode for routing (default: false)
+  --h6e, --useHashMode                    hash mode for routing (default: false)
+  --t8t, --useTypescript                  typescript support (default: false)
+  -e, --useEslint                         eslint support (default: false)
+  --p6r, --usePrettier                    prettier support (default: false)
+  --h3y, --useHusky                       husky support (default: false)
+  -l, --useLintStaged                     lint-staged support (default: false)
+  -c, --useCommitizen                     commitizen support (default: false)
+  --p23s, --usePrettierPluginTailwindcss  prettier plugin tailwindcss support (default: false)
+  -h, --help                              display help for command
+```
+
 
 # Currently implemented functions
 
@@ -26,63 +52,3 @@ Follow the interactive prompts to key in your project name and select features
 - [husky](https://typicode.github.io/husky/)
   - [lint-staged](https://github.com/lint-staged/lint-staged)
 - [commitizen](https://github.com/commitizen/cz-cli)
-
-# Project structure
-
-```text
-create-tm
-├─ script
-│  └─ build.js
-├─ src
-│  ├─ app
-│  │  ├─ CLI
-│  │  │  ├─ depSelect.ts
-│  │  │  ├─ devDepSelect.ts
-│  │  │  ├─ input.ts
-│  │  │  ├─ main.ts
-│  │  │  └─ output.ts
-│  │  ├─ core
-│  │  │  ├─ depManger.ts
-│  │  │  ├─ devDepManger.ts
-│  │  │  ├─ execute.ts
-│  │  │  ├─ featsManger.ts
-│  │  │  └─ generator.ts
-│  │  └─ features
-│  │     ├─ dep
-│  │     │  ├─ base.ts
-│  │     │  ├─ pinia.ts
-│  │     │  ├─ tailwindcss.ts
-│  │     │  └─ vueRouter.ts
-│  │     └─ devDep
-│  │        ├─ commitizen.ts
-│  │        ├─ eslint.ts
-│  │        ├─ husky.ts
-│  │        ├─ lintStaged.ts
-│  │        └─ prettier.ts
-│  ├─ bin
-│  │  └─ index.ts
-│  └─ utils
-│     ├─ figletPrint.ts
-│     ├─ pathExists.ts
-│     ├─ prompt.ts
-│     ├─ rainbow.ts
-│     └─ URL.ts
-├─ template
-│  ├─ dep
-│  │  ├─ base
-│  │  ├─ pinia
-│  │  ├─ tailwindcss
-│  │  └─ vue-router
-│  └─ devDep
-│     ├─ commitizen
-│     ├─ eslint
-│     ├─ husky
-│     ├─ lintStaged
-│     └─ prettier
-├─ eslint.config.js
-├─ LICENSE
-├─ package.json
-├─ pnpm-lock.yaml
-├─ readme.md
-└─ tsconfig.json
-```
