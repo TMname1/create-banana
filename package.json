@@ -19,7 +19,7 @@
     "commit": "cz",
     "prepare": "husky install",
     "lint": "eslint . --fix --cache",
-    "format": "prettier --write --experimental-cli .",
+    "format": "prettier --write .",
     "lint-staged": "lint-staged",
     "build": "tsc --noEmit && npx tsx ./script/build.ts",
     "test": "pnpm build && dotenvx run -- vitest --bail 1",

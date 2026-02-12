@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "format": "prettier --write --experimental-cli src/"
+    "format": "prettier --write ."
   },
   "devDependencies": {
     "prettier": "3.7.4"

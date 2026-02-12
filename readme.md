@@ -33,6 +33,15 @@ Options:
   -h, --help                              display help for command
 ```
 
+## Test
+
+To execute test, run:
+
+```bash
+pnpm test
+```
+
+The test will run E2E_test, which involves initializing the git repository and testing that the package.json directives work. Match Snapshots are run after each E2E_test passed.
 
 # Currently implemented functions
 

@@ -18,7 +18,7 @@ type runStepCommandFn = () => ResultPromise<{
   cwd: string;
 }>;
 
-const runStep = async (stepName: string, commandFn: runStepCommandFn, ifKill = false) => {
+const runStep = async (commandFn: runStepCommandFn, ifKill = false) => {
   try {
     let result;
     if (ifKill) {
@@ -57,7 +57,6 @@ export default async (scenario: { name: string; args: string }) => {
     });
 
     await runStep(
-      `Create ${name}`,
       () =>
         $execa({
           cwd: E2E_TEST_ROOT_PATH,
@@ -68,16 +67,16 @@ export default async (scenario: { name: string; args: string }) => {
       cwd: path.join(E2E_TEST_ROOT_PATH, name),
     });
 
-    await runStep('Git Init', () => $$execa`git init`);
-    await runStep('pnpm install', () => $$execa`pnpm i`);
+    await runStep(() => $$execa`git init`);
+    await runStep(() => $$execa`pnpm install`);
     if (args.includes('-e') || args.includes('--p6r')) {
       if (args.includes('-e')) {
-        await runStep('pnpm lint', () => $$execa`pnpm lint`);
+        await runStep(() => $$execa`pnpm lint`);
       } else {
-        await runStep('pnpm format', () => $$execa`pnpm format`);
+        await runStep(() => $$execa`pnpm format`);
       }
     }
-    await runStep('pnpm dev', () => $$execa`pnpm dev`, true);
-    await runStep('pnpm build', () => $$execa`pnpm build`);
+    await runStep(() => $$execa`pnpm dev`, true);
+    await runStep(() => $$execa`pnpm build`);
   }, 40000);
 };
