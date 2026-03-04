@@ -1,5 +1,7 @@
 # Instructions
 
+<img src="https://github.com/user-attachments/assets/34804eef-bd69-4dda-9177-ebd8c81c0afd" width="400">
+
 To create a new project, run:
 
 ```bash
